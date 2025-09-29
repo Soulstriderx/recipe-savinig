@@ -42,6 +42,9 @@ interface RecipeDao {
     @Delete
     suspend fun deleteIngredient(ingredient: Ingredient)
 
+    @Query("SELECT * FROM Ingredient WHERE name = :name LIMIT 1")
+    suspend fun getIngredientByName(name: String): Ingredient?
+
     @Query("SELECT * FROM Ingredient WHERE id = :id")
     fun getIngredientById(id: Int): Flow<Ingredient?>
 
@@ -55,6 +58,9 @@ interface RecipeDao {
     @Delete
     suspend fun deleteRecipeIngredient(recipeIngredient: RecipeIngredient)
 
+    @Query("DELETE FROM RecipeIngredient WHERE recipeId = :recipeId")
+    suspend fun deleteRecipeIngredientsByRecipeId(recipeId: Int)
+
     @Query("SELECT * FROM RecipeIngredient WHERE recipeId = :recipeId")
     fun getRecipeIngredients(recipeId: Int): Flow<List<RecipeIngredient>>
 
@@ -67,6 +73,9 @@ interface RecipeDao {
 
     @Delete
     suspend fun deleteInstruction(instruction: Instruction)
+
+    @Query("DELETE FROM Instruction WHERE recipeId = :recipeId")
+    suspend fun deleteInstructionsByRecipeId(recipeId: Int)
 
     @Query("SELECT * FROM Instruction WHERE recipeId = :recipeId ORDER BY stepNumber ASC")
     fun getInstructionsForRecipe(recipeId: Int): Flow<List<Instruction>>
