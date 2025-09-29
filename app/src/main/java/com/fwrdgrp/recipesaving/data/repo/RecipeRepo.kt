@@ -15,6 +15,7 @@ class RecipeRepo(
 ) {
     private val utils = RecipeRepoUtils(dao)
 
+    //add
     @Transaction
     suspend fun addRecipeWithDetails(
         recipe: Recipe,
@@ -26,6 +27,7 @@ class RecipeRepo(
         utils.addIngredients(ingredients, recipeId)
     }
 
+    //delete
     @Transaction
     suspend fun deleteRecipeWithDetails(recipe: Recipe) {
         dao.deleteInstructionsByRecipeId(recipe.id)
@@ -33,6 +35,7 @@ class RecipeRepo(
         dao.deleteRecipe(recipe)
     }
 
+    //edit
     @Transaction
     suspend fun upsertRecipeWithDetails(
         recipe: Recipe,
