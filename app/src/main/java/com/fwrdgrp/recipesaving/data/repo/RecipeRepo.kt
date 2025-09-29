@@ -4,7 +4,6 @@ import androidx.room.Transaction
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
-import com.fwrdgrp.recipesaving.data.models.recipe.RecipeIngredient
 import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.data.utils.RecipeRepoUtils
 import com.fwrdgrp.recipesaving.database.RecipeDao
@@ -13,8 +12,9 @@ import kotlinx.coroutines.flow.combine
 
 class RecipeRepo(
     private val dao: RecipeDao,
-    private val utils: RecipeRepoUtils
 ) {
+    private val utils = RecipeRepoUtils(dao)
+
     @Transaction
     suspend fun addRecipeWithDetails(
         recipe: Recipe,
