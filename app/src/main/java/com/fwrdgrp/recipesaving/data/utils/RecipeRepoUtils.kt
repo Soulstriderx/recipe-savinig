@@ -1,0 +1,30 @@
+package com.fwrdgrp.recipesaving.data.utils
+
+import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
+import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
+import com.fwrdgrp.recipesaving.data.models.recipe.RecipeIngredient
+import com.fwrdgrp.recipesaving.database.RecipeDao
+
+class RecipeRepoUtils(private val dao: RecipeDao) {
+    suspend fun addInstructions(instruction: List<Instruction>, id: Int) {
+        instruction.forEachIndexed { index, instruction -> dao.insertInstruction(
+            instruction.copy(recipeId = id, stepNumber = index + 1)
+        ) }
+    }
+
+    suspend fun addIngredients(ingredients: List<Pair<Ingredient , Pair<Double, String>>>, id: Int) {
+        ingredients.forEach { (ingredient, amountUnit) ->
+            val exists = dao.getIngredientByName(ingredient.name)
+            val ingredientId = exists?.id ?: dao.insertIngredient(ingredient).toInt()
+
+            dao.insertRecipeIngredient(
+                RecipeIngredient(
+                    id,
+                    ingredientId,
+                    amountUnit.first,
+                    amountUnit.second
+                )
+            )
+        }
+    }
+}
