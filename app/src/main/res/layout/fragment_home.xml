@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/llHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="@dimen/space_xxxxxl"
+        android:orientation="horizontal"
+        android:background="@color/color_secondary"
+        android:padding="@dimen/space_l"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:weightSum="20">
 
-</FrameLayout>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text_search_bg"
+            android:text="@string/search"
+            android:textColor="@color/t_gray"
+            android:layout_weight="14"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/filter_bg"
+            android:text="@string/filter"
+            android:textColor="@color/t_gray"
+            android:textStyle="bold"
+            android:gravity="center|start"
+            android:layout_weight="5" />
+    </LinearLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTabs"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/llHeader"
+        android:layout_above="@id/tlTabs" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tlTabs"
+        android:backgroundTint="@color/color_primary"
+        android:paddingVertical="@dimen/space_l"
+        android:layout_marginBottom="@dimen/space_xs"
+        android:layout_marginHorizontal="@dimen/space_xs"
+        android:text="@string/add_recipes"
+        android:textSize="@dimen/text_xl" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tlTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_secondary"
+        app:tabTextColor="@color/white"
+        app:tabIndicatorHeight="0dp" />
+
+</RelativeLayout>

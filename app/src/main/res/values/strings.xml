@@ -6,4 +6,6 @@
     <string name="search">Search</string>
     <string name="add_recipes">Add Recipes</string>
     <string name="placeholder">Placeholder</string>
+    <string name="recipes">Recipes</string>
+    <string name="shop_list">Shop List</string>
 </resources>
