@@ -1,7 +1,7 @@
 package com.fwrdgrp.recipesaving.data.models.recipe
 
 import androidx.room.Embedded
-import androidx.room.Junction
+import androidx.room.Ignore
 import androidx.room.Relation
 
 data class RecipeWithDetails(
@@ -11,10 +11,7 @@ data class RecipeWithDetails(
         entityColumn = "recipeId"
     )
     val instructions: List<Instruction>,
-    @Relation(
-        parentColumn = "id",
-        entityColumn = "recipeId",
-        associateBy = Junction(RecipeIngredient::class)
-    )
-    val ingredients: List<Ingredient>
+
+    @Ignore
+    val ingredients: List<IngredientWithAmount> = emptyList()
 )
