@@ -10,6 +10,6 @@ data class Recipe(
     val description: String,
     val category: String?,
     val estTime: Int?,
-    val totalServing: String?,
+    val totalServing: Int?,
     val imageUri: String?
 )
