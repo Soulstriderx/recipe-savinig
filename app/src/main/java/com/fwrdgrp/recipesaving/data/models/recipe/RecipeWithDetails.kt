@@ -12,6 +12,11 @@ data class RecipeWithDetails(
     )
     val instructions: List<Instruction>,
 
+    ) {
     @Ignore
-    val ingredients: List<IngredientWithAmount> = emptyList()
-)
+    var ingredients: List<IngredientWithAmount> = emptyList()
+
+    fun fillIngredients(newIngredients: List<IngredientWithAmount>): RecipeWithDetails {
+        return RecipeWithDetails(recipe, instructions).also { it.ingredients = newIngredients }
+    }
+}
