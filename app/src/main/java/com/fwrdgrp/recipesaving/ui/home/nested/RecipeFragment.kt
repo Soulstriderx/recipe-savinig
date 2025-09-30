@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.fwrdgrp.recipesaving.databinding.FragmentRecipeBinding
 import com.fwrdgrp.recipesaving.ui.adapters.RecipeAdapter
-import com.fwrdgrp.recipesaving.ui.adapters.TabsAdapter
-import com.google.android.material.tabs.TabLayoutMediator
 
 class RecipeFragment : Fragment() {
     private lateinit var binding: FragmentRecipeBinding
