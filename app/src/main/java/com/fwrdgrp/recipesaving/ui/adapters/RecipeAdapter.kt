@@ -47,7 +47,7 @@ class RecipeAdapter(
                         text = category.name
                         setBackgroundResource(R.drawable.box_bg)
                     }
-                    llCategory.addView(tvCategory)
+                    glCategory.addView(tvCategory)
                 }
             }
         }
