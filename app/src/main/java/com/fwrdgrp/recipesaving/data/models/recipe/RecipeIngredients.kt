@@ -2,13 +2,15 @@ package com.fwrdgrp.recipesaving.data.models.recipe
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 
 @Entity(
     primaryKeys = ["recipeId", "ingredientId"],
     foreignKeys = [
         ForeignKey(entity = Recipe::class, parentColumns = ["id"], childColumns = ["recipeId"]),
         ForeignKey(entity = Ingredient::class, parentColumns = ["id"], childColumns = ["ingredientId"])
-    ]
+    ],
+    indices = [Index("recipeId"), Index("ingredientId")]
 )
 data class RecipeIngredient(
     val recipeId: Int,

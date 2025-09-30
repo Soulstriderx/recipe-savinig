@@ -61,7 +61,7 @@ class RecipeRepo(
         val ingredientsFlow = dao.getIngredientsForRecipe(id)
 
         return combine(recipeFlow, ingredientsFlow) { recipeDetails, ingredients ->
-            recipeDetails.copy(ingredients = ingredients)
+            recipeDetails.fillIngredients(ingredients)
         }
     }
 
