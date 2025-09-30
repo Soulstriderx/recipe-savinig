@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_search_bg"
-            android:text="@string/search"
+            android:hint="@string/search"
             android:textColor="@color/t_gray"
             android:layout_weight="14"/>
 
