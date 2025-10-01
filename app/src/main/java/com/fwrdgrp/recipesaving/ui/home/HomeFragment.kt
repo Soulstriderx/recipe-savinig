@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.databinding.FragmentHomeBinding
 import com.fwrdgrp.recipesaving.ui.adapters.TabsAdapter
@@ -27,7 +28,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.mbAdd.setOnClickListener {
-            //Nav to add
+            val action = if (binding.vpTabs.currentItem == 0) HomeFragmentDirections.actionHomeToAddRecipe()
+            else HomeFragmentDirections.actionHomeToAddShopList()
+
+            findNavController().navigate(action)
         }
 
         //ViewPager Stuff

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/color_background"
+    tools:context=".ui.managerecipe.AddRecipeFragment">
+
+    <LinearLayout
+        android:id="@+id/llHeaderManage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_xxxxxl"
+        android:orientation="horizontal"
+        android:background="@color/color_secondary"
+        android:padding="@dimen/space_l"
+        android:layout_alignParentTop="true"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Placeholder"
+            android:textSize="@dimen/text_xxxxl"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llHeaderManage" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_xxl">
+
+            <!--Image-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Image"
+                android:textSize="@dimen/text_xxl"
+                android:textStyle="bold"
+                android:textColor="@color/t_gray"
+                android:gravity="center"
+                android:background="@drawable/image_save_bg"
+                android:padding="@dimen/space_xxxxl"
+                android:layout_marginBottom="@dimen/space_l"/>
+
+            <!--Title-->
+            <LinearLayout
+                android:id="@+id/llTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold"
+                    android:padding="@dimen/space_xxs"/>
+
+                <TextView
+                    android:id="@+id/tvTitleError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="*Title cannot be empty"
+                    android:textColor="@color/color_error"
+                    android:layout_marginLeft="@dimen/space_xxs"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_bg"
+                android:hint="Title"
+                android:layout_marginBottom="@dimen/space_l" />
+
+            <!--Description-->
+            <LinearLayout
+                android:id="@+id/llDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold"
+                    android:padding="@dimen/space_xxs"/>
+
+                <TextView
+                    android:id="@+id/tvDescError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="*Description cannot be empty"
+                    android:textColor="@color/color_error"
+                    android:layout_marginLeft="@dimen/space_xxs"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etDesc"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_xxxxxxxl"
+                android:maxHeight="@dimen/space_xxxxxxxl"
+                android:background="@drawable/edit_text_bg"
+                android:hint="Description"
+                android:gravity="start"
+                android:layout_marginBottom="@dimen/space_l"/>
+
+            <!--Instructions-->
+            <TextView
+                android:id="@+id/tvInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instructions"
+                android:textSize="@dimen/text_l"
+                android:textStyle="bold"
+                android:padding="@dimen/space_xxs"/>
+
+            <ImageView
+                android:id="@+id/ivAddInstruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"
+                android:paddingHorizontal="@dimen/space_xxl"
+                android:paddingVertical="@dimen/space_xxs"
+                android:background="@drawable/btn_add_bg"
+                android:layout_marginBottom="@dimen/space_xs"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAddInstruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l" />
+
+            <!--Category-->
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textSize="@dimen/text_l"
+                android:textStyle="bold"
+                android:padding="@dimen/space_xxs"/>
+
+            <Spinner
+                android:id="@+id/spCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/box_bg"/>
+
+            <GridLayout
+                android:id="@+id/glCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l"/>
+
+            <!--Ingredients-->
+            <TextView
+                android:id="@+id/tvIngredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredients"
+                android:textSize="@dimen/text_l"
+                android:textStyle="bold"
+                android:padding="@dimen/space_xxs"/>
+
+            <ImageView
+                android:id="@+id/ivAddIngredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add"
+                android:paddingHorizontal="@dimen/space_xxl"
+                android:paddingVertical="@dimen/space_xxs"
+                android:background="@drawable/btn_add_bg"
+                android:layout_marginBottom="@dimen/space_xs"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAddIngredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l" />
+
+            <!--Time-->
+
+
+            <!--Serving-->
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
