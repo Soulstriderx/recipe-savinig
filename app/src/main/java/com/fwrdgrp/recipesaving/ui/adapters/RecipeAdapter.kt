@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.databinding.LayoutItemRecipeBinding
 import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.enums.Category
 
 class RecipeAdapter(
-    var recipes: List<Recipe>
+    var recipes: List<Recipe>,
+    val onRecipeClick: (Recipe) -> Unit,
+    val onCategoryClick: (Category) -> Unit
 ): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -23,8 +26,8 @@ class RecipeAdapter(
         holder: RecipeViewHolder,
         position: Int
     ) {
-        val topic = recipes[position]
-        holder.bind(topic)
+        val recipe = recipes[position]
+        holder.bind(recipe)
     }
 
     override fun getItemCount() = recipes.size
@@ -42,11 +45,13 @@ class RecipeAdapter(
                 tvTitle.text = item.title
                 tvTime.text = item.estTime.toString()
                 tvDescription.text = item.description
+                llRecipe.setOnClickListener { onRecipeClick(item) }
                 for(category in item.category.take(3)) {
                     val tvCategory = TextView(root.context).apply {
                         text = category.name
                         setBackgroundResource(R.drawable.box_bg)
                     }
+                    tvCategory.setOnClickListener { onCategoryClick(category) }
                     glCategory.addView(tvCategory)
                 }
             }

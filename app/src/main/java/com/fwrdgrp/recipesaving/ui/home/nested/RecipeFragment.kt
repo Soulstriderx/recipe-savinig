@@ -28,7 +28,9 @@ class RecipeFragment : Fragment() {
 
     fun setupAdapter() {
         adapter = RecipeAdapter(
-            emptyList()
+            emptyList(),
+            {}, {}
+
             //Nav to Edit
         )
     }
