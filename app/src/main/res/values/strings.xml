@@ -8,6 +8,7 @@
     <string name="placeholder">Placeholder</string>
     <string name="recipes">Recipes</string>
     <string name="shop_list">Shop List</string>
+    <string name="time">%1$smins</string>
     <string name="instruction">Instruction</string>
     <string name="amount">Amount</string>
     <string name="ingredient">Ingredient</string>

@@ -68,6 +68,10 @@ class IngredientAdapter(
         notifyItemInserted(ingredients.size - 1)
     }
 
+    fun fetchIngredient(): List<Pair<Ingredient, Pair<Double, String>>> {
+        return ingredients
+    }
+
     inner class IngredientViewHolder(
         val binding: LayoutItemAddIngredientBinding
     ) : RecyclerView.ViewHolder(binding.root)

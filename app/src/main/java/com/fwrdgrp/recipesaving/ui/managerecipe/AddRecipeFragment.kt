@@ -8,77 +8,74 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
+import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.databinding.FragmentAddRecipeBinding
 import com.fwrdgrp.recipesaving.ui.adapters.IngredientAdapter
 import com.fwrdgrp.recipesaving.ui.adapters.InstructionAdapter
-import kotlin.collections.take
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.getValue
 
 class AddRecipeFragment : Fragment() {
+    private val viewModel: AddRecipeViewModel by viewModels {
+        AddRecipeViewModel.Factory
+    }
     private lateinit var binding: FragmentAddRecipeBinding
     private lateinit var instructionAdapter: InstructionAdapter
     private lateinit var ingredientAdapter: IngredientAdapter
+    private lateinit var categoryAdapter: ArrayAdapter<Category>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       binding = FragmentAddRecipeBinding.inflate(layoutInflater, container, false)
+        binding = FragmentAddRecipeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupInstructionAdapter()
-        setupIngredientAdapter()
-
         val categories = Category.entries.toMutableList()
         val selectedCategoryList = mutableListOf<Category>()
+        setupInstructionAdapter()
+        setupIngredientAdapter()
+        setupCategorySpinnerAdapter(categories, selectedCategoryList)
 
         binding.run {
-            val adapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                categories
-            )
-
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spCategory.adapter = adapter
-
-            spCategory.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val selected = adapter.getItem(position)!!
-                    selectedCategoryList.add(selected)
-                    categories.remove(selected)
-                    adapter.notifyDataSetChanged()
-
-                    val tvCategory = TextView(requireContext()).apply {
-                        text = selected.name
-                        setBackgroundResource(R.drawable.box_bg)
-                    }
-
-                    glCategory.addView(tvCategory)
+            mbSubmit.setOnClickListener {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.submitRecipe(
+                        buildRecipe(selectedCategoryList),
+                        instructionAdapter.fetchInstructions(),
+                        ingredientAdapter.fetchIngredient()
+                    )
                 }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-
-            tvCategory.setOnClickListener {
-                val selected = Category.entries.find { it.name == tvCategory.text }!!
-                selectedCategoryList.remove(selected)
-                categories.add(selected)
-                adapter.notifyDataSetChanged()
-                glCategory.removeView(tvCategory)
             }
         }
+        lifecycleScope.launch {
+            viewModel.finish.collect {
+                findNavController().popBackStack()
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.error.collect {
+                showError(it)
+            }
+        }
+    }
+
+    fun showError(msg: String) {
+        val snackbar = Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG)
+        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red)).show()
     }
 
     fun setupInstructionAdapter() {
@@ -113,6 +110,70 @@ class AddRecipeFragment : Fragment() {
         binding.rvAddIngredient.layoutManager = LinearLayoutManager(requireContext())
         binding.ivAddIngredient.setOnClickListener {
             ingredientAdapter.addIngredient()
+        }
+    }
+
+    fun setupCategorySpinnerAdapter(
+        categoryList: MutableList<Category>,
+        selectedList: MutableList<Category>
+    ) {
+        binding.run {
+            categoryAdapter = ArrayAdapter(
+                requireContext(), android.R.layout.simple_spinner_item, categoryList
+            )
+            categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spCategory.adapter = categoryAdapter
+
+            spCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    val selected = categoryAdapter.getItem(position) ?: return
+                    if (selected == Category.INITIAL) return
+                    selectedList.add(selected)
+                    categoryList.remove(selected)
+                    val tvCategory = categoryChipDelete(categoryList, selectedList, selected)
+                    glCategory.addView(tvCategory)
+                    categoryAdapter.notifyDataSetChanged()
+                    spCategory.setSelection(0)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        }
+    }
+
+    fun categoryChipDelete(
+        categoryList: MutableList<Category>,
+        selectedList: MutableList<Category>,
+        item: Category,
+    ): TextView {
+        return binding.run {
+            TextView(requireContext()).apply {
+                text = item.name
+                setBackgroundResource(R.drawable.box_bg)
+
+                setOnClickListener {
+                    selectedList.remove(item)
+                    categoryList.add(item)
+                    categoryAdapter.notifyDataSetChanged()
+                    glCategory.removeView(this)
+                }
+            }
+        }
+    }
+
+    fun buildRecipe(category: List<Category>): Recipe {
+        binding.run {
+            return Recipe(
+                title = etTitle.text.toString(),
+                description = etDesc.text.toString(),
+                category = category,
+                estTime = etTime.text.toString().toInt(),
+                totalServing = etServing.text.toString().toInt(),
+                //Add when linkable
+                imageUri = ""
+            )
         }
     }
 }
