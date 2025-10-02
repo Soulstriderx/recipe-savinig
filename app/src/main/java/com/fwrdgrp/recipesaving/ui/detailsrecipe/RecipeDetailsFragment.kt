@@ -35,11 +35,10 @@ class RecipeDetailsFragment : Fragment() {
             ivBack.setOnClickListener { findNavController().popBackStack() }
             ivFavorite.setOnClickListener {  } //Favorite function
             ivShop.setOnClickListener {  } //Navigate to shop and add ingredients to list
-            mbEdit.setOnClickListener {  } //Navigate to edit page
+            mbEdit.setOnClickListener { findNavController().navigate(
+                RecipeDetailsFragmentDirections.actionRecipeDetailsToEditRecipe(it.id)) }
             mbDelete.setOnClickListener {  } //Delete function and popBackStack
         }
-
-        //ViewPager Stuff
         val adapter = TabsAdapter(
             fragments = listOf(RecipeOverviewFragment(), RecipeInstructionsFragment()),
             fragment = this

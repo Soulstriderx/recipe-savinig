@@ -31,7 +31,7 @@
         android:name="com.fwrdgrp.recipesaving.ui.managerecipe.EditRecipeFragment"
         android:label="EditRecipeFragment"
         tools:layout="@layout/fragment_add_recipe" >
-        <argument android:name="recipeId" app:argType="integer"/>
+        <argument android:name="recipeId" app:argType="integer" app:nullable="false"/>
     </fragment>
     <fragment
         android:id="@+id/addShopListFragment"
@@ -48,6 +48,9 @@
             android:name="recipeId"
             app:argType="integer"
             app:nullable="false" />
+        <action
+            android:id="@+id/action_recipeDetails_to_editRecipe"
+            app:destination="@id/editRecipeFragment" />
 
     </fragment>
 </navigation>
