@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fwrdgrp.recipesaving.databinding.FragmentRecipeBinding
 import com.fwrdgrp.recipesaving.ui.adapters.RecipeAdapter
+import com.fwrdgrp.recipesaving.ui.home.HomeFragmentDirections
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
@@ -41,7 +43,11 @@ class RecipeFragment : Fragment() {
     fun setupAdapter() {
         adapter = RecipeAdapter(
             emptyList(),
-            {}, {}
+            {
+                val action = HomeFragmentDirections.actionHomeToRecipeDetails(it)
+                findNavController().navigate(action)
+            },
+            {}
             //Nav to Edit
         )
 

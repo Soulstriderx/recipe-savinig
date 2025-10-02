@@ -13,7 +13,7 @@
         android:layout_above="@id/tlTabs"
         android:paddingBottom="@dimen/space_xxxl"
         android:clipToPadding="true"
-        android:background="@color/color_background"/>
+        android:background="@color/color_background" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mbAdd"

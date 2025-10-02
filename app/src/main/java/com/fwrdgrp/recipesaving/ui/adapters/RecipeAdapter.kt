@@ -11,7 +11,7 @@ import com.fwrdgrp.recipesaving.data.enums.Category
 
 class RecipeAdapter(
     var recipes: List<Recipe>,
-    val onRecipeClick: (Recipe) -> Unit,
+    val onRecipeClick: (Int) -> Unit,
     val onCategoryClick: (Category) -> Unit
 ): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
     override fun onCreateViewHolder(
@@ -45,7 +45,7 @@ class RecipeAdapter(
                 tvTitle.text = item.title
                 tvTime.text = item.estTime.toString()
                 tvDescription.text = item.description
-                llRecipe.setOnClickListener { onRecipeClick(item) }
+                llRecipe.setOnClickListener { onRecipeClick(item.id) }
                 for(category in item.category.take(3)) {
                     val tvCategory = TextView(root.context).apply {
                         text = category.name
