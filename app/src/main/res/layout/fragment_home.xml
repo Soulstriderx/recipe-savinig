@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/tlTabs"
+        android:paddingBottom="@dimen/space_xxxl"
+        android:clipToPadding="true"
         android:background="@color/color_background"/>
 
     <com.google.android.material.button.MaterialButton
@@ -20,7 +22,6 @@
         android:layout_above="@id/tlTabs"
         android:backgroundTint="@color/color_primary"
         android:paddingVertical="@dimen/space_l"
-        android:layout_marginBottom="@dimen/space_xs"
         android:layout_marginHorizontal="@dimen/space_xs"
         android:text="@string/add_recipes"
         android:textSize="@dimen/text_xl" />
