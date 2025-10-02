@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import androidx.room.Upsert
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.IngredientWithAmount
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
@@ -17,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RecipeDao {
     //Recipe
-    @Insert
+    @Upsert
     suspend fun insertRecipe(recipe: Recipe): Long
 
     @Update
@@ -33,8 +34,8 @@ interface RecipeDao {
     fun getAllRecipes(): Flow<List<Recipe>>
 
     //Ingredient
-    @Insert
-    suspend fun insertIngredient(ingredient: Ingredient): Long
+    @Upsert
+    suspend fun upsertIngredient(ingredient: Ingredient): Long
 
     @Update
     suspend fun updateIngredient(ingredient: Ingredient)

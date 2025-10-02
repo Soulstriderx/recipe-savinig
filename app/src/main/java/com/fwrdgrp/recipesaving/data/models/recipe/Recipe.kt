@@ -12,5 +12,6 @@ data class Recipe(
     val category: List<Category>,
     val estTime: Int?,
     val totalServing: Int?,
-    val imageUri: String?
+    val imageUri: String?,
+    val favorite: Boolean = false
 )

@@ -39,8 +39,8 @@ class AddInstructionAdapter(
 
     override fun getItemCount() = instructions.size
 
-    fun applyInstruction(instructions: MutableList<Instruction>) {
-        this.instructions = instructions
+    fun applyInstruction(instructions: List<Instruction>) {
+        this.instructions = instructions.toMutableList()
         notifyDataSetChanged()
     }
 

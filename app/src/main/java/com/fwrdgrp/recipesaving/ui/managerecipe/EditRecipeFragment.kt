@@ -12,30 +12,38 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
+import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.databinding.FragmentAddRecipeBinding
-import com.fwrdgrp.recipesaving.ui.adapters.AddIngredientAdapter
-import com.fwrdgrp.recipesaving.ui.adapters.AddInstructionAdapter
+import com.fwrdgrp.recipesaving.ui.adapters.IngredientAdapter
+import com.fwrdgrp.recipesaving.ui.adapters.InstructionAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
-class AddRecipeFragment : Fragment() {
-    private val viewModel: AddRecipeViewModel by viewModels {
-        AddRecipeViewModel.Factory
+
+class EditRecipeFragment : Fragment() {
+    private val viewModel: EditRecipeViewModel by viewModels {
+        EditRecipeViewModel.Factory
     }
-    private lateinit var binding: FragmentAddRecipeBinding
-    private lateinit var instructionAdapter: AddInstructionAdapter
-    private lateinit var ingredientAdapter: AddIngredientAdapter
-    private lateinit var categoryAdapter: ArrayAdapter<Category>
+    private val args: EditRecipeFragmentArgs by navArgs()
+    private lateinit var recipeDetails: RecipeWithDetails
     private val categories = Category.entries.toMutableList()
     private val selectedCategoryList = mutableListOf<Category>()
+
+    private lateinit var binding: FragmentAddRecipeBinding
+    private lateinit var instructionAdapter: InstructionAdapter
+    private lateinit var ingredientAdapter: IngredientAdapter
+    private lateinit var categoryAdapter: ArrayAdapter<Category>
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,13 +54,13 @@ class AddRecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupInstructionAdapter()
         setupIngredientAdapter()
-        setupCategorySpinnerAdapter(categories, selectedCategoryList)
 
-        binding.mbSubmit.setOnClickListener {
-            setupSubmitOnClick()
+        lifecycleScope.launch {
+            recipeDetails = viewModel.fetchRecipe(args.recipeId)
+            setData(recipeDetails)
+
         }
 
         lifecycleScope.launch {
@@ -65,6 +73,53 @@ class AddRecipeFragment : Fragment() {
                 showError(it)
             }
         }
+
+        binding.mbSubmit.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.submitRecipe(
+                    buildRecipe(selectedCategoryList),
+                    instructionAdapter.fetchInstructions(),
+                    ingredientAdapter.fetchIngredient()
+                )
+            }
+        }
+    }
+
+    fun setData(recipeDetails: RecipeWithDetails) {
+        setCategories(recipeDetails)
+        binding.run {
+            etTitle.setText(recipeDetails.recipe.title)
+            etDesc.setText(recipeDetails.recipe.description)
+            etTime.setText(recipeDetails.recipe.estTime.toString())
+            etServing.setText(recipeDetails.recipe.totalServing.toString())
+        }
+
+        setupCategorySpinnerAdapter(categories, selectedCategoryList)
+
+        instructionAdapter.applyInstruction(recipeDetails.instructions)
+
+        var ingredientList = recipeDetails.ingredients.map {
+            Pair(it.ingredient, Pair(it.amount ?: 0.0, it.unit ?: ""))
+        }
+
+        ingredientAdapter.applyIngredient(ingredientList)
+    }
+
+    fun setCategories(recipeDetails: RecipeWithDetails) {
+        selectedCategoryList.apply {
+            clear()
+            addAll(recipeDetails.recipe.category)
+        }
+
+        categories.removeAll(recipeDetails.recipe.category)
+        binding.glCategory.removeAllViews()
+        for (category in selectedCategoryList) {
+            val tvCategory = TextView(requireContext()).apply {
+                text = category.name
+                setBackgroundResource(R.drawable.box_bg)
+            }
+            binding.glCategory.addView(tvCategory)
+        }
     }
 
     fun showError(msg: String) {
@@ -72,18 +127,8 @@ class AddRecipeFragment : Fragment() {
         snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red)).show()
     }
 
-    fun setupSubmitOnClick() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.submitRecipe(
-                buildRecipe(selectedCategoryList),
-                instructionAdapter.fetchInstructions(),
-                ingredientAdapter.fetchIngredient()
-            )
-        }
-    }
-
     fun setupInstructionAdapter() {
-        instructionAdapter = AddInstructionAdapter(
+        instructionAdapter = InstructionAdapter(
             mutableListOf(
                 Instruction(
                     recipeId = 0,
@@ -101,7 +146,7 @@ class AddRecipeFragment : Fragment() {
     }
 
     fun setupIngredientAdapter() {
-        ingredientAdapter = AddIngredientAdapter(
+        ingredientAdapter = IngredientAdapter(
             mutableListOf(
                 Pair(
                     Ingredient(name = ""),
@@ -170,6 +215,7 @@ class AddRecipeFragment : Fragment() {
     fun buildRecipe(category: List<Category>): Recipe {
         binding.run {
             return Recipe(
+                id = recipeDetails.recipe.id,
                 title = etTitle.text.toString(),
                 description = etDesc.text.toString(),
                 category = category,
@@ -180,4 +226,6 @@ class AddRecipeFragment : Fragment() {
             )
         }
     }
+
+
 }

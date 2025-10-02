@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.fwrdgrp.recipesaving.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_addRecipe"
             app:destination="@id/addRecipeFragment" />
@@ -24,7 +24,15 @@
         android:id="@+id/addRecipeFragment"
         android:name="com.fwrdgrp.recipesaving.ui.managerecipe.AddRecipeFragment"
         android:label="fragment_add_recipe"
-        tools:layout="@layout/fragment_add_recipe" />
+        tools:layout="@layout/fragment_add_recipe">
+    </fragment>
+    <fragment
+        android:id="@+id/editRecipeFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.managerecipe.EditRecipeFragment"
+        android:label="EditRecipeFragment"
+        tools:layout="@layout/fragment_add_recipe" >
+        <argument android:name="recipeId" app:argType="integer"/>
+    </fragment>
     <fragment
         android:id="@+id/addShopListFragment"
         android:name="com.fwrdgrp.recipesaving.ui.manageshoplist.AddShopListFragment"
