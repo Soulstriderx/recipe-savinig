@@ -55,6 +55,10 @@ class InstructionAdapter(
         notifyItemInserted(instructions.size - 1)
     }
 
+    fun fetchInstructions(): List<Instruction> {
+        return instructions
+    }
+
     inner class InstructionViewHolder(
         val binding: LayoutItemAddInstructionBinding
     ) : RecyclerView.ViewHolder(binding.root)
