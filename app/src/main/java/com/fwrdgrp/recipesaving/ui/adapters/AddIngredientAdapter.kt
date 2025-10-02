@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.databinding.LayoutItemAddIngredientBinding
 
-class IngredientAdapter(
+class AddIngredientAdapter(
     var ingredients: MutableList<Pair<Ingredient, Pair<Double, String>>>
-) : RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder>() {
+) : RecyclerView.Adapter<AddIngredientAdapter.IngredientViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

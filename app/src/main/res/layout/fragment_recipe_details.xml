@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.detailsrecipe.RecipeDetailsFragment">
+
+    <RelativeLayout
+        android:id="@+id/llHeaderDetails"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_xxxxxl"
+        android:layout_alignParentTop="true"
+        android:background="@color/color_secondary"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_xl">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/recipe_details"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_xxxl"
+            android:layout_centerInParent="true"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:layout_toStartOf="@id/ivShop"
+            android:layout_marginEnd="@dimen/space_xl"
+            android:layout_centerVertical="true" />
+
+        <ImageView
+            android:id="@+id/ivShop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cart"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTabs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llHeaderDetails"
+        android:background="@color/color_background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@id/tlTabs"
+        android:layout_marginBottom="@dimen/space_xs"
+        android:weightSum="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbEdit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:cornerRadius="@dimen/space_xs"
+            android:paddingVertical="@dimen/space_m"
+            android:text="@string/edit"
+            android:textSize="@dimen/text_xxl"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:backgroundTint="@color/color_primary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbDelete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:cornerRadius="@dimen/space_xs"
+            android:paddingVertical="@dimen/space_m"
+            android:text="@string/delete"
+            android:textSize="@dimen/text_xxl"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:backgroundTint="@color/color_primary"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tlTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_secondary"
+        android:paddingVertical="@dimen/space_xs"
+        app:tabTextColor="@color/white"
+        app:tabIndicatorHeight="0dp" />
+
+</RelativeLayout>

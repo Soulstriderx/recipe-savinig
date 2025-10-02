@@ -8,9 +8,9 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.databinding.LayoutItemAddInstructionBinding
 import kotlin.toString
 
-class InstructionAdapter(
+class AddInstructionAdapter(
     var instructions: MutableList<Instruction>
-): RecyclerView.Adapter<InstructionAdapter.InstructionViewHolder>() {
+): RecyclerView.Adapter<AddInstructionAdapter.InstructionViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

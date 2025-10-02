@@ -1,7 +1,6 @@
 package com.fwrdgrp.recipesaving.ui.home.nested
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,7 +35,6 @@ class RecipeFragment : Fragment() {
         setupAdapter()
         lifecycleScope.launch {
             viewModel.recipes.collect {
-                Log.d("debug", "$it")
                 adapter.applyRecipes(it)
             }
         }
@@ -46,9 +44,10 @@ class RecipeFragment : Fragment() {
         adapter = RecipeAdapter(
             emptyList(),
             {
-                val action = HomeFragmentDirections.actionHomeToEditRecipe(it.id)
+                val action = HomeFragmentDirections.actionHomeToRecipeDetails(it)
                 findNavController().navigate(action)
-            }, {}
+            },
+            {}
             //Nav to Edit
         )
 

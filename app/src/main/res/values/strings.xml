@@ -13,4 +13,13 @@
     <string name="amount">Amount</string>
     <string name="ingredient">Ingredient</string>
     <string name="unit">Unit</string>
+    <string name="recipe_details">Recipe Details</string>
+    <string name="overview">Overview</string>
+    <string name="instructions">Instructions</string>
+    <string name="categories">Categories:</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="amount_colon">Amount:</string>
+    <string name="serving_colon">Servings:</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>
