@@ -7,15 +7,15 @@ import com.fwrdgrp.recipesaving.database.RecipeDao
 
 class RecipeRepoUtils(private val dao: RecipeDao) {
     suspend fun addInstructions(instruction: List<Instruction>, id: Int) {
-        instruction.forEachIndexed { index, instruction -> dao.insertInstruction(
-            instruction.copy(recipeId = id, stepNumber = index + 1)
+        instruction.filter { it.description.isNotBlank() }.forEachIndexed { index, instruction -> dao.insertInstruction(
+            instruction.copy(id = 0, recipeId = id, stepNumber = index + 1)
         ) }
     }
 
     suspend fun addIngredients(ingredients: List<Pair<Ingredient , Pair<Double, String>>>, id: Int) {
-        ingredients.forEach { (ingredient, amountUnit) ->
+        ingredients.filter { it.first.name.isNotBlank() }.forEach { (ingredient, amountUnit) ->
             val exists = dao.getIngredientByName(ingredient.name)
-            val ingredientId = exists?.id ?: dao.insertIngredient(ingredient).toInt()
+            val ingredientId = exists?.id ?: dao.upsertIngredient(ingredient).toInt()
 
             dao.insertRecipeIngredient(
                 RecipeIngredient(
