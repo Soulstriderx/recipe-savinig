@@ -33,21 +33,27 @@ class IngredientAdapter(
             etUnit.setText(ingredient.second.second)
 
             etName.doOnTextChanged { text, start, before, count ->
+                val current = ingredients[position]
                 ingredients[position] =
                     ingredient.copy(
                         first = Ingredient(name = text.toString()),
-                        second = ingredient.second
+                        second = current.second
+
                     )
             }
             etAmount.doOnTextChanged { text, start, before, count ->
                 val newAmount = text.toString().toDoubleOrNull() ?: 0.0
+                val current = ingredients[position]
                 ingredients[position] = ingredient.copy(
-                    second = Pair(newAmount, ingredient.second.second)
+                    first = current.first,
+                    second = Pair(newAmount, current.second.second)
                 )
             }
             etUnit.doOnTextChanged { text, start, before, count ->
+                val current = ingredients[position]
                 ingredients[position] = ingredient.copy(
-                    second = Pair(ingredient.second.first, text.toString())
+                    first = current.first,
+                    second = Pair(current.second.first, text.toString())
                 )
             }
         }
@@ -55,8 +61,8 @@ class IngredientAdapter(
 
     override fun getItemCount() = ingredients.size
 
-    fun applyIngredient(ingredients: MutableList<Pair<Ingredient, Pair<Double, String>>>) {
-        this.ingredients = ingredients
+    fun applyIngredient(ingredients: List<Pair<Ingredient, Pair<Double, String>>>) {
+        this.ingredients = ingredients.toMutableList()
         notifyDataSetChanged()
     }
 
