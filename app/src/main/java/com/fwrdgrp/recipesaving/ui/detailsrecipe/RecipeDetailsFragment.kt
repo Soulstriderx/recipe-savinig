@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
@@ -29,6 +30,14 @@ class RecipeDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.run {
+            ivBack.setOnClickListener { findNavController().popBackStack() }
+            ivFavorite.setOnClickListener {  } //Favorite function
+            ivShop.setOnClickListener {  } //Navigate to shop and add ingredients to list
+            mbEdit.setOnClickListener {  } //Navigate to edit page
+            mbDelete.setOnClickListener {  } //Delete function and popBackStack
+        }
 
         //ViewPager Stuff
         val adapter = TabsAdapter(

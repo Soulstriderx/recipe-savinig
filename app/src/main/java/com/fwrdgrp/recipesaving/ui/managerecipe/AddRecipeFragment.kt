@@ -19,8 +19,8 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.databinding.FragmentAddRecipeBinding
-import com.fwrdgrp.recipesaving.ui.adapters.IngredientAdapter
-import com.fwrdgrp.recipesaving.ui.adapters.InstructionAdapter
+import com.fwrdgrp.recipesaving.ui.adapters.AddIngredientAdapter
+import com.fwrdgrp.recipesaving.ui.adapters.AddInstructionAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,8 +31,8 @@ class AddRecipeFragment : Fragment() {
         AddRecipeViewModel.Factory
     }
     private lateinit var binding: FragmentAddRecipeBinding
-    private lateinit var instructionAdapter: InstructionAdapter
-    private lateinit var ingredientAdapter: IngredientAdapter
+    private lateinit var instructionAdapter: AddInstructionAdapter
+    private lateinit var ingredientAdapter: AddIngredientAdapter
     private lateinit var categoryAdapter: ArrayAdapter<Category>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +79,7 @@ class AddRecipeFragment : Fragment() {
     }
 
     fun setupInstructionAdapter() {
-        instructionAdapter = InstructionAdapter(
+        instructionAdapter = AddInstructionAdapter(
             mutableListOf(
                 Instruction(
                     recipeId = 0,
@@ -97,7 +97,7 @@ class AddRecipeFragment : Fragment() {
     }
 
     fun setupIngredientAdapter() {
-        ingredientAdapter = IngredientAdapter(
+        ingredientAdapter = AddIngredientAdapter(
             mutableListOf(
                 Pair(
                     Ingredient(name = ""),

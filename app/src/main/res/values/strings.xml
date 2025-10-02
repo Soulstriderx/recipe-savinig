@@ -20,4 +20,6 @@
     <string name="ingredients">Ingredients:</string>
     <string name="amount_colon">Amount:</string>
     <string name="serving_colon">Servings:</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>
