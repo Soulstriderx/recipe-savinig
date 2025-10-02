@@ -18,4 +18,6 @@
     <string name="instructions">Instructions</string>
     <string name="categories">Categories:</string>
     <string name="ingredients">Ingredients:</string>
+    <string name="amount_colon">Amount:</string>
+    <string name="serving_colon">Servings:</string>
 </resources>
