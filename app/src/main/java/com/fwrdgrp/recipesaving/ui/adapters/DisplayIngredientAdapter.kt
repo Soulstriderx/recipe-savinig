@@ -40,10 +40,6 @@ class DisplayIngredientAdapter(
         notifyDataSetChanged()
     }
 
-    fun fetchIngredient(): List<Pair<Ingredient, Pair<Double, String>>> {
-        return ingredients
-    }
-
     inner class IngredientViewHolder(
         val binding: LayoutItemDisplayIngredientBinding
     ) : RecyclerView.ViewHolder(binding.root)
