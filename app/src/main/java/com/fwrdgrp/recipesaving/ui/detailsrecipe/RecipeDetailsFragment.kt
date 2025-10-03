@@ -70,7 +70,7 @@ class RecipeDetailsFragment : Fragment() {
                     RecipeDetailsFragmentDirections.actionRecipeDetailsToEditRecipe(args.recipeId)
                 )
             }
-            mbDelete.setOnClickListener { deleteDialogCreation() } //Delete function and popBackStack
+            mbDelete.setOnClickListener { deleteDialogCreation().show() } //Delete function and popBackStack
         }
     }
 
