@@ -1,9 +1,7 @@
 package com.fwrdgrp.recipesaving.ui.managerecipe
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,7 +10,6 @@ import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
-import com.fwrdgrp.recipesaving.databinding.FragmentAddRecipeBinding
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
@@ -23,14 +20,6 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
     }
     private val args: EditRecipeFragmentArgs by navArgs()
     private lateinit var recipeDetails: RecipeWithDetails
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentAddRecipeBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

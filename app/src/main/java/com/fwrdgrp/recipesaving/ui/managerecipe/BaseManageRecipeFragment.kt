@@ -17,7 +17,7 @@ import com.fwrdgrp.recipesaving.data.enums.Category
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
-import com.fwrdgrp.recipesaving.databinding.FragmentAddRecipeBinding
+import com.fwrdgrp.recipesaving.databinding.FragmentManageRecipeBinding
 import com.fwrdgrp.recipesaving.ui.adapters.AddIngredientAdapter
 import com.fwrdgrp.recipesaving.ui.adapters.AddInstructionAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -25,7 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 abstract class BaseManageRecipeFragment : Fragment() {
-    protected lateinit var binding: FragmentAddRecipeBinding
+    protected lateinit var binding: FragmentManageRecipeBinding
     protected abstract val viewModel: BaseManageRecipeViewModel
 
     protected lateinit var instructionAdapter: AddInstructionAdapter
@@ -39,7 +39,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddRecipeBinding.inflate(layoutInflater, container, false)
+        binding = FragmentManageRecipeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

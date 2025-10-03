@@ -24,13 +24,13 @@
         android:id="@+id/addRecipeFragment"
         android:name="com.fwrdgrp.recipesaving.ui.managerecipe.AddRecipeFragment"
         android:label="fragment_add_recipe"
-        tools:layout="@layout/fragment_add_recipe">
+        tools:layout="@layout/fragment_manage_recipe">
     </fragment>
     <fragment
         android:id="@+id/editRecipeFragment"
         android:name="com.fwrdgrp.recipesaving.ui.managerecipe.EditRecipeFragment"
         android:label="EditRecipeFragment"
-        tools:layout="@layout/fragment_add_recipe" >
+        tools:layout="@layout/fragment_manage_recipe" >
         <argument android:name="recipeId" app:argType="integer" app:nullable="false"/>
     </fragment>
     <fragment
