@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/space_xxl"
+    android:clickable="true"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/space_xxl">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/space_xxxxl">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xxxxl"
+            android:text="@string/are_you_sure"
+            android:textSize="@dimen/text_xxxxl"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/are_you_sure_you_want_to_delete_this_recipe_n_this_cannot_be_undone"
+            android:textSize="@dimen/text_xxl" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xxxxl">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbCancel"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="@dimen/space_xxxxl"
+                android:backgroundTint="@color/blue"
+                android:text="@string/cancel"
+                app:cornerRadius="@dimen/space_xxs" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbConfirm"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/red"
+                android:text="@string/delete"
+                app:cornerRadius="@dimen/space_xxs" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

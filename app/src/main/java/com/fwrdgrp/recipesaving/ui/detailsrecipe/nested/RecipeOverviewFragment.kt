@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.enums.Category
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.IngredientWithAmount
+import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.databinding.FragmentRecipeOverviewBinding
 import com.fwrdgrp.recipesaving.ui.adapters.DisplayIngredientAdapter
 import com.fwrdgrp.recipesaving.ui.detailsrecipe.RecipeDetailsViewModel
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
@@ -24,7 +27,7 @@ class RecipeOverviewFragment : Fragment() {
         factoryProducer = { RecipeDetailsViewModel.Factory }
     )
     private lateinit var binding: FragmentRecipeOverviewBinding
-    private lateinit var adapter: DisplayIngredientAdapter
+    private val adapter by lazy { DisplayIngredientAdapter(emptyList()) }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,35 +38,31 @@ class RecipeOverviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapter()
         lifecycleScope.launch {
-            viewModel.recipeDetails.filterNotNull().collect {
-                binding.run {
-                    //                ivImage
-                    tvTitle.text = it.recipe.title
-                    for (category in it.recipe.category) {
-                        val tvCategory = TextView(requireContext()).apply {
-                            text = category.name
-                            setBackgroundResource(R.drawable.box_bg)
-                        }
-//                    tvCategory.setOnClickListener { (category) } navigate to filter thing
-                        llCategory.addView(tvCategory)
-                    }
-                    tvDesc.text = it.recipe.description
-                    tvTime.text = it.recipe.estTime.toString()
-                    tvServing.text = it.recipe.totalServing.toString()
-
-                    setupAdapter(rebuildIngredients(it.ingredients))
-                    it.ingredients
-                }
+            viewModel.recipeDetails.filterNotNull().filter { it.ingredients.isNotEmpty() }.collect {
+                setData(it)
             }
         }
     }
 
-    fun setupAdapter(ingredients: List<Pair<Ingredient, Pair<Double, String>>>) {
-        adapter = DisplayIngredientAdapter(ingredients)
+    fun setupAdapter() {
         binding.run {
             rvIngredient.adapter = adapter
-            rvIngredient.layoutManager = LinearLayoutManager(requireContext())
+            rvIngredient.layoutManager = GridLayoutManager(requireContext(), 2)
+        }
+    }
+
+    fun setData(details: RecipeWithDetails) {
+        binding.run {
+            //                ivImage
+            tvTitle.text = details.recipe.title
+            buildCategories(details.recipe.category)
+            tvDesc.text = details.recipe.description
+            tvTime.text = details.recipe.estTime.toString()
+            tvServing.text = details.recipe.totalServing.toString()
+
+            adapter.applyIngredient(rebuildIngredients(details.ingredients))
         }
     }
 
@@ -74,5 +73,19 @@ class RecipeOverviewFragment : Fragment() {
             it.ingredient,
             Pair(it.amount ?: 0.0, it.unit ?: "")
         ) }.toMutableList()
+    }
+
+    fun buildCategories(
+        categories: List<Category>
+    ) {
+        binding.llCategory.removeAllViews()
+        for (category in categories) {
+            val tvCategory = TextView(requireContext()).apply {
+                text = category.name
+                setBackgroundResource(R.drawable.box_bg)
+            }
+//                    tvCategory.setOnClickListener { (category) } navigate to filter thing
+            binding.llCategory.addView(tvCategory)
+        }
     }
 }

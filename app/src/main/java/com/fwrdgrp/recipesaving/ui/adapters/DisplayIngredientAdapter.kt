@@ -35,7 +35,7 @@ class DisplayIngredientAdapter(
 
     override fun getItemCount() = ingredients.size
 
-    fun applyIngredient(ingredients: MutableList<Pair<Ingredient, Pair<Double, String>>>) {
+    fun applyIngredient(ingredients: List<Pair<Ingredient, Pair<Double, String>>>) {
         this.ingredients = ingredients
         notifyDataSetChanged()
     }

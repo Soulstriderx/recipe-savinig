@@ -69,4 +69,9 @@ class RecipeRepo(
     fun getAllRecipes(): Flow<List<Recipe>> {
         return dao.getAllRecipes()
     }
+
+    @Transaction
+    suspend fun toggleFavorite(recipe: Recipe) {
+        dao.updateRecipe(recipe)
+    }
 }
