@@ -1,6 +1,5 @@
 package com.fwrdgrp.recipesaving.ui.managerecipe
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
@@ -13,23 +12,15 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class EditRecipeViewModel(
-    private val repo: RecipeRepo
-) : ViewModel() {
-    private val _finish = MutableSharedFlow<Unit>()
-    val finish: SharedFlow<Unit> = _finish
-    private val _error = MutableSharedFlow<String>()
-    val error: SharedFlow<String> = _error
+    repo: RecipeRepo
+) : BaseManageRecipeViewModel(repo) {
 
     private val _recipeDetails = MutableStateFlow<RecipeWithDetails?>(null)
-    val recipeDetails: StateFlow<RecipeWithDetails?> = _recipeDetails
 
     suspend fun fetchRecipe(id: Int): RecipeWithDetails {
         val details = repo.getRecipeWithDetails(id).first()
@@ -37,7 +28,7 @@ class EditRecipeViewModel(
         return details
     }
 
-    suspend fun submitRecipe(
+    override suspend fun submitRecipe(
         recipe: Recipe,
         instruction: List<Instruction>,
         ingredients: List<Pair<Ingredient, Pair<Double, String>>>

@@ -1,6 +1,5 @@
 package com.fwrdgrp.recipesaving.ui.managerecipe
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
@@ -10,19 +9,12 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 
 class AddRecipeViewModel(
-    private val repo: RecipeRepo
-) : ViewModel() {
+    repo: RecipeRepo
+) : BaseManageRecipeViewModel(repo) {
 
-    private val _finish = MutableSharedFlow<Unit>()
-    val finish: SharedFlow<Unit> = _finish
-    private val _error = MutableSharedFlow<String>()
-    val error: SharedFlow<String> = _error
-
-    suspend fun submitRecipe(
+    override suspend fun submitRecipe(
         recipe: Recipe,
         instruction: List<Instruction>,
         ingredients: List<Pair<Ingredient, Pair<Double, String>>>
