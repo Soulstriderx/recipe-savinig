@@ -13,12 +13,13 @@ class RecipeAdapter(
     var recipes: List<Recipe>,
     val onRecipeClick: (Int) -> Unit,
     val onCategoryClick: (Category) -> Unit
-): RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
+) : RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecipeViewHolder {
-        val binding = LayoutItemRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            LayoutItemRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecipeViewHolder(binding)
     }
 
@@ -33,20 +34,22 @@ class RecipeAdapter(
     override fun getItemCount() = recipes.size
 
     fun applyRecipes(recipes: List<Recipe>) {
-        this.recipes = recipes
+        //I don't know why, but it needs to turn this list into another list?
+        this.recipes = recipes.toList()
         notifyDataSetChanged()
     }
 
     inner class RecipeViewHolder(
         val binding: LayoutItemRecipeBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Recipe) {
             binding.run {
                 tvTitle.text = item.title
                 tvTime.text = item.estTime.toString()
                 tvDescription.text = item.description
                 llRecipe.setOnClickListener { onRecipeClick(item.id) }
-                for(category in item.category.take(3)) {
+                glCategory.removeAllViews()
+                for (category in item.category.take(3)) {
                     val tvCategory = TextView(root.context).apply {
                         text = category.name
                         setBackgroundResource(R.drawable.box_bg)
