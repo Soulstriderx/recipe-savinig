@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.enums.Category
+import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.databinding.FragmentAddRecipeBinding
 import kotlinx.coroutines.launch
@@ -68,6 +70,21 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
                 setBackgroundResource(R.drawable.box_bg)
             }
             binding.glCategory.addView(tvCategory)
+        }
+    }
+
+    override fun buildRecipe(category: List<Category>): Recipe {
+        binding.run {
+            return Recipe(
+                id = recipeDetails.recipe.id,
+                title = etTitle.text.toString(),
+                description = etDesc.text.toString(),
+                category = category,
+                estTime = etTime.text.toString().toInt(),
+                totalServing = etServing.text.toString().toInt(),
+                //Add when linkable
+                imageUri = ""
+            )
         }
     }
 }

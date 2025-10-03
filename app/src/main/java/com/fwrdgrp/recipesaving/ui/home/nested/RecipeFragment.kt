@@ -48,7 +48,6 @@ class RecipeFragment : Fragment() {
                 findNavController().navigate(action)
             },
             {}
-            //Nav to Edit
         )
 
         binding.run {

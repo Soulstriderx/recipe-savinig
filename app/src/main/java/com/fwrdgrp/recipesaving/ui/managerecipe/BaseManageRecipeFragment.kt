@@ -63,6 +63,8 @@ abstract class BaseManageRecipeFragment : Fragment() {
         }
     }
 
+    abstract fun buildRecipe(category: List<Category>): Recipe
+
     protected fun showError(msg: String) {
         val snackbar = Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG)
         snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red)).show()
@@ -149,20 +151,6 @@ abstract class BaseManageRecipeFragment : Fragment() {
                     glCategory.removeView(this)
                 }
             }
-        }
-    }
-
-    protected fun buildRecipe(category: List<Category>): Recipe {
-        binding.run {
-            return Recipe(
-                title = etTitle.text.toString(),
-                description = etDesc.text.toString(),
-                category = category,
-                estTime = etTime.text.toString().toInt(),
-                totalServing = etServing.text.toString().toInt(),
-                //Add when linkable
-                imageUri = ""
-            )
         }
     }
 
