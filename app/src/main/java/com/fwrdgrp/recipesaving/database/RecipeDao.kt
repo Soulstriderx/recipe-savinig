@@ -37,18 +37,21 @@ interface RecipeDao {
     @Upsert
     suspend fun upsertIngredient(ingredient: Ingredient): Long
 
+    //marked for removal
     @Update
     suspend fun updateIngredient(ingredient: Ingredient)
 
+    //Do we need an ingredient list to show the ingredients?
     @Delete
     suspend fun deleteIngredient(ingredient: Ingredient)
 
-    @Query("SELECT * FROM Ingredient WHERE name = :name LIMIT 1")
+    @Query("SELECT * FROM Ingredient WHERE LOWER(name) = LOWER(:name) LIMIT 1")
     suspend fun getIngredientByName(name: String): Ingredient?
 
     @Query("SELECT * FROM Ingredient WHERE id = :id")
     fun getIngredientById(id: Int): Flow<Ingredient?>
 
+    //If we're gonna fully trust the user, then I can remove this too
     @Query("SELECT * FROM Ingredient")
     fun getAllIngredients(): Flow<List<Ingredient>>
 

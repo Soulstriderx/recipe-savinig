@@ -39,10 +39,6 @@ class DisplayInstructionAdapter(
         notifyDataSetChanged()
     }
 
-    fun fetchIngredient(): List<Instruction> {
-        return instructions
-    }
-
     inner class InstructionViewHolder(
         val binding: LayoutItemDisplayInstructionBinding
     ) : RecyclerView.ViewHolder(binding.root)

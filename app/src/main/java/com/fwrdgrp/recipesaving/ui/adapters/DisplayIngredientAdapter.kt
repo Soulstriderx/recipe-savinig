@@ -7,7 +7,7 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.databinding.LayoutItemDisplayIngredientBinding
 
 class DisplayIngredientAdapter(
-    var ingredients: MutableList<Pair<Ingredient, Pair<Double, String>>>
+    var ingredients: List<Pair<Ingredient, Pair<Double, String>>>
 ) : RecyclerView.Adapter<DisplayIngredientAdapter.IngredientViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,13 +35,9 @@ class DisplayIngredientAdapter(
 
     override fun getItemCount() = ingredients.size
 
-    fun applyIngredient(ingredients: MutableList<Pair<Ingredient, Pair<Double, String>>>) {
+    fun applyIngredient(ingredients: List<Pair<Ingredient, Pair<Double, String>>>) {
         this.ingredients = ingredients
         notifyDataSetChanged()
-    }
-
-    fun fetchIngredient(): List<Pair<Ingredient, Pair<Double, String>>> {
-        return ingredients
     }
 
     inner class IngredientViewHolder(
