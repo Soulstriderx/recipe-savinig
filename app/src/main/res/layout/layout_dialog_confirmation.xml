@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/are_you_sure_you_want_to_delete_this_recipe_n_this_cannot_be_undone"
+            android:text="@string/are_you_sure_delete"
             android:textSize="@dimen/text_xxl" />
 
         <LinearLayout
@@ -40,7 +40,7 @@
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="@dimen/space_xxxxl"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/color_secondary"
                 android:text="@string/cancel"
                 app:cornerRadius="@dimen/space_xxs" />
 
@@ -48,7 +48,7 @@
                 android:id="@+id/mbConfirm"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/color_primary"
                 android:text="@string/delete"
                 app:cornerRadius="@dimen/space_xxs" />
 

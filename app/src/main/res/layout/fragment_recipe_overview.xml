@@ -9,15 +9,13 @@
         android:id="@+id/llOverview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/text_xxl">
+        android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/box_bg"
-            android:layout_marginBottom="@dimen/space_l"/>
+            android:background="@drawable/box_bg" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -27,54 +25,93 @@
             android:textSize="@dimen/text_xxxl"
             android:textStyle="bold"
             android:layout_below="@id/ivImage"
-            android:layout_marginBottom="@dimen/space_l"
+            android:paddingVertical="@dimen/space_xxxl"
+            android:background="@color/white"
             android:gravity="center" />
+
+        <View
+            android:id="@+id/titleCategory"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray"
+            android:layout_below="@id/tvTitle"/>
 
         <LinearLayout
             android:id="@+id/llCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/space_l"
-            android:layout_below="@id/tvTitle"
+            android:layout_below="@id/titleCategory"
+            android:background="@color/white"
+            android:paddingVertical="@dimen/space_xs"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:gravity="center"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/categories"
+                android:textSize="@dimen/text_xl"
+                android:layout_marginEnd="@dimen/space_xs" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/categoryDescription"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray"
+            android:layout_below="@id/llCategory"/>
+
+        <LinearLayout
+            android:id="@+id/llDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingVertical="@dimen/space_xs"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:layout_below="@id/categoryDescription" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:layout_marginEnd="@dimen/space_xs"
+                android:textSize="@dimen/text_xl" />
+
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description"
                 android:textSize="@dimen/text_xl" />
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvDesc"
+        <View
+            android:id="@+id/descriptionTime"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="@dimen/text_xl"
-            android:layout_below="@id/llCategory"
-            android:layout_marginBottom="@dimen/space_l"/>
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray"
+            android:layout_below="@id/llDesc"/>
 
         <LinearLayout
-            android:id="@+id/llTimeServing"
+            android:id="@+id/llTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/tvDesc"
-            android:layout_marginBottom="@dimen/space_l"
-            android:weightSum="2" >
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+            android:layout_below="@id/descriptionTime"
+            android:background="@color/white"
+            android:paddingVertical="@dimen/space_xs"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Est Time:"
                     android:textSize="@dimen/text_xl"
-                    android:layout_marginRight="@dimen/space_xs" />
+                    android:layout_marginEnd="@dimen/space_xs" />
 
                 <TextView
                     android:id="@+id/tvTime"
@@ -85,28 +122,45 @@
 
             </LinearLayout>
 
+        <View
+            android:id="@+id/timeServings"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray"
+            android:layout_below="@id/llTime"/>
+
+
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/llServings"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:paddingVertical="@dimen/space_xs"
+                android:paddingHorizontal="@dimen/space_xs"
+                android:background="@color/white"
+                android:layout_below="@id/timeServings">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Servings"
+                    android:text="Servings:"
                     android:textSize="@dimen/text_xl"
-                    android:layout_marginRight="@dimen/space_xs" />
+                    android:layout_marginEnd="@dimen/space_xs" />
 
                 <TextView
                     android:id="@+id/tvServing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_xl"
-                    android:text="2" />
+                    android:text="Serving" />
 
             </LinearLayout>
 
-        </LinearLayout>
+        <View
+            android:id="@+id/servingsIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray"
+            android:layout_below="@id/llServings"/>
 
         <TextView
             android:id="@+id/tvIngredients"
@@ -114,14 +168,18 @@
             android:layout_height="wrap_content"
             android:text="@string/ingredients"
             android:textSize="@dimen/text_xl"
-            android:layout_below="@id/llTimeServing"
-            android:layout_marginBottom="@dimen/space_l"/>
+            android:paddingVertical="@dimen/space_xs"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:background="@color/white"
+            android:layout_below="@id/servingsIngredients" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvIngredients" />
+            android:paddingHorizontal="@dimen/space_xs"
+            android:layout_below="@id/tvIngredients"
+            android:paddingVertical="@dimen/space_xs"/>
 
     </RelativeLayout>
 

@@ -5,9 +5,105 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.nested.ShopListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvShopList"
+    <LinearLayout
+        android:id="@+id/llHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="@dimen/space_xxxxxl"
+        android:orientation="horizontal"
+        android:background="@color/color_secondary"
+        android:padding="@dimen/space_l"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:weightSum="20">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text_search_bg"
+            android:hint="@string/search"
+            android:textColor="@color/t_gray"
+            android:layout_weight="13"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvFilter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/filter_bg"
+            android:text="@string/filter"
+            android:textColor="@color/t_gray"
+            android:textStyle="bold"
+            android:gravity="center|start"
+            android:layout_weight="5" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shop_fill"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFilter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_below="@id/llHeader"
+        android:clickable="true"
+        android:elevation="@dimen/space_xs"
+        android:padding="@dimen/space_l">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/space_xs"
+            android:weightSum="3">
+
+            <Spinner
+                android:id="@+id/spFilter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_bg"
+                android:layout_marginHorizontal="@dimen/space_xs"
+                android:layout_weight="2" />
+
+            <Spinner
+                android:id="@+id/spAscDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_bg"
+                android:layout_marginHorizontal="@dimen/space_xs"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbRandomize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/color_primary"
+            android:text="@string/i_m_feeling_lucky"
+            android:textSize="@dimen/text_l"/>
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llHeader"/>
+
 
 </RelativeLayout>
