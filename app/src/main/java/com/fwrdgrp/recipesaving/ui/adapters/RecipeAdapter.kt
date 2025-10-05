@@ -1,6 +1,7 @@
 package com.fwrdgrp.recipesaving.ui.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.databinding.LayoutItemRecipeBinding
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
+import kotlin.io.path.Path
 
 class RecipeAdapter(
     var recipes: List<Recipe>,
@@ -57,6 +59,8 @@ class RecipeAdapter(
                     tvCategory.setOnClickListener { onCategoryClick(category) }
                     glCategory.addView(tvCategory)
                 }
+                ivStar.visibility = if(item.favorite) View.VISIBLE
+                else View.GONE
             }
         }
     }

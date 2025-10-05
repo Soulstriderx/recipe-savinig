@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llRecipe"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlRecipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/recipe_bg"
     android:padding="@dimen/text_l"
     android:layout_marginHorizontal="@dimen/space_l"
@@ -11,55 +10,74 @@
     android:elevation="@dimen/space_xs">
 
     <ImageView
-        android:id="@+id/ivImage"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@color/t_gray"
-        android:maxHeight="@dimen/space_xxxxxxxxl"/>
-
-    <Space
-        android:id="@+id/imagePadding"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/space_xs" />
+        android:id="@+id/ivStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_filled"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:elevation="@dimen/space_xxxxs"/>
 
     <LinearLayout
+        android:id="@+id/llRecipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvTitle"
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/t_gray"
+            android:maxHeight="@dimen/space_xxxxxxxxl"/>
+
+        <Space
+            android:id="@+id/imagePadding"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/placeholder"
-            android:textSize="@dimen/text_xxl"
-            android:layout_weight="1"
-            android:textStyle="bold" />
+            android:layout_height="@dimen/space_xs" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder"
+                android:textSize="@dimen/text_xxl"
+                android:layout_weight="1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder"
+                android:textSize="@dimen/text_l"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/space_xxxxs"
+                android:drawableStart="@drawable/ic_clock" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/tvTime"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/placeholder"
-            android:textSize="@dimen/text_l"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/space_xxxxs"
-            android:drawableStart="@drawable/ic_clock" />
+            android:textSize="@dimen/text_xl" />
+
+        <GridLayout
+            android:id="@+id/glCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_xxs"
+            android:columnCount="3"
+            android:rowCount="1" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/placeholder"
-        android:textSize="@dimen/text_xl" />
-
-    <GridLayout
-        android:id="@+id/glCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="1" />
-
-</LinearLayout>
+</RelativeLayout>
