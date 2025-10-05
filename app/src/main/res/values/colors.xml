@@ -8,6 +8,7 @@
     <color name="green">#00FF00</color>
     <color name="blue">#0000FF</color>
     <color name="yellow">#FFFF00</color>
+    <color name="yellow_orange">#FFD500</color>
     <color name="orange">#FFAA00</color>
     <color name="purple">#AA00FF</color>
 
@@ -21,8 +22,8 @@
     <color name="color_error">#AA0000</color>
 
     <!--Project Colors-->
-    <color name="color_primary">#005A6B</color>
-    <color name="color_secondary">#C2E0E5</color>
-    <color name="color_background">#E0E9EA</color>
+    <color name="color_primary">#4d869c</color>
+    <color name="color_secondary">#7ab2b2</color>
+    <color name="color_background">#edeff3</color>
 
 </resources>
