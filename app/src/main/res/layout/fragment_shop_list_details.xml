@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detailsshoplist.ShopListDetailsFragment">
+
+    <RelativeLayout
+        android:id="@+id/llHeaderDetails"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_xxxxxl"
+        android:layout_alignParentTop="true"
+        android:background="@color/color_secondary"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_l" >
+
+        <TextView
+            android:id="@+id/tvShopListName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Shop List Name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_xxxxl"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_add_2" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llAddIngredient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/box_bg"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/space_xs"
+        android:layout_below="@id/llHeaderDetails"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_ingredient"
+            android:textSize="@dimen/text_l"
+            android:textStyle="bold"
+            android:textColor="@color/t_gray_text"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/space_s"
+            android:weightSum="4">
+
+            <EditText
+                android:id="@+id/etIngredient"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginHorizontal="@dimen/space_xxs"
+                android:hint="@string/ingredient"
+                android:background="@drawable/edit_text_bg_2" />
+
+            <EditText
+                android:id="@+id/etAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/amount"
+                android:layout_marginHorizontal="@dimen/space_xxs"
+                android:background="@drawable/edit_text_bg_2" />
+
+            <EditText
+                android:id="@+id/etUnit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/unit"
+                android:layout_marginHorizontal="@dimen/space_xxs"
+                android:background="@drawable/edit_text_bg_2" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStoreIngredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llAddIngredient" />
+
+</RelativeLayout>

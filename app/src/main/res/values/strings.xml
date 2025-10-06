@@ -41,5 +41,14 @@
     <string name="ingredients_cannot_be_empty">Ingredients cannot be empty</string>
     <string name="add_recipe">Add Recipe</string>
     <string name="edit_recipe">Edit Recipe</string>
+    <string name="add_stores">Add Stores</string>
+    <string name="location_colon">Location:</string>
+    <string name="add">Add</string>
+    <string name="store_name">Store Name</string>
+    <string name="location">Location</string>
+    <string name="store_location">Store Location</string>
+    <string name="name">Name</string>
+    <string name="store_details">Store Details</string>
+    <string name="add_ingredient">Add Ingredient</string>
     <string name="title">Title</string>
 </resources>

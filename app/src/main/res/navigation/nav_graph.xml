@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_home_to_recipeDetails"
             app:destination="@id/recipeDetailsFragment" />
+        <action
+            android:id="@+id/action_home_to_stores"
+            app:destination="@id/storesFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
@@ -37,7 +40,8 @@
         android:id="@+id/addShopListFragment"
         android:name="com.fwrdgrp.recipesaving.ui.manageshoplist.AddShopListFragment"
         android:label="fragment_add_shop_list"
-        tools:layout="@layout/fragment_add_shop_list" />
+        tools:layout="@layout/fragment_add_shop_list" >
+    </fragment>
     <fragment
         android:id="@+id/recipeDetailsFragment"
         android:name="com.fwrdgrp.recipesaving.ui.detailsrecipe.RecipeDetailsFragment"
@@ -52,5 +56,29 @@
             android:id="@+id/action_recipeDetails_to_editRecipe"
             app:destination="@id/editRecipeFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/storesFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.stores.StoresFragment"
+        android:label="fragment_stores"
+        tools:layout="@layout/fragment_stores" >
+        <action
+            android:id="@+id/action_stores_to_addStoreDialog"
+            app:destination="@id/addStoreDialogFragment" />
+        <action
+            android:id="@+id/action_stores_to_storeDetails"
+            app:destination="@id/storeDetailsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addStoreDialogFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddStoreDialogFragment"
+        android:label="fragment_add_store_dialog"
+        tools:layout="@layout/fragment_add_store_dialog" />
+    <fragment
+        android:id="@+id/storeDetailsFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.stores.detailsstore.StoreDetailsFragment"
+        android:label="fragment_store_details"
+        tools:layout="@layout/fragment_store_details">
+        <argument android:name="storeId" app:argType="integer" app:nullable="false" />
     </fragment>
 </navigation>

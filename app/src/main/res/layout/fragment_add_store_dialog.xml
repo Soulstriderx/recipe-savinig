@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragmentdialogs.AddStoreDialogFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_xxxl"
+        android:background="@drawable/box_bg"
+        android:layout_centerInParent="true" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/space_l"
+            android:text="@string/store_details"
+            android:textSize="@dimen/text_xxl"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textSize="@dimen/text_xl"
+            android:layout_marginBottom="@dimen/space_xxs"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_bg_2"
+            android:minLines="1"
+            android:maxLines="1"
+            android:overScrollMode="always"
+            android:hint="@string/store_name"
+            android:layout_marginBottom="@dimen/space_l"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location"
+            android:textSize="@dimen/text_xl"
+            android:layout_marginBottom="@dimen/space_xxs"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minLines="4"
+            android:maxLines="4"
+            android:overScrollMode="always"
+            android:gravity="start"
+            android:background="@drawable/edit_text_bg_2"
+            android:hint="@string/store_location" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/color_primary"
+            android:paddingVertical="@dimen/space_s"
+            android:layout_marginTop="@dimen/text_l"
+            android:text="@string/add"
+            android:textSize="@dimen/text_xl" />
+
+    </LinearLayout>
+
+</RelativeLayout>
