@@ -15,6 +15,7 @@
     <!--Transparent Colors-->
     <color name="t_none">#00000000</color>
     <color name="t_gray">#55A2A2A2</color>
+    <color name="t_gray_text">#95A2A2A2</color>
 
     <!--Success-->
     <color name="color_success">#00AA00</color>

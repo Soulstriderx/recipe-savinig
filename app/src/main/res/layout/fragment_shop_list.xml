@@ -98,9 +98,8 @@
 
     </LinearLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRecipes"
+        android:id="@+id/rvShopList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/llHeader"/>
