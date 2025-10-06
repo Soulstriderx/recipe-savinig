@@ -25,7 +25,6 @@ class AddRecipeFragment : BaseManageRecipeFragment() {
                 category = category,
                 estTime = etTime.text.toString().toInt(),
                 totalServing = etServing.text.toString().toInt(),
-                //Add when linkable
                 imageUri = ""
             )
         }

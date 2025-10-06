@@ -1,5 +1,6 @@
 package com.fwrdgrp.recipesaving.ui.managerecipe
 
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
@@ -31,12 +32,13 @@ class EditRecipeViewModel(
     override suspend fun submitRecipe(
         recipe: Recipe,
         instruction: List<Instruction>,
-        ingredients: List<Pair<Ingredient, Pair<Double, String>>>
+        ingredients: List<Pair<Ingredient, Pair<Double, String>>>,
+        image: Uri?
     ) {
         try {
             viewModelScope.launch(Dispatchers.IO) {
                 repo.upsertRecipeWithDetails(
-                    recipe,
+                    recipe.copy(imageUri = image.toString()),
                     instruction,
                     ingredients,
                 )

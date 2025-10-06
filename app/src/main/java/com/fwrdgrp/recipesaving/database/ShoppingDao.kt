@@ -1,5 +1,6 @@
 package com.fwrdgrp.recipesaving.database
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -13,6 +14,7 @@ import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface ShoppingDao {
     // ---- INGREDIENTS ----
     @Insert(onConflict = OnConflictStrategy.REPLACE)

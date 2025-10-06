@@ -1,5 +1,6 @@
 package com.fwrdgrp.recipesaving.ui.managerecipe
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
@@ -19,6 +20,7 @@ abstract class BaseManageRecipeViewModel(
     abstract suspend fun submitRecipe(
         recipe: Recipe,
         instruction: List<Instruction>,
-        ingredients: List<Pair<Ingredient, Pair<Double, String>>>
+        ingredients: List<Pair<Ingredient, Pair<Double, String>>>,
+        image: Uri?
     )
 }
