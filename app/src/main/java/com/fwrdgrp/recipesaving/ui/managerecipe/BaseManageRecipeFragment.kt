@@ -41,6 +41,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
     protected val categories = Category.entries.toMutableList()
     protected val selectedCategoryList = mutableListOf<Category>()
     protected var image: Uri? = null
+
     protected val pickImage = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
         uri?.let {
             requireContext().contentResolver.takePersistableUriPermission(
@@ -63,14 +64,8 @@ abstract class BaseManageRecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupInstructionAdapter()
-        setupIngredientAdapter()
+        setupAllItems()
 
-        binding.ivImage.setOnClickListener {
-            pickImage.launch(arrayOf("image/*"))
-        }
-
-        setupCategorySpinnerAdapter(categories, selectedCategoryList)
         lifecycleScope.launch {
             viewModel.finish.collect {
                 findNavController().popBackStack()
@@ -81,14 +76,26 @@ abstract class BaseManageRecipeFragment : Fragment() {
                 showError(it)
             }
         }
+    }
+
+    fun setupAllItems() {
+        setupInstructionAdapter()
+        setupIngredientAdapter()
+        setupCategorySpinnerAdapter(categories, selectedCategoryList)
+        setOnClickListeners()
+    }
+
+    fun setOnClickListeners() {
+        binding.ivImage.setOnClickListener {
+            pickImage.launch(arrayOf("image/*"))
+        }
+
         binding.mbSubmit.setOnClickListener {
             setupSubmitOnClick()
         }
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
-
-
     }
 
     abstract fun buildRecipe(category: List<Category>): Recipe
@@ -159,6 +166,10 @@ abstract class BaseManageRecipeFragment : Fragment() {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
+                    if (selectedList.size >= 3) {
+                        spCategory.setSelection(0)
+                        return
+                    }
                     val selected = categoryAdapter.getItem(position) ?: return
                     if (selected == Category.INITIAL) return
                     selectedList.add(selected)
@@ -205,5 +216,4 @@ abstract class BaseManageRecipeFragment : Fragment() {
             )
         }
     }
-
 }
