@@ -50,4 +50,5 @@
     <string name="name">Name</string>
     <string name="store_details">Store Details</string>
     <string name="add_ingredient">Add Ingredient</string>
+    <string name="title">Title</string>
 </resources>

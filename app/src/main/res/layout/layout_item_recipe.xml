@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlRecipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:visibility="gone"
-        android:elevation="@dimen/space_xxxxs"/>
+        android:elevation="@dimen/space_xxxxs" />
 
     <LinearLayout
         android:id="@+id/llRecipe"
@@ -28,9 +29,10 @@
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="180dp"
             android:background="@color/t_gray"
-            android:maxHeight="@dimen/space_xxxxxxxxl"/>
+            android:maxHeight="@dimen/space_xxxxxxxxl" />
 
         <Space
             android:id="@+id/imagePadding"
@@ -59,7 +61,7 @@
                 android:textSize="@dimen/text_l"
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/space_xxxxs"
-                android:drawableStart="@drawable/ic_clock" />
+                app:drawableStartCompat="@drawable/ic_clock" />
 
         </LinearLayout>
 

@@ -1,15 +1,19 @@
 package com.fwrdgrp.recipesaving.ui.adapters
 
+import android.content.Context
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.databinding.LayoutItemRecipeBinding
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
-import kotlin.io.path.Path
+import androidx.core.net.toUri
 
 class RecipeAdapter(
     var recipes: List<Recipe>,
@@ -41,6 +45,17 @@ class RecipeAdapter(
         notifyDataSetChanged()
     }
 
+    fun ImageView.loadPersistedUri(context: Context, uri: Uri) {
+        try {
+            val source = ImageDecoder.createSource(context.contentResolver, uri)
+            val drawable = ImageDecoder.decodeDrawable(source)
+            this.setImageDrawable(drawable)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            this.setImageResource(R.drawable.image_save_bg) // fallback
+        }
+    }
+
     inner class RecipeViewHolder(
         val binding: LayoutItemRecipeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -50,6 +65,10 @@ class RecipeAdapter(
                 tvTime.text = item.estTime.toString()
                 tvDescription.text = item.description
                 llRecipe.setOnClickListener { onRecipeClick(item.id) }
+                item.imageUri?.let { uriString ->
+                    val uri = uriString.toUri()
+                    ivImage.loadPersistedUri(itemView.context, uri)
+                }
                 glCategory.removeAllViews()
                 for (category in item.category.take(3)) {
                     val tvCategory = TextView(root.context).apply {

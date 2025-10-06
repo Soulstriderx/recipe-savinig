@@ -1,16 +1,18 @@
 package com.fwrdgrp.recipesaving.ui.detailsrecipe.nested
 
+import android.content.Context
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
@@ -22,6 +24,7 @@ import com.fwrdgrp.recipesaving.ui.detailsrecipe.RecipeDetailsViewModel
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
+import androidx.core.net.toUri
 
 class RecipeOverviewFragment : Fragment() {
     private val viewModel: RecipeDetailsViewModel by viewModels(
@@ -55,9 +58,23 @@ class RecipeOverviewFragment : Fragment() {
         }
     }
 
+    fun ImageView.loadPersistedUri(context: Context, uri: Uri) {
+        try {
+            val source = ImageDecoder.createSource(context.contentResolver, uri)
+            val drawable = ImageDecoder.decodeDrawable(source)
+            this.setImageDrawable(drawable)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            this.setImageResource(R.drawable.image_save_bg) // fallback
+        }
+    }
+
     fun setData(details: RecipeWithDetails) {
         binding.run {
-            //                ivImage
+            details.recipe.imageUri?.let { uriString ->
+                val uri = uriString.toUri()
+                ivImage.loadPersistedUri(binding.root.context, uri)
+            }
             tvTitle.text = details.recipe.title
             buildCategories(details.recipe.category)
             tvDesc.text = details.recipe.description
