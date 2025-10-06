@@ -17,11 +17,11 @@
         android:weightSum="20">
 
         <EditText
+            android:id="@+id/etSearch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_search_bg"
             android:hint="@string/search"
-            android:textColor="@color/t_gray"
             android:layout_weight="14"/>
 
         <Space
@@ -37,7 +37,7 @@
             android:text="@string/filter"
             android:textColor="@color/t_gray"
             android:textStyle="bold"
-            android:gravity="center|start"
+            android:gravity="center"
             android:layout_weight="5" />
 
     </LinearLayout>

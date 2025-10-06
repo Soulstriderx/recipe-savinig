@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/are_you_sure_you_want_to_delete_this_recipe_n_this_cannot_be_undone"
+            android:text="@string/are_you_sure_delete"
             android:textSize="@dimen/text_xxl" />
 
         <LinearLayout
