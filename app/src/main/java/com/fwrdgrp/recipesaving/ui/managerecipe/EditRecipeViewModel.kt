@@ -50,7 +50,7 @@ class EditRecipeViewModel(
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val myRepository = (this[APPLICATION_KEY] as MyApp).repo
+                val myRepository = (this[APPLICATION_KEY] as MyApp).RecipeRepository
                 EditRecipeViewModel(repo = myRepository)
             }
         }
