@@ -3,10 +3,12 @@ package com.fwrdgrp.recipesaving
 import android.app.Application
 import androidx.room.Room
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
+import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
 import com.fwrdgrp.recipesaving.database.MyDatabase
 
 class MyApp : Application() {
-    lateinit var repo: RecipeRepo
+    lateinit var RecipeRepository: RecipeRepo
+    lateinit var ShoppingRepository: ShoppingRepo
     override fun onCreate() {
         super.onCreate()
 
@@ -15,6 +17,7 @@ class MyApp : Application() {
             MyDatabase::class.java,
             MyDatabase.NAME
         ).build()
-        repo = RecipeRepo(db.getRecipeDao())
+        RecipeRepository = RecipeRepo(db.getRecipeDao())
+        ShoppingRepository = ShoppingRepo(db.getShoppingDao())
     }
 }

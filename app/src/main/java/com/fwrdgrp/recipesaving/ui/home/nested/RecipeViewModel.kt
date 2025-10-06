@@ -59,6 +59,15 @@ class RecipeViewModel(
         getRecipe()
     }
 
+    fun List<Recipe>.applySort(sortOrder: SortOrder, filter: Filter): List<Recipe> {
+        val sort = when (filter) {
+            Filter.DATE -> sortByDate(sortOrder)
+            Filter.ALPHABETICALLY -> sortByName(sortOrder)
+            Filter.TIME -> sortByTime(sortOrder)
+        }
+        return sort.sortedByDescending { it.favorite }
+    }
+
     private fun List<Recipe>.sortByName(order: SortOrder): List<Recipe> = when (order) {
         SortOrder.ASCENDING -> sortedBy { it.title.lowercase() }
         SortOrder.DESCENDING -> sortedByDescending { it.title.lowercase() }
@@ -74,20 +83,10 @@ class RecipeViewModel(
         SortOrder.DESCENDING -> sortedByDescending { it.estTime }
     }
 
-    fun List<Recipe>.applySort(sortOrder: SortOrder, filter: Filter): List<Recipe> {
-        val sort = when (filter) {
-            Filter.DATE -> sortByDate(sortOrder)
-            Filter.ALPHABETICALLY -> sortByName(sortOrder)
-            Filter.TIME -> sortByTime(sortOrder)
-        }
-        return sort.sortedByDescending { it.favorite }
-    }
-
-
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val myRepository = (this[APPLICATION_KEY] as MyApp).repo
+                val myRepository = (this[APPLICATION_KEY] as MyApp).RecipeRepository
                 RecipeViewModel(repo = myRepository)
             }
         }
