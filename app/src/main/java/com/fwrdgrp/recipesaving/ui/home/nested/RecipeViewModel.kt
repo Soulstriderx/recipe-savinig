@@ -7,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.fwrdgrp.recipesaving.MyApp
+import com.fwrdgrp.recipesaving.data.enums.Filter
+import com.fwrdgrp.recipesaving.data.enums.SortOrder
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -19,17 +22,67 @@ class RecipeViewModel(
 ) : ViewModel() {
     private val _recipes = MutableStateFlow<List<Recipe>>(emptyList())
     val recipes: StateFlow<List<Recipe>> = _recipes
+
+    var currentSearch = ""
+    var currentFilter = Filter.DATE
+    var currentOrder = SortOrder.ASCENDING
+
     init {
         getRecipe()
     }
 
     fun getRecipe() {
         viewModelScope.launch {
-            repo.getAllRecipes().collect { recipesList ->
+            repo.getAllRecipes().map {
+                it.filter {
+                    currentSearch.isBlank() || it.title.contains(currentSearch, ignoreCase = true)
+                }.applySort(currentOrder, currentFilter)
+            }.collect { recipesList ->
                 _recipes.update { recipesList }
             }
         }
     }
+
+    fun randomRecipe(): Int {
+        val randomRecipe = _recipes.value.random()
+        return randomRecipe.id
+    }
+
+    fun setSearch(str: String) {
+        currentSearch = str
+        getRecipe()
+    }
+
+    fun setFilter(filter: Filter, sortOrder: SortOrder) {
+        currentFilter = filter
+        currentOrder = sortOrder
+        getRecipe()
+    }
+
+    private fun List<Recipe>.sortByName(order: SortOrder): List<Recipe> = when (order) {
+        SortOrder.ASCENDING -> sortedBy { it.title.lowercase() }
+        SortOrder.DESCENDING -> sortedByDescending { it.title.lowercase() }
+    }
+
+    private fun List<Recipe>.sortByDate(order: SortOrder): List<Recipe> = when (order) {
+        SortOrder.ASCENDING -> sortedBy { it.id }
+        SortOrder.DESCENDING -> sortedByDescending { it.id }
+    }
+
+    private fun List<Recipe>.sortByTime(order: SortOrder): List<Recipe> = when (order) {
+        SortOrder.ASCENDING -> sortedBy { it.estTime }
+        SortOrder.DESCENDING -> sortedByDescending { it.estTime }
+    }
+
+    fun List<Recipe>.applySort(sortOrder: SortOrder, filter: Filter): List<Recipe> {
+        val sort = when (filter) {
+            Filter.DATE -> sortByDate(sortOrder)
+            Filter.ALPHABETICALLY -> sortByName(sortOrder)
+            Filter.TIME -> sortByTime(sortOrder)
+        }
+        return sort.sortedByDescending { it.favorite }
+    }
+
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {

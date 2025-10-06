@@ -1,9 +1,9 @@
 package com.fwrdgrp.recipesaving.data.enums
 
 enum class Filter(val label: String) {
-    INITIAL("None"),
+    DATE("Date"), //In the order it was made
     ALPHABETICALLY("A-Z"),
-    DIFFICULTY("Difficulty"), //How many instructions there are
-    INGREDIENTS("Ingredients"), //How many ingredients there are
-    TIME("Time to make")
+    TIME("Time taken");
+
+    override fun toString(): String = label
 }
