@@ -1,22 +1,29 @@
 package com.fwrdgrp.recipesaving.ui.stores.detailsstore
 
+import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreWithItemsDetails
 import com.fwrdgrp.recipesaving.databinding.FragmentStoreDetailsBinding
 import com.fwrdgrp.recipesaving.ui.adapters.StoreIngredientsAdapter
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import kotlin.getValue
-import androidx.core.view.isGone
+import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
+import com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddStoreIngredientDialogFragment
+import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.Dispatchers
 
 class StoreDetailsFragment : Fragment() {
     private val viewModel: StoreDetailsViewModel by viewModels {
@@ -35,14 +42,6 @@ class StoreDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ivBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        binding.ivAdd.setOnClickListener {
-            var visibilityChanger = if (binding.llAddIngredient.isGone) View.VISIBLE
-            else View.GONE
-            binding.llAddIngredient.visibility = visibilityChanger
-        }
         lifecycleScope.launch {
             viewModel.fetchStoreDetails(args.storeId)
             viewModel.storeDetails.filterNotNull().collect {
@@ -50,7 +49,25 @@ class StoreDetailsFragment : Fragment() {
                 setData(it)
             }
         }
+        setOnClickListeners()
         setupAdapter()
+    }
+
+    fun setOnClickListeners() {
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+        binding.ivAdd.setOnClickListener {
+            val dialog = AddStoreIngredientDialogFragment { name, ingredient, price, amount, unit ->
+                lifecycleScope.launch {
+                    val ingredientId = viewModel.addOneIngredient(ingredient)
+                    val storeItem = storeItemBuilder(name, ingredientId, price, amount, unit)
+                    viewModel.insertStoreItem(storeItem)
+                    viewModel.fetchStoreDetails(args.storeId)
+                }
+            }
+            dialog.show(parentFragmentManager, "AddStoreIngredientDialog")
+        }
     }
 
     fun setData(details: StoreWithItemsDetails) {
@@ -66,10 +83,39 @@ class StoreDetailsFragment : Fragment() {
             adapter = StoreIngredientsAdapter(
                 emptyList(),
                 {},
-                {}
+                { deleteDialogCreation(it).show() }
             )
             rvStoreIngredients.adapter = adapter
             rvStoreIngredients.layoutManager = LinearLayoutManager(requireContext())
         }
+    }
+
+    fun deleteDialogCreation(id: Int): Dialog {
+        return Dialog(requireContext()).apply {
+            setContentView(R.layout.layout_dialog_confirmation)
+            window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
+            findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.deleteStoreItem(id)
+                    viewModel.fetchStoreDetails(args.storeId)
+                }
+                dismiss()
+            }
+        }
+    }
+
+    fun storeItemBuilder(
+        name: String, ingredientId: Int, price: Double, amount: Double,
+        unit: String
+    ): StoreItem {
+        return StoreItem(
+            storeId = args.storeId,
+            ingredientId = ingredientId,
+            name = name,
+            price = price,
+            packageAmount = amount,
+            packageUnit = unit
+        )
     }
 }
