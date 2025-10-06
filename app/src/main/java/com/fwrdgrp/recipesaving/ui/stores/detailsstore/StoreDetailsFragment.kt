@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -94,6 +95,7 @@ class StoreDetailsFragment : Fragment() {
         return Dialog(requireContext()).apply {
             setContentView(R.layout.layout_dialog_confirmation)
             window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            findViewById<TextView>(R.id.tvConfirm).text = "Are you sure you want to delete this Item?"
             findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
             findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {

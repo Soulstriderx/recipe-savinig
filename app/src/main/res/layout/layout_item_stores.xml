@@ -3,33 +3,43 @@
     android:id="@+id/rlStore"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/text_l"
     android:layout_marginHorizontal="@dimen/space_l"
     android:layout_marginTop="@dimen/space_l"
-    android:elevation="@dimen/space_xs" >
+    android:elevation="@dimen/space_xs"
+    android:padding="@dimen/text_l">
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:text="Name"
-        android:textStyle="bold"
         android:textSize="@dimen/text_xxl"
-        android:layout_alignParentTop="true"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tvName"
         android:text="Location"
-        android:textSize="@dimen/text_l"
-        android:layout_below="@id/tvName"/>
+        android:textSize="@dimen/text_l" />
+
 
     <ImageView
+        android:id="@+id/ivDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_right"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/ivArrow"
+        android:src="@drawable/ic_arrow_right" />
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_arrow_right" />
 
 </RelativeLayout>

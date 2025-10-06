@@ -8,7 +8,8 @@ import com.fwrdgrp.recipesaving.databinding.LayoutItemStoresBinding
 
 class StoresAdapter(
     var stores: List<Store>,
-    val onClick: (Int) -> Unit
+    val onClick: (Int) -> Unit,
+    val onClickDelete: (Int) -> Unit
 ): RecyclerView.Adapter<StoresAdapter.StoresViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -40,6 +41,7 @@ class StoresAdapter(
         fun bind(item: Store) {
             binding.run {
                 rlStore.setOnClickListener { onClick(item.id) }
+                ivDelete.setOnClickListener { onClickDelete(item.id) }
                 tvName.text = item.name
                 tvLocation.text = item.location
             }

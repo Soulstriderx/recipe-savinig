@@ -33,6 +33,11 @@ class StoresFragmentViewModel(
         }
     }
 
+    suspend fun deleteStore(id: Int) {
+        repo.deleteStoreById(id)
+        getStores()
+    }
+
     suspend fun addStore(storeName: String, storeLocation: String?) {
         repo.upsertStore(Store(name = storeName,location = storeLocation))
     }

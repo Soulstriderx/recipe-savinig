@@ -1,18 +1,24 @@
 package com.fwrdgrp.recipesaving.ui.stores
 
+import android.app.Dialog
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.databinding.FragmentStoresBinding
 import com.fwrdgrp.recipesaving.ui.adapters.StoresAdapter
 import com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddStoreDialogFragment
+import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.getValue
 
@@ -54,12 +60,28 @@ class StoresFragment : Fragment() {
     fun setupAdapter() {
         binding.run {
             adapter = StoresAdapter(
-                emptyList()
-            ) {
-                findNavController().navigate(StoresFragmentDirections.actionStoresToStoreDetails(it))
-            }
+                emptyList(),
+                { findNavController().navigate(
+                        StoresFragmentDirections.actionStoresToStoreDetails(it)) },
+                { deleteDialogCreation(it).show() } //Delete logic
+            )
             rvStores.adapter = adapter
             rvStores.layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
+    fun deleteDialogCreation(id: Int): Dialog {
+        return Dialog(requireContext()).apply {
+            setContentView(R.layout.layout_dialog_confirmation)
+            window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            findViewById<TextView>(R.id.tvConfirm).text = "Are you sure you want to delete this Store?"
+            findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
+            findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.deleteStore(id)
+                }
+                dismiss()
+            }
         }
     }
 }
