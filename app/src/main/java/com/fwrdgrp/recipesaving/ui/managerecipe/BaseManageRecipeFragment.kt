@@ -1,5 +1,9 @@
 package com.fwrdgrp.recipesaving.ui.managerecipe
 
+import android.content.Context
+import android.content.Intent
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -34,6 +40,18 @@ abstract class BaseManageRecipeFragment : Fragment() {
 
     protected val categories = Category.entries.toMutableList()
     protected val selectedCategoryList = mutableListOf<Category>()
+    protected var image: Uri? = null
+    protected val pickImage = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+        uri?.let {
+            requireContext().contentResolver.takePersistableUriPermission(
+                it,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            )
+            image = it
+            binding.tvAddImage.visibility = View.GONE
+            binding.ivImage.setImageURI(image)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +65,11 @@ abstract class BaseManageRecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupInstructionAdapter()
         setupIngredientAdapter()
+
+        binding.ivImage.setOnClickListener {
+            pickImage.launch(arrayOf("image/*"))
+        }
+
         setupCategorySpinnerAdapter(categories, selectedCategoryList)
         lifecycleScope.launch {
             viewModel.finish.collect {
@@ -61,9 +84,25 @@ abstract class BaseManageRecipeFragment : Fragment() {
         binding.mbSubmit.setOnClickListener {
             setupSubmitOnClick()
         }
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+
     }
 
     abstract fun buildRecipe(category: List<Category>): Recipe
+
+    fun ImageView.loadPersistedUri(context: Context, uri: Uri) {
+        try {
+            val source = ImageDecoder.createSource(context.contentResolver, uri)
+            val drawable = ImageDecoder.decodeDrawable(source)
+            this.setImageDrawable(drawable)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            this.setImageResource(R.drawable.image_save_bg) // fallback
+        }
+    }
 
     protected fun showError(msg: String) {
         val snackbar = Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG)
@@ -134,6 +173,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
             }
         }
     }
+
     protected fun categoryChipDelete(
         categoryList: MutableList<Category>,
         selectedList: MutableList<Category>,
@@ -159,7 +199,9 @@ abstract class BaseManageRecipeFragment : Fragment() {
             viewModel.submitRecipe(
                 buildRecipe(selectedCategoryList),
                 instructionAdapter.fetchInstructions(),
-                ingredientAdapter.fetchIngredient()
+                ingredientAdapter.fetchIngredient(),
+                image ?: null
+
             )
         }
     }

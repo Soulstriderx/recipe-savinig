@@ -3,6 +3,7 @@ package com.fwrdgrp.recipesaving.ui.managerecipe
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -32,6 +33,11 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
     fun setData(recipeDetails: RecipeWithDetails) {
         setCategories(recipeDetails)
         binding.run {
+            recipeDetails.recipe.imageUri?.let { uriString ->
+                val uri = uriString.toUri()
+                binding.tvAddImage.visibility = View.GONE
+                ivImage.loadPersistedUri(binding.root.context, uri)
+            }
             etTitle.setText(recipeDetails.recipe.title)
             etDesc.setText(recipeDetails.recipe.description)
             etTime.setText(recipeDetails.recipe.estTime.toString())
@@ -46,6 +52,7 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
 
         ingredientAdapter.applyIngredient(ingredientList)
     }
+
     fun setCategories(recipeDetails: RecipeWithDetails) {
         selectedCategoryList.apply {
             clear()
@@ -72,7 +79,6 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
                 category = category,
                 estTime = etTime.text.toString().toInt(),
                 totalServing = etServing.text.toString().toInt(),
-                //Add when linkable
                 imageUri = ""
             )
         }

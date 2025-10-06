@@ -28,9 +28,10 @@
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="180dp"
             android:background="@color/t_gray"
-            android:maxHeight="@dimen/space_xxxxxxxxl"/>
+            android:maxHeight="@dimen/space_xxxxxxxxl" />
 
         <Space
             android:id="@+id/imagePadding"
