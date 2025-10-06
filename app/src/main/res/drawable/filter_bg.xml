@@ -8,6 +8,7 @@
                 android:bottom="@dimen/space_xs"
                 android:left="@dimen/space_xs"
                 android:right="@dimen/space_xs" />
+            <stroke android:width="@dimen/space_xxxxs" android:color="@color/t_gray" />
         </shape>
     </item>
     <item android:state_enabled="true">
@@ -18,6 +19,7 @@
                 android:bottom="@dimen/space_xs"
                 android:left="@dimen/space_xs"
                 android:right="@dimen/space_xs" />
+            <stroke android:width="@dimen/space_xxxxs" android:color="@color/t_gray" />
         </shape>
     </item>
 </selector>

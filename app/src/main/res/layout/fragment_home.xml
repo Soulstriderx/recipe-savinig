@@ -34,6 +34,8 @@
         android:background="@color/color_secondary"
         android:paddingVertical="@dimen/space_xs"
         app:tabTextColor="@color/white"
-        app:tabIndicatorHeight="0dp" />
+        app:tabTextAppearance="@style/TabTextSize"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="@dimen/space_xxxxs" />
 
 </RelativeLayout>

@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
@@ -49,7 +51,7 @@ class RecipeOverviewFragment : Fragment() {
     fun setupAdapter() {
         binding.run {
             rvIngredient.adapter = adapter
-            rvIngredient.layoutManager = GridLayoutManager(requireContext(), 2)
+            rvIngredient.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
     }
 

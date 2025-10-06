@@ -23,6 +23,7 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tvHeaderManage.text = getString(R.string.edit_recipe)
         lifecycleScope.launch {
             recipeDetails = viewModel.fetchRecipe(args.recipeId)
             setData(recipeDetails)

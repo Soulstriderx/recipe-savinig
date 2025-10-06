@@ -40,7 +40,7 @@
                 android:layout_width="120dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="@dimen/space_xxxxl"
-                android:backgroundTint="@color/blue"
+                android:backgroundTint="@color/color_secondary"
                 android:text="@string/cancel"
                 app:cornerRadius="@dimen/space_xxs" />
 
@@ -48,7 +48,7 @@
                 android:id="@+id/mbConfirm"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/red"
+                android:backgroundTint="@color/color_primary"
                 android:text="@string/delete"
                 app:cornerRadius="@dimen/space_xxs" />
 

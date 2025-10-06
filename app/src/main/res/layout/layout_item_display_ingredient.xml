@@ -1,51 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="@drawable/box_bg"
     android:padding="@dimen/space_l"
-    android:gravity="center"
+    android:weightSum="3"
     android:layout_marginBottom="@dimen/space_xs" >
 
     <TextView
         android:id="@+id/tvIngredient"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:text="Ingredient"
         android:textStyle="bold"
         android:gravity="center"
+        android:layout_marginEnd="@dimen/space_xxxl"
         android:textSize="@dimen/text_l" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal" >
+        android:text="@string/amount_colon"
+        android:textSize="@dimen/text_m"
+        android:layout_marginEnd="@dimen/space_xxxs"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/amount_colon"
-            android:textSize="@dimen/text_m"
-            android:layout_marginEnd="@dimen/space_xxxxs"/>
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1000"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_m" />
 
-        <TextView
-            android:id="@+id/tvAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1000"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_m" />
-
-        <TextView
-            android:id="@+id/tvUnit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="kg"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_m" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tvUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="kg"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_m" />
 
 </LinearLayout>

@@ -18,6 +18,7 @@
         android:padding="@dimen/space_l">
 
         <TextView
+            android:id="@+id/tvHeaderManage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -84,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/space_l"
                 android:background="@drawable/edit_text_bg"
-                android:hint="Title" />
+                android:hint="@string/title_colon" />
 
             <!--Description-->
             <LinearLayout
@@ -98,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/space_xxs"
-                    android:text="Description"
+                    android:text="@string/description_colon"
                     android:textSize="@dimen/text_l"
                     android:textStyle="bold" />
 
@@ -106,8 +107,8 @@
                     android:id="@+id/tvDescError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_xxs"
-                    android:text="*Description cannot be empty"
+                    android:layout_marginEnd="@dimen/space_xxs"
+                    android:text="@string/description_cannot_be_empty"
                     android:textColor="@color/color_error" />
 
             </LinearLayout>
@@ -119,18 +120,32 @@
                 android:layout_marginBottom="@dimen/space_l"
                 android:background="@drawable/edit_text_bg"
                 android:gravity="start"
-                android:hint="Description"
+                android:hint="@string/description"
                 android:maxHeight="@dimen/space_xxxxxxxl" />
 
             <!--Instructions-->
-            <TextView
-                android:id="@+id/tvInstructions"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/space_xxs"
-                android:text="Instructions"
-                android:textSize="@dimen/text_l"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_xxs"
+                    android:text="@string/instructions_colon"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvInstructionsError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_xxs"
+                    android:text="@string/instructions_cannot_be_empty"
+                    android:textColor="@color/color_error" />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/ivAddInstruction"
@@ -154,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/space_xxs"
-                android:text="Category"
+                android:text="@string/category_colon"
                 android:textSize="@dimen/text_l"
                 android:textStyle="bold" />
 
@@ -171,14 +186,28 @@
                 android:layout_marginBottom="@dimen/space_l" />
 
             <!--Ingredients-->
-            <TextView
-                android:id="@+id/tvIngredients"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/space_xxs"
-                android:text="Ingredients"
-                android:textSize="@dimen/text_l"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_xxs"
+                    android:text="@string/ingredients_colon"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvIngredientsError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_xxs"
+                    android:text="@string/ingredients_cannot_be_empty"
+                    android:textColor="@color/color_error" />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/ivAddIngredient"
@@ -214,7 +243,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/space_xxs"
-                        android:text="Time"
+                        android:text="@string/time_taken"
                         android:textSize="@dimen/text_l"
                         android:textStyle="bold" />
 
@@ -225,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_l"
                         android:background="@drawable/edit_text_bg"
-                        android:hint="Time Taken"
+                        android:hint="@string/time_taken"
                         android:inputType="number" />
                 </LinearLayout>
 
@@ -241,7 +270,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/space_xxs"
-                        android:text="Serving Size"
+                        android:text="@string/serving_size"
                         android:textSize="@dimen/text_l"
                         android:textStyle="bold" />
 
@@ -252,7 +281,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/space_l"
                         android:background="@drawable/edit_text_bg"
-                        android:hint="Serving Size"
+                        android:hint="@string/serving_size"
                         android:inputType="number" />
                 </LinearLayout>
 
@@ -261,14 +290,13 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbSubmit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:text="Submit" />
-
-            <!--Serving-->
-
+                android:layout_marginTop="@dimen/space_xxxl"
+                android:layout_marginHorizontal="@dimen/space_xs"
+                android:backgroundTint="@color/color_primary"
+                android:text="@string/submit" />
 
         </LinearLayout>
 
