@@ -29,7 +29,9 @@ class AddIngredientAdapter(
         val ingredient = ingredients[position]
         holder.binding.run {
             etName.setText(ingredient.first.name)
-            etAmount.setText(ingredient.second.first.toString())
+            etAmount.setText(
+                if (ingredient.second.first == 0.0) "" else ingredient.second.first.toString()
+            )
             etUnit.setText(ingredient.second.second)
 
             etName.doOnTextChanged { text, start, before, count ->

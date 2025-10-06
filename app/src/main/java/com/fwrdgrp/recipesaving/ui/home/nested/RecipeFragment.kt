@@ -2,6 +2,8 @@ package com.fwrdgrp.recipesaving.ui.home.nested
 
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fwrdgrp.recipesaving.data.enums.Filter
+import com.fwrdgrp.recipesaving.data.enums.SortOrder
 import com.fwrdgrp.recipesaving.databinding.FragmentRecipeBinding
 import com.fwrdgrp.recipesaving.ui.adapters.RecipeAdapter
 import com.fwrdgrp.recipesaving.ui.home.HomeFragmentDirections
@@ -26,7 +29,10 @@ class RecipeFragment : Fragment() {
     private lateinit var binding: FragmentRecipeBinding
     private lateinit var adapter: RecipeAdapter
     private lateinit var filterAdapter: ArrayAdapter<Filter>
-    private lateinit var ascDescAdapter: ArrayAdapter<String>
+    private lateinit var ascDescAdapter: ArrayAdapter<SortOrder>
+
+    private var currentFilter = Filter.DATE
+    private var currentSort = SortOrder.ASCENDING
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,9 +55,25 @@ class RecipeFragment : Fragment() {
 
         binding.run {
             tvFilter.setOnClickListener { toggleFilter( llFilter) }
-            mbRandomize.setOnClickListener {  } //View model random filter function
+            mbRandomize.setOnClickListener { randomRecipe() } //View model random filter function
+            etSearch.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(text: Editable?) {
+                    viewModel.setSearch(text.toString())
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            })
         }
 
+    }
+
+    fun randomRecipe() {
+        val recipeId = viewModel.randomRecipe()
+        val action = HomeFragmentDirections.actionHomeToRecipeDetails(recipeId)
+        findNavController().navigate(action)
     }
 
     fun setupFilter() {
@@ -66,8 +88,8 @@ class RecipeFragment : Fragment() {
             spFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val selected = filterAdapter.getItem(position) ?: return
-                    if (selected == Filter.INITIAL) return
-                    //View model filter stuff here
+                    currentFilter = selected
+                    viewModel.setFilter(currentFilter, currentSort)
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
@@ -79,15 +101,15 @@ class RecipeFragment : Fragment() {
             ascDescAdapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                listOf("Asc", "Desc")
+                SortOrder.entries.toList()
             )
             ascDescAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spAscDesc.adapter = ascDescAdapter
             spAscDesc.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val selected = ascDescAdapter.getItem(position) ?: return
-                    if (selected == "Asc") return
-                    //View model filter stuff here
+                    currentSort = selected
+                    viewModel.setFilter(currentFilter, currentSort)
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
