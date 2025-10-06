@@ -200,7 +200,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
                 buildRecipe(selectedCategoryList),
                 instructionAdapter.fetchInstructions(),
                 ingredientAdapter.fetchIngredient(),
-                image ?: null
+                image
 
             )
         }

@@ -13,6 +13,7 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.databinding.LayoutItemRecipeBinding
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Category
+import androidx.core.net.toUri
 
 class RecipeAdapter(
     var recipes: List<Recipe>,
@@ -65,7 +66,7 @@ class RecipeAdapter(
                 tvDescription.text = item.description
                 llRecipe.setOnClickListener { onRecipeClick(item.id) }
                 item.imageUri?.let { uriString ->
-                    val uri = Uri.parse(uriString)
+                    val uri = uriString.toUri()
                     ivImage.loadPersistedUri(itemView.context, uri)
                 }
                 glCategory.removeAllViews()
