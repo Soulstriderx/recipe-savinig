@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/llAddIngredient"
+        android:layout_below="@id/llHeaderDetails"
         android:padding="@dimen/space_xl">
 
         <TextView
@@ -71,63 +71,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="lokasi" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llAddIngredient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/box_bg"
-        android:orientation="vertical"
-        android:paddingVertical="@dimen/space_xs"
-        android:layout_below="@id/llHeaderDetails"
-        android:visibility="gone" >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/add_ingredient"
-            android:textSize="@dimen/text_l"
-            android:textStyle="bold"
-            android:textColor="@color/t_gray_text"
-            android:gravity="center" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="@dimen/space_s"
-            android:weightSum="4">
-
-            <EditText
-                android:id="@+id/etIngredient"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_marginHorizontal="@dimen/space_xxs"
-                android:hint="@string/ingredient"
-                android:background="@drawable/edit_text_bg_2" />
-
-            <EditText
-                android:id="@+id/etAmount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/amount"
-                android:layout_marginHorizontal="@dimen/space_xxs"
-                android:background="@drawable/edit_text_bg_2" />
-
-            <EditText
-                android:id="@+id/etUnit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/unit"
-                android:layout_marginHorizontal="@dimen/space_xxs"
-                android:background="@drawable/edit_text_bg_2" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

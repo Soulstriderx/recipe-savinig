@@ -1,14 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragmentdialogs.AddStoreIngredientDialogFragment">
+    tools:context=".ui.fragmentdialogs.AddStoreDialogFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/box_bg"
+        android:orientation="vertical"
+        android:padding="@dimen/space_xxxl">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_l"
+            android:gravity="center"
+            android:text="@string/store_product_add"
+            android:textSize="@dimen/text_xxl"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xxs"
+            android:text="@string/ingredient_name"
+            android:textSize="@dimen/text_xl" />
+
+        <EditText
+            android:id="@+id/etItemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_l"
+            android:background="@drawable/edit_text_bg_2"
+            android:hint="@string/ingredient_name"
+            android:maxLines="1"
+            android:minLines="1"
+            android:overScrollMode="always" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xxs"
+            android:text="@string/related_ingredient"
+            android:textSize="@dimen/text_xl" />
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/etIngredientName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_l"
+            android:background="@drawable/edit_text_bg_2"
+            android:gravity="start"
+            android:hint="@string/related_ingredient" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xxs"
+            android:text="@string/amount_and_unit"
+            android:textSize="@dimen/text_xl" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_l"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <EditText
+                android:id="@+id/etAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_xs"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="Amount"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/etUnit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_xs"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="Unit" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xxs"
+            android:text="@string/price"
+            android:textSize="@dimen/text_xl" />
+
+        <EditText
+            android:id="@+id/etPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_l"
+            android:background="@drawable/edit_text_bg_2"
+            android:gravity="start"
+            android:hint="@string/price" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_xxxs"
+                android:layout_marginTop="@dimen/space_xxxs"
+                android:backgroundTint="@color/color_secondary"
+                android:paddingVertical="@dimen/space_s"
+                android:text="@string/cancel"
+                android:textSize="@dimen/text_xl" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_xxxs"
+                android:layout_marginTop="@dimen/space_xxxs"
+                android:backgroundTint="@color/color_primary"
+                android:paddingVertical="@dimen/space_s"
+                android:text="@string/add"
+                android:textSize="@dimen/text_xl" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
