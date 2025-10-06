@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.databinding.FragmentStoresBinding
 import com.fwrdgrp.recipesaving.ui.adapters.StoresAdapter
 
@@ -36,8 +35,9 @@ class StoresFragment : Fragment() {
         binding.run {
             adapter = StoresAdapter(
                 emptyList(),
-                findNavController().navigate(
+                { findNavController().navigate(
                     StoresFragmentDirections.actionStoresToStoreDetails(it))
+                }
             )
             rvStores.adapter = adapter
             rvStores.layoutManager = LinearLayoutManager(requireContext())

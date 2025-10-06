@@ -44,6 +44,8 @@
         android:id="@+id/rvStores"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_background"
+        android:layout_alignParentBottom="true"
         android:layout_below="@id/llHeader" />
 
 </RelativeLayout>
