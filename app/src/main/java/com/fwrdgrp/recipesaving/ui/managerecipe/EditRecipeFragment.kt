@@ -28,13 +28,21 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
         lifecycleScope.launch {
             recipeDetails = viewModel.fetchRecipe(args.recipeId)
             setData(recipeDetails)
+
+            populateExistingCategories(
+                recipeDetails.recipe.category,
+                categories,
+                selectedCategoryList
+            )
         }
     }
+
     fun setData(recipeDetails: RecipeWithDetails) {
-        setCategories(recipeDetails)
+        setCategories()
         binding.run {
             recipeDetails.recipe.imageUri?.let { uriString ->
                 val uri = uriString.toUri()
+                image = uri
                 binding.tvAddImage.visibility = View.GONE
                 ivImage.loadPersistedUri(binding.root.context, uri)
             }
@@ -53,13 +61,7 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
         ingredientAdapter.applyIngredient(ingredientList)
     }
 
-    fun setCategories(recipeDetails: RecipeWithDetails) {
-        selectedCategoryList.apply {
-            clear()
-            addAll(recipeDetails.recipe.category)
-        }
-
-        categories.removeAll(recipeDetails.recipe.category)
+    fun setCategories() {
         binding.glCategory.removeAllViews()
         for (category in selectedCategoryList) {
             val tvCategory = TextView(requireContext()).apply {
@@ -79,7 +81,7 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
                 category = category,
                 estTime = etTime.text.toString().toInt(),
                 totalServing = etServing.text.toString().toInt(),
-                imageUri = ""
+                imageUri = recipeDetails.recipe.imageUri
             )
         }
     }

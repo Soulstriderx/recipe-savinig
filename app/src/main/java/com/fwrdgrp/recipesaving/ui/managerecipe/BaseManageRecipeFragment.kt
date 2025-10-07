@@ -212,6 +212,24 @@ abstract class BaseManageRecipeFragment : Fragment() {
         }
     }
 
+    protected fun populateExistingCategories(
+        existingCategories: List<Category>,
+        categoryList: MutableList<Category>,
+        selectedList: MutableList<Category>
+    ) {
+        selectedList.clear()
+        selectedList.addAll(existingCategories)
+
+        categoryList.removeAll(existingCategories)
+
+        existingCategories.forEach { category ->
+            val tvCategory = categoryChipDelete(categoryList, selectedList, category)
+            binding.glCategory.addView(tvCategory)
+        }
+
+        categoryAdapter.notifyDataSetChanged()
+    }
+
     protected fun setupSubmitOnClick() {
         lifecycleScope.launch(Dispatchers.IO) {
             viewModel.submitRecipe(
