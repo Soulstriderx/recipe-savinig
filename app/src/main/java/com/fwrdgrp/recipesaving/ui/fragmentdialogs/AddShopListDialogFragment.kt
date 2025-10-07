@@ -7,12 +7,24 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.databinding.FragmentAddShopListDialogBinding
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
+import kotlin.getValue
 
-class AddShopListDialogFragment : DialogFragment() {
+class AddShopListDialogFragment(
+    private val shopListData: (listName: String, store: Store) -> Unit
+) : DialogFragment() {
+    private val viewModel: AddShopListDialogViewModel by viewModels {
+        AddShopListDialogViewModel.Factory
+    }
     private lateinit var binding: FragmentAddShopListDialogBinding
     private lateinit var spinnerAdapter: ArrayAdapter<Store>
+
+    private var selectedStore: Store? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,23 +36,45 @@ class AddShopListDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupSpinner()
+        lifecycleScope.launch {
+            viewModel.stores.filterNotNull().collect {
+                setupSpinner(it)
+            }
+        }
+
+        binding.run {
+            mbCancel.setOnClickListener { dismiss() }
+            mbAdd.setOnClickListener {
+                val name = etListName.text.toString()
+                val store = selectedStore
+
+                if (name.isNotEmpty() && store != null) {
+                    shopListData(name, store)
+                    dismiss()
+                }
+            }
+        }
     }
 
-    fun setupSpinner() {
+    fun setupSpinner(stores: List<Store>) {
         binding.run {
             spinnerAdapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_spinner_item,
-                //Items here
+                stores
             )
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spStoreName.adapter = spinnerAdapter
             spStoreName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val selected = spinnerAdapter.getItem(position) ?: return
-                    //Selected thing here
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedStore = spinnerAdapter.getItem(position)
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
         }

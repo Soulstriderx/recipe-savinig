@@ -27,7 +27,7 @@
         android:textSize="@dimen/text_xl" />
 
     <EditText
-        android:id="@+id/etStoreName"
+        android:id="@+id/etListName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/space_l"
