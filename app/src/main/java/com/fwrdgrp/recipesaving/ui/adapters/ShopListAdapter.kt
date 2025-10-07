@@ -3,10 +3,13 @@ package com.fwrdgrp.recipesaving.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithStoreAndItems
 import com.fwrdgrp.recipesaving.databinding.LayoutItemShopListBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class ShopListAdapter(
-    var shopList: List<String>,
+    var shoppingList: List<ShoppingListWithStoreAndItems>,
     val onClick: (Int) -> Unit
 ): RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>() {
     override fun onCreateViewHolder(
@@ -22,23 +25,30 @@ class ShopListAdapter(
         holder: ShopListViewHolder,
         position: Int
     ) {
-        val shopList = shopList[position]
-//        holder.bind(shopList)
+        val shoppingList = shoppingList[position]
+        holder.bind(shoppingList)
     }
 
-    override fun getItemCount() = shopList.size
+    override fun getItemCount() = shoppingList.size
 
-    fun applyShopList(shopList: List<String>) {
-        //I don't know why, but it needs to turn this list into another list?
-        this.shopList = shopList.toList()
+    fun applyShopList(shopList: List<ShoppingListWithStoreAndItems>) {
+        this.shoppingList = shopList.toList()
         notifyDataSetChanged()
     }
 
     inner class ShopListViewHolder(
         val binding: LayoutItemShopListBinding
     ): RecyclerView.ViewHolder(binding.root) {
-//        fun bind(item: ShopList) {
-//
-//        }
+        fun bind(item: ShoppingListWithStoreAndItems) {
+            val formatter = SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault())
+            val totalPrice = item.items.flatMap { it.storeItems }.sumOf { it.price ?: 0.0 }
+            binding.run {
+                tvName.text = item.shoppingList.name
+                tvStore.text = item.store.name.toString()
+                tvTotalItems.text = item.items.size.toString()
+                tvDate.text = formatter.format(item.shoppingList.dateCreated)
+                tvTotalPrice.text = totalPrice.toString()
+            }
+        }
     }
 }

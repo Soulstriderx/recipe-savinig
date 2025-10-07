@@ -10,6 +10,7 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingList
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithItems
+import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithStoreAndItems
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreWithItemsDetails
@@ -65,6 +66,13 @@ interface ShoppingDao {
     @Delete
     suspend fun deleteShoppingList(list: ShoppingList)
 
+    @Query("SELECT * FROM ShoppingList WHERE id = :listId")
+    suspend fun getShoppingListWithStoreAndItems(listId: Int): ShoppingListWithStoreAndItems
+
+    @Transaction
+    @Query("SELECT * FROM ShoppingList ORDER BY dateCreated DESC")
+    fun getAllShoppingListsWithStoreAndItems(): Flow<List<ShoppingListWithStoreAndItems>>
+
     // ---- SHOPPING LIST ITEMS ----
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertShoppingListItem(item: ShoppingListItem)
@@ -74,5 +82,7 @@ interface ShoppingDao {
 
     @Query("UPDATE ShoppingListItem SET bought = :bought WHERE listId = :listId AND ingredientId = :ingredientId")
     suspend fun updateBoughtStatus(listId: Int, ingredientId: Int, bought: Boolean)
+
+
 
 }

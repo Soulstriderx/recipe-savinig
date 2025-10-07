@@ -8,4 +8,8 @@ data class Store(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
     val location: String?
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}
