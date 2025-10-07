@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_background"
+
     tools:context=".ui.detailsshoplist.ShopListDetailsFragment">
 
     <RelativeLayout
@@ -13,6 +15,14 @@
         android:background="@color/color_secondary"
         android:orientation="horizontal"
         android:padding="@dimen/space_l" >
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
 
         <TextView
             android:id="@+id/tvShopListName"
@@ -37,12 +47,12 @@
     <LinearLayout
         android:id="@+id/llAddIngredient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@drawable/box_bg"
         android:orientation="vertical"
         android:paddingVertical="@dimen/space_xs"
-        android:layout_below="@id/llHeaderDetails"
-        android:visibility="gone" >
+        android:elevation="@dimen/space_xs"
+        android:layout_below="@id/llHeaderDetails">
 
         <TextView
             android:layout_width="match_parent"
@@ -50,7 +60,6 @@
             android:text="@string/add_ingredient"
             android:textSize="@dimen/text_l"
             android:textStyle="bold"
-            android:textColor="@color/t_gray_text"
             android:gravity="center" />
 
         <LinearLayout
@@ -89,12 +98,49 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/store"
+            android:textSize="@dimen/text_l"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <Spinner
+            android:id="@+id/spStoreName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_xs"
+            android:background="@drawable/edit_text_bg_2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbAdd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/color_primary"
+            android:paddingVertical="@dimen/space_s"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:layout_marginTop="@dimen/space_l"
+            android:text="@string/add_recipes"
+            android:textSize="@dimen/text_xl" />
+
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvStoreIngredients"
+    <TextView
+        android:id="@+id/tvStoreName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/llAddIngredient" />
+        android:layout_below="@id/llHeaderDetails"
+        android:gravity="center"
+        android:padding="@dimen/space_xs"
+        android:text="@string/store"
+        android:textSize="@dimen/text_xxxl"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvShopListDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvStoreName" />
 
 </RelativeLayout>
