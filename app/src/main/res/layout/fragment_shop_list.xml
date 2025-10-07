@@ -58,45 +58,30 @@
         android:id="@+id/llFilter"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:background="@color/white"
         android:layout_below="@id/llHeader"
         android:clickable="true"
         android:elevation="@dimen/space_xs"
-        android:padding="@dimen/space_l">
+        android:padding="@dimen/space_l"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/space_xs"
+        android:weightSum="3">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spFilter"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/space_xs"
-            android:weightSum="3">
+            android:background="@drawable/filter_bg"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:layout_weight="2" />
 
-            <Spinner
-                android:id="@+id/spFilter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/filter_bg"
-                android:layout_marginHorizontal="@dimen/space_xs"
-                android:layout_weight="2" />
-
-            <Spinner
-                android:id="@+id/spAscDesc"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/filter_bg"
-                android:layout_marginHorizontal="@dimen/space_xs"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/mbRandomize"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spAscDesc"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/color_primary"
-            android:text="@string/i_m_feeling_lucky"
-            android:textSize="@dimen/text_l"/>
+            android:background="@drawable/filter_bg"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
@@ -104,7 +89,7 @@
         android:id="@+id/rvShopList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/llHeader"/>
+        android:layout_below="@id/llFilter"/>
 
 
 </RelativeLayout>
