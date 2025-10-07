@@ -28,6 +28,7 @@ import com.fwrdgrp.recipesaving.ui.adapters.AddIngredientAdapter
 import com.fwrdgrp.recipesaving.ui.adapters.AddInstructionAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 abstract class BaseManageRecipeFragment : Fragment() {
@@ -42,17 +43,18 @@ abstract class BaseManageRecipeFragment : Fragment() {
     protected val selectedCategoryList = mutableListOf<Category>()
     protected var image: Uri? = null
 
-    protected val pickImage = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
-        uri?.let {
-            requireContext().contentResolver.takePersistableUriPermission(
-                it,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-            )
-            image = it
-            binding.tvAddImage.visibility = View.GONE
-            binding.ivImage.setImageURI(image)
+    protected val pickImage =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+            uri?.let {
+                requireContext().contentResolver.takePersistableUriPermission(
+                    it,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                )
+                image = it
+                binding.tvAddImage.visibility = View.GONE
+                binding.ivImage.setImageURI(image)
+            }
         }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,11 +78,15 @@ abstract class BaseManageRecipeFragment : Fragment() {
                 showError(it)
             }
         }
+        lifecycleScope.launch {
+            viewModel.ingredientList.filterNotNull().collect {
+                setupIngredientAdapter(it.map { it.name })
+            }
+        }
     }
 
     fun setupAllItems() {
         setupInstructionAdapter()
-        setupIngredientAdapter()
         setupCategorySpinnerAdapter(categories, selectedCategoryList)
         setOnClickListeners()
     }
@@ -134,8 +140,9 @@ abstract class BaseManageRecipeFragment : Fragment() {
         }
     }
 
-    protected fun setupIngredientAdapter() {
+    protected fun setupIngredientAdapter(ingredients: List<String>) {
         ingredientAdapter = AddIngredientAdapter(
+            ingredients,
             mutableListOf(
                 Pair(
                     Ingredient(name = ""),

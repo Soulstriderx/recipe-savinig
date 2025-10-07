@@ -6,7 +6,7 @@
     android:padding="@dimen/space_xs"
     android:weightSum="10">
 
-    <EditText
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/etName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

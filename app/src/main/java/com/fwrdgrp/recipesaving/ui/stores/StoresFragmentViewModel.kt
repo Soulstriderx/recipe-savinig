@@ -1,6 +1,4 @@
 package com.fwrdgrp.recipesaving.ui.stores
-
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
