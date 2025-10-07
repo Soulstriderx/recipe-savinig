@@ -8,16 +8,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/space_xxxl"
+        android:layout_centerInParent="true"
         android:background="@drawable/box_bg"
-        android:layout_centerInParent="true" >
+        android:orientation="vertical"
+        android:padding="@dimen/space_xxxl">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginBottom="@dimen/space_l"
+            android:gravity="center"
             android:text="@string/store_details"
             android:textSize="@dimen/text_xxl"
             android:textStyle="bold" />
@@ -25,46 +25,69 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xxs"
             android:text="@string/name"
-            android:textSize="@dimen/text_xl"
-            android:layout_marginBottom="@dimen/space_xxs"/>
+            android:textSize="@dimen/text_xl" />
 
         <EditText
+            android:id="@+id/etStoreName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_l"
             android:background="@drawable/edit_text_bg_2"
-            android:minLines="1"
-            android:maxLines="1"
-            android:overScrollMode="always"
             android:hint="@string/store_name"
-            android:layout_marginBottom="@dimen/space_l"/>
+            android:maxLines="1"
+            android:minLines="1"
+            android:overScrollMode="always" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_xxs"
             android:text="@string/location"
-            android:textSize="@dimen/text_xl"
-            android:layout_marginBottom="@dimen/space_xxs"/>
+            android:textSize="@dimen/text_xl" />
 
         <EditText
+            android:id="@+id/etStoreLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minLines="4"
-            android:maxLines="4"
-            android:overScrollMode="always"
-            android:gravity="start"
             android:background="@drawable/edit_text_bg_2"
-            android:hint="@string/store_location" />
+            android:gravity="start"
+            android:hint="@string/store_location"
+            android:maxLines="4"
+            android:minLines="4"
+            android:overScrollMode="always" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/mbAdd"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/color_primary"
-            android:paddingVertical="@dimen/space_s"
-            android:layout_marginTop="@dimen/text_l"
-            android:text="@string/add"
-            android:textSize="@dimen/text_xl" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_xxxs"
+                android:layout_marginTop="@dimen/space_xxxs"
+                android:backgroundTint="@color/color_secondary"
+                android:paddingVertical="@dimen/space_s"
+                android:text="@string/cancel"
+                android:textSize="@dimen/text_xl" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_xxxs"
+                android:layout_marginTop="@dimen/space_xxxs"
+                android:backgroundTint="@color/color_primary"
+                android:paddingVertical="@dimen/space_s"
+                android:text="@string/add"
+                android:textSize="@dimen/text_xl" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

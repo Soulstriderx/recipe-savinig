@@ -63,17 +63,9 @@
         android:label="fragment_stores"
         tools:layout="@layout/fragment_stores" >
         <action
-            android:id="@+id/action_stores_to_addStoreDialog"
-            app:destination="@id/addStoreDialogFragment" />
-        <action
             android:id="@+id/action_stores_to_storeDetails"
             app:destination="@id/storeDetailsFragment" />
     </fragment>
-    <dialog
-        android:id="@+id/addStoreDialogFragment"
-        android:name="com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddStoreDialogFragment"
-        android:label="fragment_add_store_dialog"
-        tools:layout="@layout/fragment_add_store_dialog" />
     <fragment
         android:id="@+id/storeDetailsFragment"
         android:name="com.fwrdgrp.recipesaving.ui.stores.detailsstore.StoreDetailsFragment"

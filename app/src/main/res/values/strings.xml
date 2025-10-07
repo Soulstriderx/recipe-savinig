@@ -51,4 +51,10 @@
     <string name="store_details">Store Details</string>
     <string name="add_ingredient">Add Ingredient</string>
     <string name="title">Title</string>
+    <string name="store_product_add">Store Product Add</string>
+    <string name="ingredient_name">Ingredient Name</string>
+    <string name="related_ingredient">Related Ingredient</string>
+    <string name="amount_and_unit">Amount and Unit</string>
+    <string name="price">Price</string>
+    <string name="store_item_amount">%1$s%2$s</string>
 </resources>

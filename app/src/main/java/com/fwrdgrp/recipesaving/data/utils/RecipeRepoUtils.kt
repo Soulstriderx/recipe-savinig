@@ -27,4 +27,9 @@ class RecipeRepoUtils(private val dao: RecipeDao) {
             )
         }
     }
+
+    suspend fun addSingleIngredients(ingredientName: String): Int {
+        val exist = dao.getIngredientByName(ingredientName)
+        return exist?.id ?: dao.upsertIngredient(Ingredient(name = ingredientName)).toInt()
+    }
 }

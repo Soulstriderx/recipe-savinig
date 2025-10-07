@@ -3,29 +3,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_background"
     tools:context=".ui.stores.detailsstore.StoreDetailsFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/llHeaderDetails"
         android:layout_width="match_parent"
         android:layout_height="@dimen/space_xxxxxl"
         android:layout_alignParentTop="true"
         android:background="@color/color_secondary"
-        android:gravity="center"
-        android:orientation="horizontal"
         android:padding="@dimen/space_l">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/tvHeaderDetails"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="Placeholder"
             android:textColor="@color/white"
             android:textSize="@dimen/text_xxxxl"
             android:textStyle="bold" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_add_2" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/llDetails"

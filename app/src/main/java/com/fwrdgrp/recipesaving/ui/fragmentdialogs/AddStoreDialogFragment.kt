@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.databinding.FragmentAddStoreDialogBinding
 
-class AddStoreDialogFragment : DialogFragment() {
+class AddStoreDialogFragment(
+    private val storeData: (storeName: String, storeLocation: String?) -> Unit
+) : DialogFragment() {
     private lateinit var binding: FragmentAddStoreDialogBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,5 +21,14 @@ class AddStoreDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.run {
+            mbCancel.setOnClickListener { dismiss() }
+            mbAdd.setOnClickListener {
+                val name = etStoreName.text.toString()
+                val location = etStoreLocation.text.toString()
+                storeData(name, location)
+                dismiss()
+            }
+        }
     }
 }

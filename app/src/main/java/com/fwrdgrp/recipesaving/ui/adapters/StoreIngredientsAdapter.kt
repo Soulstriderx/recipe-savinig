@@ -3,21 +3,23 @@ package com.fwrdgrp.recipesaving.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
+import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.models.shopping.StoreItemWithDetails
 import com.fwrdgrp.recipesaving.databinding.LayoutItemIngredientWithPriceBinding
 
 class StoreIngredientsAdapter(
-    var ingredients: List<StoreItem>,
+    var storeItem: List<StoreItemWithDetails>,
     val onEditClick: (Int) -> Unit,
     val onDeleteClick: (Int) -> Unit
-): RecyclerView.Adapter<StoreIngredientsAdapter.StoreIngredientsViewHolder>() {
+) : RecyclerView.Adapter<StoreIngredientsAdapter.StoreIngredientsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): StoreIngredientsViewHolder {
         val binding =
             LayoutItemIngredientWithPriceBinding.inflate(
-                LayoutInflater.from(parent.context), parent, false)
+                LayoutInflater.from(parent.context), parent, false
+            )
         return StoreIngredientsViewHolder(binding)
     }
 
@@ -25,25 +27,32 @@ class StoreIngredientsAdapter(
         holder: StoreIngredientsViewHolder,
         position: Int
     ) {
-        val ingredient = ingredients[position]
-        holder.bind(ingredient)
+        val storeItem = storeItem[position]
+        holder.bind(storeItem)
     }
 
-    override fun getItemCount() = ingredients.size
+    override fun getItemCount() = storeItem.size
 
-    fun applyIngredients(ingredients: List<StoreItem>) {
-        this.ingredients = ingredients.toList()
+    fun applyStoreItemWithDetails(storeItem: List<StoreItemWithDetails>) {
+        this.storeItem = storeItem.toList()
         notifyDataSetChanged()
     }
 
     inner class StoreIngredientsViewHolder(
         val binding: LayoutItemIngredientWithPriceBinding
-    ): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: StoreItem) {
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: StoreItemWithDetails) {
             binding.run {
-                tvIngredient.text = item.name
-//                tvAmount.text =
-                tvPrice.text = item.price.toString()
+                tvIngredient.text = item.storeItem.name
+                tvAmount.text = root.context.getString(
+                    R.string.store_item_amount,
+                    item.storeItem.packageAmount.toString(),
+                    item.storeItem.packageUnit
+                )
+                tvPrice.text = item.storeItem.price.toString()
+                llIngredient.setOnClickListener {
+                    onDeleteClick(item.storeItem.id)
+                }
             }
         }
     }

@@ -1,13 +1,16 @@
 package com.fwrdgrp.recipesaving.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.databinding.LayoutItemAddIngredientBinding
 
 class AddIngredientAdapter(
+    val suggestions: List<String>,
     var ingredients: MutableList<Pair<Ingredient, Pair<Double, String>>>
 ) : RecyclerView.Adapter<AddIngredientAdapter.IngredientViewHolder>() {
     override fun onCreateViewHolder(
@@ -28,6 +31,8 @@ class AddIngredientAdapter(
     ) {
         val ingredient = ingredients[position]
         holder.binding.run {
+            val adapter = setupInternalAdapter(root.context)
+            etName.setAdapter(adapter)
             etName.setText(ingredient.first.name)
             etAmount.setText(
                 if (ingredient.second.first == 0.0) "" else ingredient.second.first.toString()
@@ -40,7 +45,6 @@ class AddIngredientAdapter(
                     ingredient.copy(
                         first = Ingredient(name = text.toString()),
                         second = current.second
-
                     )
             }
             etAmount.doOnTextChanged { text, start, before, count ->
@@ -66,6 +70,15 @@ class AddIngredientAdapter(
     fun applyIngredient(ingredients: List<Pair<Ingredient, Pair<Double, String>>>) {
         this.ingredients = ingredients.toMutableList()
         notifyDataSetChanged()
+    }
+
+    fun setupInternalAdapter(context: Context): ArrayAdapter<String>{
+        val adapter = ArrayAdapter(
+            context,
+            android.R.layout.simple_dropdown_item_1line,
+            suggestions
+        )
+        return adapter
     }
 
     fun addIngredient() {

@@ -15,6 +15,11 @@ class RecipeRepo(
 ) {
     private val utils = RecipeRepoUtils(dao)
 
+    @Transaction
+    fun getAllIngredients(): Flow<List<Ingredient>> {
+        return dao.getAllIngredients()
+    }
+
     //add
     @Transaction
     suspend fun addRecipeWithDetails(
@@ -25,6 +30,11 @@ class RecipeRepo(
         val recipeId = dao.insertRecipe(recipe).toInt()
         utils.addInstructions(instruction, recipeId)
         utils.addIngredients(ingredients, recipeId)
+    }
+
+    @Transaction
+    suspend fun upsertIngredient(ingredientName: String): Int {
+        return utils.addSingleIngredients(ingredientName)
     }
 
     //delete
