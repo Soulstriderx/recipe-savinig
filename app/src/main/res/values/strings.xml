@@ -57,4 +57,6 @@
     <string name="amount_and_unit">Amount and Unit</string>
     <string name="price">Price</string>
     <string name="store_item_amount">%1$s%2$s</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="store">Store</string>
 </resources>

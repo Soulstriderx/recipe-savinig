@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="@drawable/box_bg"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="@dimen/space_xxxl"
+    tools:context=".ui.fragmentdialogs.AddShopListDialogFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_l"
+        android:gravity="center"
+        android:text="@string/shopping_list"
+        android:textSize="@dimen/text_xxl"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_xxs"
+        android:text="@string/name"
+        android:textSize="@dimen/text_xl" />
+
+    <EditText
+        android:id="@+id/etStoreName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_l"
+        android:background="@drawable/edit_text_bg_2"
+        android:hint="@string/name"
+        android:maxLines="1"
+        android:minLines="1"
+        android:overScrollMode="always" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_xxs"
+        android:text="@string/store"
+        android:textSize="@dimen/text_xl" />
+
+    <Spinner
+        android:id="@+id/spStoreName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg_2"
+        android:paddingVertical="@dimen/space_xs"
+        android:layout_marginBottom="@dimen/space_xxl" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/space_l"
+            android:layout_marginTop="@dimen/space_xxxs"
+            android:backgroundTint="@color/color_secondary"
+            android:paddingVertical="@dimen/space_s"
+            android:text="@string/cancel"
+            android:textSize="@dimen/text_xl" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mbAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/space_l"
+            android:layout_marginTop="@dimen/space_xxxs"
+            android:backgroundTint="@color/color_primary"
+            android:paddingVertical="@dimen/space_s"
+            android:text="@string/add"
+            android:textSize="@dimen/text_xl" />
+
+    </LinearLayout>
+
+</LinearLayout>

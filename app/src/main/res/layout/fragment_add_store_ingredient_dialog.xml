@@ -110,13 +110,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbCancel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_xxxs"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/space_l"
                 android:layout_marginTop="@dimen/space_xxxs"
                 android:backgroundTint="@color/color_secondary"
                 android:paddingVertical="@dimen/space_s"
@@ -125,9 +127,10 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbAdd"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_xxxs"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/space_l"
                 android:layout_marginTop="@dimen/space_xxxs"
                 android:backgroundTint="@color/color_primary"
                 android:paddingVertical="@dimen/space_s"
