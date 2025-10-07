@@ -141,6 +141,6 @@
         android:id="@+id/rvShopListDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvStoreName" />
+        android:layout_below="@id/llAddIngredient" />
 
 </RelativeLayout>
