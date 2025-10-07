@@ -6,6 +6,7 @@
     android:layout_marginHorizontal="@dimen/space_l"
     android:layout_marginTop="@dimen/space_l"
     android:elevation="@dimen/space_xs"
+    android:background="@drawable/box_bg"
     android:padding="@dimen/text_l">
 
     <TextView
