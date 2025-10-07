@@ -25,14 +25,13 @@
         android:text="Location"
         android:textSize="@dimen/text_l" />
 
-
     <ImageView
         android:id="@+id/ivDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/ivArrow"
-        android:src="@drawable/ic_arrow_right" />
+        android:src="@drawable/ic_trash" />
 
     <ImageView
         android:id="@+id/ivArrow"

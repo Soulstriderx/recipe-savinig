@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llShopList"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/text_l"
     android:layout_marginHorizontal="@dimen/space_l"
     android:layout_marginTop="@dimen/space_l"
+    android:background="@drawable/box_bg"
     android:elevation="@dimen/space_xs" >
 
     <LinearLayout
@@ -19,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Ingredient"
+            android:text="Shopping List"
             android:textSize="@dimen/text_xl"
             android:textStyle="bold"/>
 

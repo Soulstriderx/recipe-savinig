@@ -50,7 +50,8 @@ class ShopListFragment : Fragment() {
         binding.run {
             adapter = ShopListAdapter(
                 emptyList(),
-                {} //Details
+                { findNavController().navigate(
+                    HomeFragmentDirections.actionHomeToShopListDetails(it)) }
             )
             rvShopList.adapter = adapter
             rvShopList.layoutManager = LinearLayoutManager(requireContext())

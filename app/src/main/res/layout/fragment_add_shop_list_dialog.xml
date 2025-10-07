@@ -57,26 +57,29 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="13">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mbCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/space_l"
+            android:layout_weight="6"
             android:layout_marginTop="@dimen/space_xxxs"
             android:backgroundTint="@color/color_secondary"
             android:paddingVertical="@dimen/space_s"
             android:text="@string/cancel"
             android:textSize="@dimen/text_xl" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mbAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/space_l"
+            android:layout_weight="6"
             android:layout_marginTop="@dimen/space_xxxs"
             android:backgroundTint="@color/color_primary"
             android:paddingVertical="@dimen/space_s"

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_home_to_stores"
             app:destination="@id/storesFragment" />
+        <action
+            android:id="@+id/action_home_to_shopListDetails"
+            app:destination="@id/shopListDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
@@ -63,5 +66,12 @@
         android:label="fragment_store_details"
         tools:layout="@layout/fragment_store_details">
         <argument android:name="storeId" app:argType="integer" app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopListDetailsFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.detailsshoplist.ShopListDetailsFragment"
+        android:label="fragment_shop_list_details"
+        tools:layout="@layout/fragment_shop_list_details">
+        <argument android:name="shopListId" app:argType="integer" app:nullable="false" />
     </fragment>
 </navigation>

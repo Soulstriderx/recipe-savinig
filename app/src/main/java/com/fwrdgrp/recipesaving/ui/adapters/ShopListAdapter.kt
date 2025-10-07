@@ -43,8 +43,9 @@ class ShopListAdapter(
             val formatter = SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault())
             val totalPrice = item.items.flatMap { it.storeItems }.sumOf { it.price ?: 0.0 }
             binding.run {
+                llShopList.setOnClickListener { onClick(item.shoppingList.id) }
                 tvName.text = item.shoppingList.name
-                tvStore.text = item.store.name.toString()
+                tvStore.text = item.store.name
                 tvTotalItems.text = item.items.size.toString()
                 tvDate.text = formatter.format(item.shoppingList.dateCreated)
                 tvTotalPrice.text = totalPrice.toString()
