@@ -3,11 +3,11 @@ package com.fwrdgrp.recipesaving.data.models.shopping
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
+import androidx.room.PrimaryKey
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 
 
 @Entity(
-    primaryKeys = ["listId", "ingredientId"],
     foreignKeys = [
         ForeignKey(
             entity = ShoppingList::class,
@@ -25,6 +25,7 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
     indices = [Index("listId"), Index("ingredientId")]
 )
 data class ShoppingListItem(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val listId: Int,
     val ingredientId: Int,
     val amountNeeded: Double,

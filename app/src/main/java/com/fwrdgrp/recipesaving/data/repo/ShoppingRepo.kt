@@ -1,14 +1,16 @@
 package com.fwrdgrp.recipesaving.data.repo
 
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingList
-import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
+import com.fwrdgrp.recipesaving.data.utils.ShoppingRepoUtils
 import com.fwrdgrp.recipesaving.database.ShoppingDao
 
 class ShoppingRepo(
     private val dao: ShoppingDao,
 ) {
+    private val utils = ShoppingRepoUtils(dao)
+
     // ---- Stores ----
     fun getStores() = dao.getAllStores()
 
@@ -27,11 +29,21 @@ class ShoppingRepo(
 
     //    fun getShoppingListById(id: Int) = dao.getShoppingListById(id)
     suspend fun upsertShoppingList(list: ShoppingList) = dao.upsertShoppingList(list)
-    suspend fun deleteShoppingList(list: ShoppingList) = dao.deleteShoppingList(list)
+    suspend fun updateShoppingList(list: ShoppingList) = dao.updateShoppingList(list)
+//    suspend fun deleteShoppingList(list: ShoppingList) = dao.deleteShoppingList(list)
 
     // ---- Shopping List Items ----
 //    fun getShoppingListItems(listId: Int) = dao.getShoppingListItems(listId)
-    suspend fun upsertShoppingListItem(item: ShoppingListItem) = dao.upsertShoppingListItem(item)
+    suspend fun upsertShoppingListItem(
+        id: Int,
+        ingredient: String,
+        price: Double,
+        unit: String
+    ) {
+        val ingredientId = utils.addSingleIngredients(ingredient)
+        val shoppingListItem = utils.buildShoppingListItem(id, ingredientId, price, unit)
+        dao.upsertShoppingListItem(shoppingListItem)
+    }
 
     //    suspend fun deleteShoppingListItem(item: ShoppingListItem) = dao.deleteShoppingListItem(item)
     suspend fun toggleBought(listId: Int, ingredientId: Int, bought: Boolean) =
@@ -46,4 +58,6 @@ class ShoppingRepo(
         dao.getShoppingListWithStoreAndItems(listId)
 
     fun getAllShoppingListWithStoreAndItems() = dao.getAllShoppingListsWithStoreAndItems()
+
+    fun getAllShoppingList() = dao.getShoppingListItem()
 }

@@ -1,11 +1,12 @@
 package com.fwrdgrp.recipesaving.database
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
+import androidx.room.Update
+import androidx.room.Upsert
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingList
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
@@ -21,6 +22,9 @@ interface ShoppingDao {
     // ---- INGREDIENTS ----
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertIngredient(ingredient: Ingredient): Long
+
+    @Query("SELECT * FROM Ingredient WHERE LOWER(name) = LOWER(:name) LIMIT 1")
+    suspend fun getIngredientByName(name: String): Ingredient?
 
     @Query("SELECT * FROM Ingredient")
     fun getAllIngredients(): Flow<List<Ingredient>>
@@ -53,8 +57,11 @@ interface ShoppingDao {
     suspend fun getCheapestStoreItem(ingredientId: Int): StoreItem?
 
     // ---- SHOPPING LISTS ----
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun upsertShoppingList(list: ShoppingList): Long
+
+    @Update
+    suspend fun updateShoppingList(list: ShoppingList)
 
     @Query("SELECT * FROM ShoppingList")
     fun getAllShoppingLists(): Flow<List<ShoppingList>>
@@ -63,8 +70,8 @@ interface ShoppingDao {
     @Query("SELECT * FROM ShoppingList WHERE id = :listId")
     fun getShoppingListWithItems(listId: Int): Flow<ShoppingListWithItems>
 
-    @Delete
-    suspend fun deleteShoppingList(list: ShoppingList)
+//    @Query("SELECT * FROM ShoppingList")
+//    suspend fun deleteShoppingList(list: ShoppingList): Flow<ShoppingList>
 
     @Query("SELECT * FROM ShoppingList WHERE id = :listId")
     suspend fun getShoppingListWithStoreAndItems(listId: Int): ShoppingListWithStoreAndItems
@@ -74,8 +81,11 @@ interface ShoppingDao {
     fun getAllShoppingListsWithStoreAndItems(): Flow<List<ShoppingListWithStoreAndItems>>
 
     // ---- SHOPPING LIST ITEMS ----
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Upsert
     suspend fun upsertShoppingListItem(item: ShoppingListItem)
+
+    @Query("SELECT * FROM ShoppingListItem")
+    fun getShoppingListItem(): Flow<List<ShoppingListItem>>
 
     @Query("SELECT * FROM ShoppingListItem WHERE listId = :listId")
     fun getItemsForList(listId: Int): Flow<List<ShoppingListItem>>

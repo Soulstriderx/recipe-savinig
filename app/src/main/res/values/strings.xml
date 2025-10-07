@@ -59,4 +59,6 @@
     <string name="store_item_amount">%1$s%2$s</string>
     <string name="shopping_list">Shopping List</string>
     <string name="store">Store</string>
+    <string name="store_detail_price">%.2f</string>
+    <string name="shoplist_store_display">Store: %1$s</string>
 </resources>
