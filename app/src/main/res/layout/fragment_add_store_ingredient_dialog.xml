@@ -80,8 +80,8 @@
                 android:hint="Amount"
                 android:inputType="number" />
 
-            <EditText
-                android:id="@+id/etUnit"
+            <Spinner
+                android:id="@+id/spUnit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_xs"

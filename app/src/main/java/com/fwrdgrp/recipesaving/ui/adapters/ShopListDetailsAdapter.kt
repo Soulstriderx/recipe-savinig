@@ -57,7 +57,8 @@ class ShopListDetailsAdapter(
 
             binding.run {
                 tvName.text = item.ingredient.name
-                tvAmount.text = root.context.getString(R.string.shopping_list_amount_unit, item.shoppingListItem.amountNeeded, item.shoppingListItem.neededUnit)
+                tvAmount.text = root.context.getString(R.string.shopping_list_amount_unit,
+                    item.shoppingListItem.amountNeeded, item.shoppingListItem.neededUnit)
                 tvPrice.text = if (truePrice == 0.0) {
                     "Unavailable at this location."
                 } else root.context.getString(

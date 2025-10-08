@@ -184,8 +184,6 @@ class ShopListDetailsFragment : Fragment() {
         val unitValues = getUnitDisplayNames()
         val adapter = createUnitSpinnerAdapter(context, unitValues)
         spinner.adapter = adapter
-        // No default selection — user must pick one manually
-        spinner.setSelection(AdapterView.INVALID_POSITION)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
