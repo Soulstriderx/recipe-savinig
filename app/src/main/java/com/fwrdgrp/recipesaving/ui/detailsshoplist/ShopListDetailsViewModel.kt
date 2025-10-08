@@ -55,7 +55,8 @@ class ShopListDetailsViewModel(
 
     suspend fun getShoppingList(id: Int) {
         val shopList = repo.getShoppingListWithPrices(id)
-        _shoppingList.value = shopList
+        val sorted = shopList.items.sortedBy { it.shoppingListItem.bought }
+        _shoppingList.value = shopList.copy(items = sorted)
     }
 
     //Update store

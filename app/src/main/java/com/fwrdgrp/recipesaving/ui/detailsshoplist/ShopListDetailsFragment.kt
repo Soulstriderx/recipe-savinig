@@ -20,6 +20,7 @@ import com.fwrdgrp.recipesaving.data.enums.Units
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.databinding.FragmentShopListDetailsBinding
 import com.fwrdgrp.recipesaving.ui.adapters.ShopListDetailsAdapter
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import kotlin.getValue
@@ -111,6 +112,8 @@ class ShopListDetailsFragment : Fragment() {
                 { item, boolean ->
                     lifecycleScope.launch {
                         viewModel.toggleBought(item.shoppingListItem.copy(bought = boolean))
+                        delay(700)
+                        viewModel.getShoppingList(args.shopListId)
                     }
                 }
             )
