@@ -1,14 +1,15 @@
 package com.fwrdgrp.recipesaving.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
+import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItemWithIngredient
 import com.fwrdgrp.recipesaving.databinding.LayoutItemShopListDetailsBinding
+import kotlin.math.ceil
 
 class ShopListDetailsAdapter(
     var shopListItems: List<ShoppingListItemWithIngredient>,
@@ -46,20 +47,27 @@ class ShopListDetailsAdapter(
         val binding: LayoutItemShopListDetailsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingListItemWithIngredient) {
-            val price =
-                item.storeItems.firstOrNull {it.storeId == storeId}?.price ?: 0.0
+            val storeItem = item.storeItems.firstOrNull { it.storeId == storeId }
+            var price = 0.0 ; var truePrice = 0.0 ; var packageNeeded = 0
+            storeItem?.let {
+                price = storeItem.price
+                packageNeeded = ceil(item.shoppingListItem.amountNeeded / storeItem.packageAmount).toInt()
+                truePrice = packageNeeded * price
+            }
+
             binding.run {
                 tvName.text = item.ingredient.name
-                tvAmount.text = item.shoppingListItem.amountNeeded.toString()
-                tvPrice.text = if (price == 0.0) { "Unavailable at this location." } else price.toString()
+                tvAmount.text = root.context.getString(R.string.shopping_list_amount_unit, item.shoppingListItem.amountNeeded, item.shoppingListItem.neededUnit)
+                tvPrice.text = if (truePrice == 0.0) {
+                    "Unavailable at this location."
+                } else root.context.getString(
+                    R.string.shopping_list_price, packageNeeded, price, truePrice
+                )
                 cbDone.isChecked = item.shoppingListItem.bought
-                    cbDone.setOnCheckedChangeListener { _, isChecked ->
-                        TransitionManager.beginDelayedTransition(
-                            root as ViewGroup,
-                            AutoTransition()
-                        )
-                        vChecked.visibility = if (isChecked) View.VISIBLE else View.GONE
-                    }
+                cbDone.setOnCheckedChangeListener { _, isChecked ->
+                    TransitionManager.beginDelayedTransition(root as ViewGroup, AutoTransition())
+                    vChecked.visibility = if (isChecked) View.VISIBLE else View.GONE
+                }
             }
         }
     }
