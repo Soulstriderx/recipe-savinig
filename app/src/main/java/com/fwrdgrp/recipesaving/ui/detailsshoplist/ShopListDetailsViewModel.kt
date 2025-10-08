@@ -1,6 +1,5 @@
 package com.fwrdgrp.recipesaving.ui.detailsshoplist
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -8,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.fwrdgrp.recipesaving.MyApp
-import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
+import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithStoreAndItems
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
@@ -20,6 +19,7 @@ import kotlinx.coroutines.launch
 
 class ShopListDetailsViewModel(
     private val repo: ShoppingRepo,
+    private val recipeRepo: RecipeRepo
 ) : ViewModel() {
 
     private val _stores = MutableStateFlow<List<Store>?>(null)
@@ -28,12 +28,12 @@ class ShopListDetailsViewModel(
     private val _shoppingList = MutableStateFlow<ShoppingListWithStoreAndItems?>(null)
     val shoppingList: StateFlow<ShoppingListWithStoreAndItems?> = _shoppingList
 
-    private val _shoppingListItem = MutableStateFlow<List<ShoppingListItem>?>(null)
-    val shoppingListItem: StateFlow<List<ShoppingListItem>?> = _shoppingListItem
+    private val _ingredients = MutableStateFlow<List<Ingredient>?>(null)
+    val ingredients: StateFlow<List<Ingredient>?> = _ingredients
 
     init {
-        getShoppingItems()
         getStores()
+        getIngredients()
     }
 
     fun getStores() {
@@ -44,17 +44,16 @@ class ShopListDetailsViewModel(
         }
     }
 
-    fun getShoppingItems() {
+    fun getIngredients() {
         viewModelScope.launch {
-            repo.getAllShoppingList().collect { items ->
-                Log.d("debug", "c$items")
+            recipeRepo.getAllIngredients().collect { ingredients ->
+                _ingredients.update { ingredients }
             }
         }
     }
 
     suspend fun getShoppingList(id: Int) {
         val shopList = repo.getShoppingListWithPrices(id)
-        Log.d("debug", "b{$shopList}")
         _shoppingList.value = shopList
     }
 
@@ -72,9 +71,10 @@ class ShopListDetailsViewModel(
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val myRepository = (this[APPLICATION_KEY] as MyApp).ShoppingRepository
+                val myRepository = (this[APPLICATION_KEY] as MyApp)
                 ShopListDetailsViewModel(
-                    repo = myRepository,
+                    repo = myRepository.ShoppingRepository,
+                    recipeRepo = myRepository.RecipeRepository
                 )
             }
         }
