@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,7 +68,12 @@ abstract class BaseManageRecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAllItems()
-
+        lifecycleScope.launch {
+            viewModel.ingredientList.filterNotNull().collect {
+                setupIngredientAdapter(it.map { it.name })
+                setupListeners()
+            }
+        }
         lifecycleScope.launch {
             viewModel.finish.collect {
                 findNavController().popBackStack()
@@ -78,9 +84,26 @@ abstract class BaseManageRecipeFragment : Fragment() {
                 showError(it)
             }
         }
-        lifecycleScope.launch {
-            viewModel.ingredientList.filterNotNull().collect {
-                setupIngredientAdapter(it.map { it.name })
+
+    }
+
+    fun setupListeners() {
+        binding.run {
+            etTitle.doOnTextChanged { text, _, _, _ ->
+                tvTitleError.visibility = if (text.isNullOrBlank()) View.VISIBLE else View.GONE
+            }
+            etDesc.doOnTextChanged { text, _, _, _ ->
+                tvDescError.visibility = if (text.isNullOrBlank()) View.VISIBLE else View.GONE
+            }
+            ingredientAdapter.setOnDataChangedListener {
+                val isNotEmpty =
+                    ingredientAdapter.fetchIngredient().any { it.first.name.isNotBlank() }
+                tvIngredientsError.visibility = if (isNotEmpty) View.GONE else View.VISIBLE
+            }
+            instructionAdapter.setOnDataChangedListener {
+                val isNotEmpty =
+                    instructionAdapter.fetchInstructions().any { it.description.isNotBlank() }
+                tvInstructionsError.visibility = if (isNotEmpty) View.GONE else View.VISIBLE
             }
         }
     }
@@ -132,11 +155,12 @@ abstract class BaseManageRecipeFragment : Fragment() {
                 )
             )
         )
-
-        binding.rvAddInstruction.adapter = instructionAdapter
-        binding.rvAddInstruction.layoutManager = LinearLayoutManager(requireContext())
-        binding.ivAddInstruction.setOnClickListener {
-            instructionAdapter.addInstructions()
+        binding.run {
+            rvAddInstruction.adapter = instructionAdapter
+            rvAddInstruction.layoutManager = LinearLayoutManager(requireContext())
+            ivAddInstruction.setOnClickListener {
+                instructionAdapter.addInstructions()
+            }
         }
     }
 
@@ -150,11 +174,12 @@ abstract class BaseManageRecipeFragment : Fragment() {
                 )
             )
         )
-
-        binding.rvAddIngredient.adapter = ingredientAdapter
-        binding.rvAddIngredient.layoutManager = LinearLayoutManager(requireContext())
-        binding.ivAddIngredient.setOnClickListener {
-            ingredientAdapter.addIngredient()
+        binding.run {
+            rvAddIngredient.adapter = ingredientAdapter
+            rvAddIngredient.layoutManager = LinearLayoutManager(requireContext())
+            ivAddIngredient.setOnClickListener {
+                ingredientAdapter.addIngredient()
+            }
         }
     }
 
@@ -185,6 +210,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
                     glCategory.addView(tvCategory)
                     categoryAdapter.notifyDataSetChanged()
                     spCategory.setSelection(0)
+                    updateCategoryError()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -207,6 +233,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
                     categoryList.add(item)
                     categoryAdapter.notifyDataSetChanged()
                     glCategory.removeView(this)
+                    updateCategoryError()
                 }
             }
         }
@@ -228,6 +255,8 @@ abstract class BaseManageRecipeFragment : Fragment() {
         }
 
         categoryAdapter.notifyDataSetChanged()
+        updateCategoryError()
+
     }
 
     protected fun setupSubmitOnClick() {
@@ -240,5 +269,10 @@ abstract class BaseManageRecipeFragment : Fragment() {
 
             )
         }
+    }
+
+    protected fun updateCategoryError() {
+        binding.tvCategoryError.visibility =
+            if (selectedCategoryList.size < 1) View.VISIBLE else View.GONE
     }
 }

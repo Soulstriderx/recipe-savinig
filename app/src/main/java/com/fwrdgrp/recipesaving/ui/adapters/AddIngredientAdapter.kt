@@ -29,6 +29,11 @@ class AddIngredientAdapter(
         return IngredientViewHolder(binding)
     }
 
+    private var onDataChanged: (() -> Unit)? = null
+    fun setOnDataChangedListener(listener: () -> Unit) {
+        onDataChanged = listener
+    }
+
     override fun onBindViewHolder(
         holder: IngredientViewHolder,
         position: Int
@@ -49,6 +54,7 @@ class AddIngredientAdapter(
                         first = Ingredient(name = text.toString()),
                         second = current.second
                     )
+                onDataChanged?.invoke()
             }
             etAmount.doOnTextChanged { text, start, before, count ->
                 val newAmount = text.toString().toDoubleOrNull() ?: 0.0
@@ -58,6 +64,7 @@ class AddIngredientAdapter(
                     second = Pair(newAmount, current.second.second)
                 )
             }
+
             //Spinner for Unit input
             setupUnitSpinner(root.context, spUnit, ingredient.second.second, position)
         }
@@ -70,7 +77,7 @@ class AddIngredientAdapter(
         notifyDataSetChanged()
     }
 
-    fun setupInternalAdapter(context: Context): ArrayAdapter<String>{
+    private fun setupInternalAdapter(context: Context): ArrayAdapter<String>{
         val adapter = ArrayAdapter(
             context,
             android.R.layout.simple_dropdown_item_1line,
@@ -85,6 +92,7 @@ class AddIngredientAdapter(
         val newIngredient = Pair(Ingredient(name = ""), Pair(0.0, ""))
         ingredients.add(newIngredient)
         notifyItemInserted(ingredients.size - 1)
+        onDataChanged?.invoke()
     }
 
     fun fetchIngredient(): List<Pair<Ingredient, Pair<Double, String>>> {
