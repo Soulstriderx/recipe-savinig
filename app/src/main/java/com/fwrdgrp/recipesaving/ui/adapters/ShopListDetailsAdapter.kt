@@ -68,6 +68,7 @@ class ShopListDetailsAdapter(
                     TransitionManager.beginDelayedTransition(root as ViewGroup, AutoTransition())
                     vChecked.visibility = if (isChecked) View.VISIBLE else View.GONE
                 }
+                ivDelete.setOnClickListener {  }
             }
         }
     }

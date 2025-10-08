@@ -17,24 +17,27 @@
         android:background="@color/color_success"
         android:visibility="gone"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:paddingVertical="@dimen/space_s"
-        android:paddingHorizontal="@dimen/space_xs" >
+        android:paddingHorizontal="@dimen/space_xs">
 
         <CheckBox
             android:id="@+id/cbDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/space_xs">
+            android:paddingHorizontal="@dimen/space_xs"
+            android:layout_toEndOf="@id/cbDone"
+            android:layout_centerVertical="true">
 
             <TextView
                 android:id="@+id/tvName"
@@ -61,6 +64,15 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trash"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/space_xs" />
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_add_2" />
+            android:src="@drawable/ic_edit" />
 
     </RelativeLayout>
 
@@ -113,16 +113,33 @@
             android:layout_margin="@dimen/space_xs"
             android:background="@drawable/edit_text_bg_2" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/mbAdd"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/color_primary"
-            android:paddingVertical="@dimen/space_s"
+            android:orientation="horizontal"
             android:layout_marginHorizontal="@dimen/space_xs"
             android:layout_marginTop="@dimen/space_l"
-            android:text="@string/add_recipes"
-            android:textSize="@dimen/text_xl" />
+            android:weightSum="10">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:backgroundTint="@color/color_primary"
+                android:paddingVertical="@dimen/space_s"
+                android:text="@string/add_recipes"
+                android:textSize="@dimen/text_xl" />
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/ic_trash"
+                android:layout_marginStart="@dimen/space_xs"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
