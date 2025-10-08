@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.fwrdgrp.recipesaving.MyApp
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
+import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithStoreAndItems
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
@@ -66,6 +67,10 @@ class ShopListDetailsViewModel(
 
     suspend fun addListItem(listId: Int, name: String, amount: Double, unit: String) {
         repo.upsertShoppingListItem(listId, name, amount, unit)
+    }
+
+    suspend fun toggleBought(item: ShoppingListItem) {
+        repo.toggleBought(item)
     }
 
     companion object {

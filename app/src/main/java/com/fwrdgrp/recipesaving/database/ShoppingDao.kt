@@ -84,6 +84,9 @@ interface ShoppingDao {
     @Upsert
     suspend fun upsertShoppingListItem(item: ShoppingListItem)
 
+    @Update
+    suspend fun updateShoppingListItem(item: ShoppingListItem)
+
     @Query("SELECT * FROM ShoppingListItem")
     fun getShoppingListItem(): Flow<List<ShoppingListItem>>
 

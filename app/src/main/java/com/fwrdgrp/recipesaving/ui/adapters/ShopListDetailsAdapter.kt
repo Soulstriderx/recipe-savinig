@@ -13,7 +13,8 @@ import kotlin.math.ceil
 
 class ShopListDetailsAdapter(
     var shopListItems: List<ShoppingListItemWithIngredient>,
-    val storeId: Int
+    val storeId: Int,
+    private val onCheck: (ShoppingListItemWithIngredient, Boolean) -> Unit
 ) : RecyclerView.Adapter<ShopListDetailsAdapter.ShopListDetailsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -48,28 +49,35 @@ class ShopListDetailsAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingListItemWithIngredient) {
             val storeItem = item.storeItems.firstOrNull { it.storeId == storeId }
-            var price = 0.0 ; var truePrice = 0.0 ; var packageNeeded = 0
+            var price = 0.0;
+            var truePrice = 0.0;
+            var packageNeeded = 0
             storeItem?.let {
                 price = storeItem.price
-                packageNeeded = ceil(item.shoppingListItem.amountNeeded / storeItem.packageAmount).toInt()
+                packageNeeded =
+                    ceil(item.shoppingListItem.amountNeeded / storeItem.packageAmount).toInt()
                 truePrice = packageNeeded * price
             }
 
             binding.run {
                 tvName.text = item.ingredient.name
-                tvAmount.text = root.context.getString(R.string.shopping_list_amount_unit,
-                    item.shoppingListItem.amountNeeded, item.shoppingListItem.neededUnit)
+                tvAmount.text = root.context.getString(
+                    R.string.shopping_list_amount_unit,
+                    item.shoppingListItem.amountNeeded, item.shoppingListItem.neededUnit
+                )
                 tvPrice.text = if (truePrice == 0.0) {
                     "Unavailable at this location."
                 } else root.context.getString(
                     R.string.shopping_list_price, packageNeeded, price, truePrice
                 )
+
                 cbDone.isChecked = item.shoppingListItem.bought
                 cbDone.setOnCheckedChangeListener { _, isChecked ->
                     TransitionManager.beginDelayedTransition(root as ViewGroup, AutoTransition())
                     vChecked.visibility = if (isChecked) View.VISIBLE else View.GONE
+                    onCheck(item, isChecked)
                 }
-                ivDelete.setOnClickListener {  }
+                ivDelete.setOnClickListener { }
             }
         }
     }

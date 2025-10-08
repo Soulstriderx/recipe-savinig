@@ -107,7 +107,12 @@ class ShopListDetailsFragment : Fragment() {
         storeId?.let { storeId ->
             adapter = ShopListDetailsAdapter(
                 emptyList(),
-                storeId
+                storeId,
+                { item, boolean ->
+                    lifecycleScope.launch {
+                        viewModel.toggleBought(item.shoppingListItem.copy(bought = boolean))
+                    }
+                }
             )
         }
         binding.run {
@@ -180,12 +185,19 @@ class ShopListDetailsFragment : Fragment() {
         }
     }
 
-    fun setupUnitSpinner(context: Context, spinner: Spinner, ) {
+    fun setupUnitSpinner(context: Context, spinner: Spinner) {
         val unitValues = getUnitDisplayNames()
         val adapter = createUnitSpinnerAdapter(context, unitValues)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+            }
+
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }

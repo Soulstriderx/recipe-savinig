@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItemWithIngredient
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithStoreAndItems
 import com.fwrdgrp.recipesaving.databinding.LayoutItemShopListBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.math.ceil
 
 class ShopListAdapter(
     var shoppingList: List<ShoppingListWithStoreAndItems>,
@@ -42,7 +44,7 @@ class ShopListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingListWithStoreAndItems) {
             val formatter = SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault())
-            val totalPrice = item.items.flatMap { it.storeItems }.sumOf { it.price ?: 0.0 }
+            val totalPrice = calculateTotalPrice(item.items, item.store.id)
             binding.run {
                 llShopList.setOnClickListener { onClick(item.shoppingList.id) }
                 tvName.text = item.shoppingList.name
@@ -50,6 +52,24 @@ class ShopListAdapter(
                 tvTotalItems.text = item.items.size.toString()
                 tvDate.text = formatter.format(item.shoppingList.dateCreated)
                 tvTotalPrice.text = root.context.getString(R.string.store_detail_price, totalPrice)
+            }
+        }
+        private fun calculateTotalPrice(
+            items: List<ShoppingListItemWithIngredient>,
+            storeId: Int
+        ): Double {
+            return items.filter { !it.shoppingListItem.bought }.sumOf { shopListItems ->
+                val storeItem = shopListItems.storeItems.firstOrNull { it.storeId == storeId }
+
+                if (storeItem == null) {
+                    0.0
+                } else {
+                    val price = storeItem.price
+                    val packageAmount = storeItem.packageAmount.takeIf { it > 0.0 } ?: 1.0
+                    val packagesNeeded = ceil(shopListItems.shoppingListItem.amountNeeded /
+                            packageAmount).toInt()
+                    packagesNeeded * price
+                }
             }
         }
     }

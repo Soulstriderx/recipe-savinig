@@ -1,6 +1,7 @@
 package com.fwrdgrp.recipesaving.data.repo
 
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingList
+import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
 import com.fwrdgrp.recipesaving.data.utils.ShoppingRepoUtils
@@ -43,6 +44,10 @@ class ShoppingRepo(
         val ingredientId = utils.addSingleIngredients(ingredient)
         val shoppingListItem = utils.buildShoppingListItem(id, ingredientId, price, unit)
         dao.upsertShoppingListItem(shoppingListItem)
+    }
+
+    suspend fun toggleBought(item: ShoppingListItem) {
+        dao.updateShoppingListItem(item)
     }
 
     //    suspend fun deleteShoppingListItem(item: ShoppingListItem) = dao.deleteShoppingListItem(item)

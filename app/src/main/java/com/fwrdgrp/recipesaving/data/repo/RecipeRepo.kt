@@ -22,9 +22,7 @@ class RecipeRepo(
 
     //add
     @Transaction
-    suspend fun addRecipeWithDetails(
-        recipe: Recipe,
-        instruction: List<Instruction>,
+    suspend fun addRecipeWithDetails(recipe: Recipe, instruction: List<Instruction>,
         ingredients: List<Pair<Ingredient , Pair<Double, String>>>
     ) {
         val recipeId = dao.insertRecipe(recipe).toInt()
