@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -45,6 +46,9 @@ class StoresFragment : Fragment() {
             }
         }
         binding.run {
+            etSearch.doOnTextChanged { text, _, _, _ ->
+                viewModel.setSearch(text.toString())
+            }
             ivBack.setOnClickListener { findNavController().popBackStack() }
             ivAdd.setOnClickListener {
                 val dialog = AddStoreDialogFragment { storeName, storeLocation ->
@@ -61,8 +65,11 @@ class StoresFragment : Fragment() {
         binding.run {
             adapter = StoresAdapter(
                 emptyList(),
-                { findNavController().navigate(
-                        StoresFragmentDirections.actionStoresToStoreDetails(it)) },
+                {
+                    findNavController().navigate(
+                        StoresFragmentDirections.actionStoresToStoreDetails(it)
+                    )
+                },
                 { deleteDialogCreation(it).show() } //Delete logic
             )
             rvStores.adapter = adapter
@@ -74,7 +81,8 @@ class StoresFragment : Fragment() {
         return Dialog(requireContext()).apply {
             setContentView(R.layout.layout_dialog_confirmation)
             window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-            findViewById<TextView>(R.id.tvConfirm).text = "Are you sure you want to delete this Store?"
+            findViewById<TextView>(R.id.tvConfirm).text =
+                "Are you sure you want to delete this Store?"
             findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
             findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {

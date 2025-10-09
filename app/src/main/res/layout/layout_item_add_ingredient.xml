@@ -10,28 +10,29 @@
         android:id="@+id/etName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/ingredient"
-        android:textSize="@dimen/text_xl"
         android:layout_weight="5"
-        android:background="@drawable/edit_text_bg" />
+        android:background="@drawable/edit_text_bg"
+        android:hint="@string/ingredient"
+        android:textSize="@dimen/text_xl" />
 
     <EditText
         android:id="@+id/etAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/amount"
-        android:textSize="@dimen/text_xl"
+        android:layout_marginHorizontal="@dimen/space_xs"
         android:layout_weight="3"
         android:background="@drawable/edit_text_bg"
-        android:layout_marginHorizontal="@dimen/space_xs"/>
+        android:hint="@string/amount"
+        android:inputType="numberDecimal"
+        android:textSize="@dimen/text_xl" />
 
-    <EditText
-        android:id="@+id/etUnit"
+    <Spinner
+        android:id="@+id/spUnit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/unit"
-        android:textSize="@dimen/text_xl"
         android:layout_weight="2"
-        android:background="@drawable/edit_text_bg"/>
+        android:background="@drawable/edit_text_bg"
+        android:hint="@string/unit"
+        android:textSize="@dimen/text_xl" />
 
 </LinearLayout>

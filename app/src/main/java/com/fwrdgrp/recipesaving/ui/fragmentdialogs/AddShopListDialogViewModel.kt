@@ -1,4 +1,4 @@
-package com.fwrdgrp.recipesaving.ui.stores
+package com.fwrdgrp.recipesaving.ui.fragmentdialogs
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -11,19 +11,14 @@ import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.collections.filter
 
-class StoresFragmentViewModel(
+class AddShopListDialogViewModel(
     private val repo: ShoppingRepo
 ) : ViewModel() {
-    private val _stores = MutableStateFlow<List<Store>>(emptyList())
-    val stores: StateFlow<List<Store>> = _stores
-
-    var currentSearch = ""
+    private val _stores = MutableStateFlow<List<Store>?>(null)
+    val stores: StateFlow<List<Store>?> = _stores
 
     init {
         getStores()
@@ -31,31 +26,17 @@ class StoresFragmentViewModel(
 
     fun getStores() {
         viewModelScope.launch {
-            repo.getStores().map { it.filter { currentSearch.isBlank() || it.name.contains(currentSearch, ignoreCase = true) } }.collect { storeList ->
-                _stores.update { storeList }
+            repo.getStores().collect { store ->
+                _stores.update { store }
             }
         }
-    }
-
-    suspend fun deleteStore(id: Int) {
-        repo.deleteStoreById(id)
-        getStores()
-    }
-
-    suspend fun addStore(storeName: String, storeLocation: String?) {
-        repo.upsertStore(Store(name = storeName, location = storeLocation))
-    }
-
-    fun setSearch(str: String) {
-        currentSearch = str
-        getStores()
     }
 
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val myRepository = (this[APPLICATION_KEY] as MyApp).ShoppingRepository
-                StoresFragmentViewModel(repo = myRepository)
+                AddShopListDialogViewModel(repo = myRepository)
             }
         }
     }

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.fwrdgrp.recipesaving.MyApp
-import com.fwrdgrp.recipesaving.data.enums.Filter
+import com.fwrdgrp.recipesaving.data.enums.RecipeFilter
 import com.fwrdgrp.recipesaving.data.enums.SortOrder
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
@@ -24,7 +24,7 @@ class RecipeViewModel(
     val recipes: StateFlow<List<Recipe>> = _recipes
 
     var currentSearch = ""
-    var currentFilter = Filter.DATE
+    var currentFilter = RecipeFilter.DATE
     var currentOrder = SortOrder.ASCENDING
 
     init {
@@ -53,17 +53,17 @@ class RecipeViewModel(
         getRecipe()
     }
 
-    fun setFilter(filter: Filter, sortOrder: SortOrder) {
+    fun setFilter(filter: RecipeFilter, sortOrder: SortOrder) {
         currentFilter = filter
         currentOrder = sortOrder
         getRecipe()
     }
 
-    fun List<Recipe>.applySort(sortOrder: SortOrder, filter: Filter): List<Recipe> {
+    fun List<Recipe>.applySort(sortOrder: SortOrder, filter: RecipeFilter): List<Recipe> {
         val sort = when (filter) {
-            Filter.DATE -> sortByDate(sortOrder)
-            Filter.ALPHABETICALLY -> sortByName(sortOrder)
-            Filter.TIME -> sortByTime(sortOrder)
+            RecipeFilter.DATE -> sortByDate(sortOrder)
+            RecipeFilter.ALPHABETICALLY -> sortByName(sortOrder)
+            RecipeFilter.TIME -> sortByTime(sortOrder)
         }
         return sort.sortedByDescending { it.favorite }
     }

@@ -23,6 +23,11 @@ class AddInstructionAdapter(
         return InstructionViewHolder(binding)
     }
 
+    private var onDataChanged: (() -> Unit)? = null
+    fun setOnDataChangedListener(listener:() -> Unit) {
+        onDataChanged = listener
+    }
+
     override fun onBindViewHolder(
         holder: InstructionViewHolder,
         position: Int
@@ -34,6 +39,7 @@ class AddInstructionAdapter(
         holder.binding.etInstruction.doOnTextChanged { text, start, before, count ->
             instructions[position] =
                 instruction.copy(description = text.toString(), stepNumber = position + 1)
+            onDataChanged?.invoke()
         }
     }
 

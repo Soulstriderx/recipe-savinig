@@ -25,6 +25,8 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="are_you_sure">Are you sure?</string>
+    <string name="are_you_sure_delete_shop_item">Are you sure you want to delete this Item?\n(This cannot be undone.)</string>
+    <string name="are_you_sure_delete_shop_list">Are you sure you want to delete this Shopping List?\n(This cannot be undone.)</string>
     <string name="are_you_sure_delete">Are you sure you want to delete this Recipe?\n(This cannot be undone.)</string>
     <string name="i_m_feeling_lucky">I\'m feeling lucky!</string>
     <string name="submit">Submit</string>
@@ -57,4 +59,10 @@
     <string name="amount_and_unit">Amount and Unit</string>
     <string name="price">Price</string>
     <string name="store_item_amount">%1$s%2$s</string>
+    <string name="shopping_list">Shopping List</string>
+    <string name="store">Store</string>
+    <string name="store_detail_price">RM %.2f</string>
+    <string name="shoplist_store_display">Store: %1$s</string>
+    <string name="shopping_list_price">Price: %1$d x RM%2$.2f = RM%3$.2f</string>
+    <string name="shopping_list_amount_unit">Amount: %1$.2f%2$s</string>
 </resources>

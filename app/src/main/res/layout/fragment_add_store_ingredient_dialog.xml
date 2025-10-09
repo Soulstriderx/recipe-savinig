@@ -78,10 +78,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_bg_2"
                 android:hint="Amount"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
-            <EditText
-                android:id="@+id/etUnit"
+            <Spinner
+                android:id="@+id/spUnit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_xs"
@@ -104,31 +104,37 @@
             android:layout_marginBottom="@dimen/space_l"
             android:background="@drawable/edit_text_bg_2"
             android:gravity="start"
-            android:hint="@string/price" />
+            android:hint="@string/price"
+            android:inputType="numberDecimal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="13">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbCancel"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_xxxs"
-                android:layout_marginTop="@dimen/space_xxxs"
+                android:layout_weight="6"
                 android:backgroundTint="@color/color_secondary"
                 android:paddingVertical="@dimen/space_s"
                 android:text="@string/cancel"
                 android:textSize="@dimen/text_xl" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/mbAdd"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_xxxs"
-                android:layout_marginTop="@dimen/space_xxxs"
+                android:layout_weight="6"
                 android:backgroundTint="@color/color_primary"
                 android:paddingVertical="@dimen/space_s"
                 android:text="@string/add"

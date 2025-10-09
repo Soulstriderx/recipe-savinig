@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_background"
+
     tools:context=".ui.detailsshoplist.ShopListDetailsFragment">
 
     <RelativeLayout
@@ -12,7 +14,15 @@
         android:layout_alignParentTop="true"
         android:background="@color/color_secondary"
         android:orientation="horizontal"
-        android:padding="@dimen/space_l" >
+        android:padding="@dimen/space_l">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/tvShopListName"
@@ -30,28 +40,27 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_add_2" />
+            android:src="@drawable/ic_edit" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/llAddIngredient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/box_bg"
-        android:orientation="vertical"
-        android:paddingVertical="@dimen/space_xs"
+        android:layout_height="0dp"
         android:layout_below="@id/llHeaderDetails"
-        android:visibility="gone" >
+        android:background="@drawable/box_bg"
+        android:elevation="@dimen/space_xs"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/space_xs">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/add_ingredient"
             android:textSize="@dimen/text_l"
-            android:textStyle="bold"
-            android:textColor="@color/t_gray_text"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,41 +69,96 @@
             android:paddingVertical="@dimen/space_s"
             android:weightSum="4">
 
-            <EditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/etIngredient"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:layout_marginHorizontal="@dimen/space_xxs"
-                android:hint="@string/ingredient"
-                android:background="@drawable/edit_text_bg_2" />
+                android:layout_weight="2"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="@string/ingredient" />
 
             <EditText
                 android:id="@+id/etAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/amount"
                 android:layout_marginHorizontal="@dimen/space_xxs"
-                android:background="@drawable/edit_text_bg_2" />
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="@string/amount"
+                android:inputType="numberDecimal" />
 
-            <EditText
-                android:id="@+id/etUnit"
+            <Spinner
+                android:id="@+id/spUnit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/unit"
                 android:layout_marginHorizontal="@dimen/space_xxs"
-                android:background="@drawable/edit_text_bg_2" />
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="@string/unit" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/store"
+            android:textSize="@dimen/text_l"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spStoreName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_xs"
+            android:background="@drawable/edit_text_bg_2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:layout_marginTop="@dimen/space_l"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:backgroundTint="@color/color_primary"
+                android:paddingVertical="@dimen/space_s"
+                android:text="@string/add_recipes"
+                android:textSize="@dimen/text_xl" />
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/space_xs"
+                android:layout_weight="1"
+                android:src="@drawable/ic_trash" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvStoreIngredients"
+    <TextView
+        android:id="@+id/tvStoreName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/llHeaderDetails"
+        android:gravity="center"
+        android:padding="@dimen/space_xs"
+        android:text="@string/store"
+        android:textSize="@dimen/text_xxxl"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvShopListDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/llAddIngredient" />
 
 </RelativeLayout>

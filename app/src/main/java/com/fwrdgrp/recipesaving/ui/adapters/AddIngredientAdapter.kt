@@ -2,10 +2,14 @@ package com.fwrdgrp.recipesaving.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import com.fwrdgrp.recipesaving.data.enums.Units
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.databinding.LayoutItemAddIngredientBinding
 
@@ -25,6 +29,11 @@ class AddIngredientAdapter(
         return IngredientViewHolder(binding)
     }
 
+    private var onDataChanged: (() -> Unit)? = null
+    fun setOnDataChangedListener(listener: () -> Unit) {
+        onDataChanged = listener
+    }
+
     override fun onBindViewHolder(
         holder: IngredientViewHolder,
         position: Int
@@ -37,7 +46,6 @@ class AddIngredientAdapter(
             etAmount.setText(
                 if (ingredient.second.first == 0.0) "" else ingredient.second.first.toString()
             )
-            etUnit.setText(ingredient.second.second)
 
             etName.doOnTextChanged { text, start, before, count ->
                 val current = ingredients[position]
@@ -46,6 +54,7 @@ class AddIngredientAdapter(
                         first = Ingredient(name = text.toString()),
                         second = current.second
                     )
+                onDataChanged?.invoke()
             }
             etAmount.doOnTextChanged { text, start, before, count ->
                 val newAmount = text.toString().toDoubleOrNull() ?: 0.0
@@ -55,13 +64,9 @@ class AddIngredientAdapter(
                     second = Pair(newAmount, current.second.second)
                 )
             }
-            etUnit.doOnTextChanged { text, start, before, count ->
-                val current = ingredients[position]
-                ingredients[position] = ingredient.copy(
-                    first = current.first,
-                    second = Pair(current.second.first, text.toString())
-                )
-            }
+
+            //Spinner for Unit input
+            setupUnitSpinner(root.context, spUnit, ingredient.second.second, position)
         }
     }
 
@@ -72,7 +77,7 @@ class AddIngredientAdapter(
         notifyDataSetChanged()
     }
 
-    fun setupInternalAdapter(context: Context): ArrayAdapter<String>{
+    private fun setupInternalAdapter(context: Context): ArrayAdapter<String>{
         val adapter = ArrayAdapter(
             context,
             android.R.layout.simple_dropdown_item_1line,
@@ -87,6 +92,7 @@ class AddIngredientAdapter(
         val newIngredient = Pair(Ingredient(name = ""), Pair(0.0, ""))
         ingredients.add(newIngredient)
         notifyItemInserted(ingredients.size - 1)
+        onDataChanged?.invoke()
     }
 
     fun fetchIngredient(): List<Pair<Ingredient, Pair<Double, String>>> {
@@ -96,4 +102,40 @@ class AddIngredientAdapter(
     inner class IngredientViewHolder(
         val binding: LayoutItemAddIngredientBinding
     ) : RecyclerView.ViewHolder(binding.root)
+
+    private fun setupUnitSpinner(
+        context: Context,
+        spinner: Spinner,
+        currentUnit: String,
+        position: Int
+    ) {
+        val unitValues = getUnitDisplayNames()
+        val adapter = createUnitSpinnerAdapter(context, unitValues)
+        spinner.adapter = adapter
+
+        //Sets default value if value exists
+        val selectedIndex = unitValues.indexOf(currentUnit).takeIf { it >= 0 } ?: 0
+        spinner.setSelection(selectedIndex)
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                val selectedUnit = unitValues[pos]
+                val current = ingredients[position]
+                ingredients[position] = current.copy(
+                    first = current.first,
+                    second = Pair(current.second.first, selectedUnit)
+                )
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) = Unit
+        }
+    }
+
+    private fun getUnitDisplayNames(): List<String> = Units.entries.map { it.label }
+
+    private fun createUnitSpinnerAdapter(context: Context, units: List<String>): ArrayAdapter<String> {
+        return ArrayAdapter(context, android.R.layout.simple_spinner_item, units).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+    }
 }

@@ -4,14 +4,18 @@ import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingList
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
+import com.fwrdgrp.recipesaving.data.utils.ShoppingRepoUtils
 import com.fwrdgrp.recipesaving.database.ShoppingDao
 
 class ShoppingRepo(
     private val dao: ShoppingDao,
 ) {
+    private val utils = ShoppingRepoUtils(dao)
+
     // ---- Stores ----
     fun getStores() = dao.getAllStores()
-//    fun getStoreById(id: Int) = dao.getStoreById(id)
+
+    //    fun getStoreById(id: Int) = dao.getStoreById(id)
     suspend fun upsertStore(store: Store) = dao.upsertStore(store)
     suspend fun getStoreWithItemDetails(storeId: Int) = dao.getStoreWithItemsDetails(storeId)
     suspend fun deleteStoreById(id: Int) = dao.deleteStoreById(id)
@@ -20,17 +24,36 @@ class ShoppingRepo(
 //    fun getStoreItems(storeId: Int) = dao.getStoreItems(storeId)
     suspend fun upsertStoreItem(item: StoreItem) = dao.upsertStoreItem(item)
     suspend fun deleteStoreItem(id: Int) = dao.deleteStoreItemById(id)
+    fun getAllStoreItemsWithDetailsByStoreId(storeId: Int) = dao.getStoreItemWithDetailsById(storeId)
 
     // ---- Shopping Lists ----
     fun getShoppingLists() = dao.getAllShoppingLists()
-//    fun getShoppingListById(id: Int) = dao.getShoppingListById(id)
+    suspend fun deleteShoppingListById(listId: Int) = dao.deleteShoppingListById(listId)
+
+    //    fun getShoppingListById(id: Int) = dao.getShoppingListById(id)
     suspend fun upsertShoppingList(list: ShoppingList) = dao.upsertShoppingList(list)
-    suspend fun deleteShoppingList(list: ShoppingList) = dao.deleteShoppingList(list)
+    suspend fun updateShoppingList(list: ShoppingList) = dao.updateShoppingList(list)
+//    suspend fun deleteShoppingList(list: ShoppingList) = dao.deleteShoppingList(list)
 
     // ---- Shopping List Items ----
 //    fun getShoppingListItems(listId: Int) = dao.getShoppingListItems(listId)
-    suspend fun upsertShoppingListItem(item: ShoppingListItem) = dao.upsertShoppingListItem(item)
-//    suspend fun deleteShoppingListItem(item: ShoppingListItem) = dao.deleteShoppingListItem(item)
+    suspend fun upsertShoppingListItem(
+        id: Int,
+        ingredient: String,
+        price: Double,
+        unit: String
+    ) {
+        val ingredientId = utils.addSingleIngredients(ingredient)
+        val shoppingListItem = utils.buildShoppingListItem(id, ingredientId, price, unit)
+        dao.upsertShoppingListItem(shoppingListItem)
+    }
+    suspend fun deleteShoppingListItem(item: ShoppingListItem) = dao.deleteShoppingListItem(item)
+
+    suspend fun toggleBought(item: ShoppingListItem) {
+        dao.updateShoppingListItem(item)
+    }
+
+    //    suspend fun deleteShoppingListItem(item: ShoppingListItem) = dao.deleteShoppingListItem(item)
     suspend fun toggleBought(listId: Int, ingredientId: Int, bought: Boolean) =
         dao.updateBoughtStatus(listId, ingredientId, bought)
 
@@ -38,4 +61,11 @@ class ShoppingRepo(
     fun getShoppingListWithItems(listId: Int) = dao.getShoppingListWithItems(listId)
 //    fun getShoppingListWithStoreItems(listId: Int, storeId: Int) =
 //        dao.getShoppingListWithStoreItems(listId, storeId)
+
+    suspend fun getShoppingListWithPrices(listId: Int) =
+        dao.getShoppingListWithStoreAndItems(listId)
+
+    fun getAllShoppingListWithStoreAndItems() = dao.getAllShoppingListsWithStoreAndItems()
+
+    fun getAllShoppingList() = dao.getShoppingListItem()
 }
