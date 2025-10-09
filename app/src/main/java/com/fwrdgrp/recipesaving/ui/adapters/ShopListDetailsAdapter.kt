@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItemWithIngredient
 import com.fwrdgrp.recipesaving.databinding.LayoutItemShopListDetailsBinding
 import kotlin.math.ceil
@@ -14,7 +15,8 @@ import kotlin.math.ceil
 class ShopListDetailsAdapter(
     var shopListItems: List<ShoppingListItemWithIngredient>,
     val storeId: Int,
-    private val onCheck: (ShoppingListItemWithIngredient, Boolean) -> Unit
+    private val onCheck: (ShoppingListItemWithIngredient, Boolean) -> Unit,
+    private val onDelete: (ShoppingListItem) -> Unit
 ) : RecyclerView.Adapter<ShopListDetailsAdapter.ShopListDetailsViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -78,7 +80,7 @@ class ShopListDetailsAdapter(
                     vChecked.visibility = if (isChecked) View.VISIBLE else View.GONE
                     onCheck(item, isChecked)
                 }
-                ivDelete.setOnClickListener { }
+                ivDelete.setOnClickListener { onDelete(item.shoppingListItem) }
             }
         }
     }

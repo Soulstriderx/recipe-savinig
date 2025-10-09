@@ -28,6 +28,7 @@ class ShoppingRepo(
 
     // ---- Shopping Lists ----
     fun getShoppingLists() = dao.getAllShoppingLists()
+    suspend fun deleteShoppingListById(listId: Int) = dao.deleteShoppingListById(listId)
 
     //    fun getShoppingListById(id: Int) = dao.getShoppingListById(id)
     suspend fun upsertShoppingList(list: ShoppingList) = dao.upsertShoppingList(list)
@@ -46,6 +47,7 @@ class ShoppingRepo(
         val shoppingListItem = utils.buildShoppingListItem(id, ingredientId, price, unit)
         dao.upsertShoppingListItem(shoppingListItem)
     }
+    suspend fun deleteShoppingListItem(item: ShoppingListItem) = dao.deleteShoppingListItem(item)
 
     suspend fun toggleBought(item: ShoppingListItem) {
         dao.updateShoppingListItem(item)

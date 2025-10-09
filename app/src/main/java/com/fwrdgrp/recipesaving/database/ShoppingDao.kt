@@ -1,6 +1,7 @@
 package com.fwrdgrp.recipesaving.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -71,6 +72,9 @@ interface ShoppingDao {
     @Update
     suspend fun updateShoppingList(list: ShoppingList)
 
+    @Query("DELETE FROM ShoppingList WHERE id = :listId")
+    suspend fun deleteShoppingListById(listId: Int)
+
     @Query("SELECT * FROM ShoppingList")
     fun getAllShoppingLists(): Flow<List<ShoppingList>>
 
@@ -94,6 +98,9 @@ interface ShoppingDao {
 
     @Update
     suspend fun updateShoppingListItem(item: ShoppingListItem)
+
+    @Delete
+    suspend fun deleteShoppingListItem(item: ShoppingListItem)
 
     @Query("SELECT * FROM ShoppingListItem")
     fun getShoppingListItem(): Flow<List<ShoppingListItem>>

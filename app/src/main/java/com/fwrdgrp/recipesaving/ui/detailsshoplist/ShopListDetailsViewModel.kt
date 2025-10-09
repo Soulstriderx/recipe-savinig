@@ -55,7 +55,7 @@ class ShopListDetailsViewModel(
 
     suspend fun getShoppingList(id: Int) {
         val shopList = repo.getShoppingListWithPrices(id)
-        val sorted = shopList.items.sortedBy { it.shoppingListItem.bought }
+        val sorted = shopList.items.sortedByDescending { it.storeItems.size }.sortedBy { it.shoppingListItem.bought }
         _shoppingList.value = shopList.copy(items = sorted)
     }
 
@@ -72,6 +72,13 @@ class ShopListDetailsViewModel(
 
     suspend fun toggleBought(item: ShoppingListItem) {
         repo.toggleBought(item)
+    }
+
+    suspend fun deleteShopItem(item: ShoppingListItem) {
+        repo.deleteShoppingListItem(item)
+    }
+    suspend fun deleteShopListById(listId: Int) {
+        repo.deleteShoppingListById(listId)
     }
 
     companion object {
