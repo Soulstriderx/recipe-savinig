@@ -24,6 +24,7 @@ class ShoppingRepo(
 //    fun getStoreItems(storeId: Int) = dao.getStoreItems(storeId)
     suspend fun upsertStoreItem(item: StoreItem) = dao.upsertStoreItem(item)
     suspend fun deleteStoreItem(id: Int) = dao.deleteStoreItemById(id)
+    fun getAllStoreItemsWithDetailsByStoreId(storeId: Int) = dao.getStoreItemWithDetailsById(storeId)
 
     // ---- Shopping Lists ----
     fun getShoppingLists() = dao.getAllShoppingLists()

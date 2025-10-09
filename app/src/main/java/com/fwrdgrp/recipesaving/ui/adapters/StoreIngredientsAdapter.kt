@@ -51,6 +51,7 @@ class StoreIngredientsAdapter(
                 )
                 tvPrice.text =
                     root.context.getString(R.string.store_detail_price, item.storeItem.price)
+                tvLinked.text = item.ingredient.name
                 llIngredient.setOnClickListener {
                     onDeleteClick(item.storeItem.id)
                 }

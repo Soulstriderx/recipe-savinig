@@ -14,6 +14,7 @@ import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithItems
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithStoreAndItems
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
+import com.fwrdgrp.recipesaving.data.models.shopping.StoreItemWithDetails
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreWithItemsDetails
 import kotlinx.coroutines.flow.Flow
 
@@ -46,6 +47,13 @@ interface ShoppingDao {
     // ---- STORE ITEMS ----
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertStoreItem(storeItem: StoreItem): Long
+
+    @Query("SELECT * FROM StoreItem WHERE storeId = :storeId")
+    fun getAllStoreItemsByStoreId(storeId: Int): Flow<List<StoreItem>>
+
+    @Transaction
+    @Query("SELECT * FROM StoreItem WHERE id = :storeItemId")
+    fun getStoreItemWithDetailsById(storeItemId: Int): Flow<List<StoreItemWithDetails>>
 
     @Query("DELETE FROM StoreItem WHERE id = :id")
     suspend fun deleteStoreItemById(id: Int)

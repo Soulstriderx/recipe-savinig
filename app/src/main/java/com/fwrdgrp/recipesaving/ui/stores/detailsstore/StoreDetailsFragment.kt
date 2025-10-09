@@ -33,6 +33,8 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var binding: FragmentStoreDetailsBinding
     private lateinit var adapter: StoreIngredientsAdapter
     private val args: StoreDetailsFragmentArgs by navArgs()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,15 +61,17 @@ class StoreDetailsFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.ivAdd.setOnClickListener {
-            val dialog = AddStoreIngredientDialogFragment { name, ingredient, price, amount, unit ->
-                lifecycleScope.launch {
-                    val ingredientId = viewModel.addOneIngredient(ingredient)
-                    val storeItem = storeItemBuilder(name, ingredientId, price, amount, unit)
-                    viewModel.insertStoreItem(storeItem)
-                    viewModel.fetchStoreDetails(args.storeId)
-                }
-            }
-            dialog.show(parentFragmentManager, "AddStoreIngredientDialog")
+            val dialog = AddStoreIngredientDialogFragment(
+                args.storeId,
+                { name, ingredient, price, amount, unit ->
+                    lifecycleScope.launch {
+                        val ingredientId = viewModel.addOneIngredient(ingredient)
+                        val storeItem = storeItemBuilder(name, ingredientId, price, amount, unit)
+                        viewModel.insertStoreItem(storeItem)
+                        viewModel.fetchStoreDetails(args.storeId)
+                    }
+                })
+            dialog.show(childFragmentManager, "AddStoreIngredientDialog")
         }
     }
 
@@ -95,7 +99,8 @@ class StoreDetailsFragment : Fragment() {
         return Dialog(requireContext()).apply {
             setContentView(R.layout.layout_dialog_confirmation)
             window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-            findViewById<TextView>(R.id.tvConfirm).text = "Are you sure you want to delete this Item?"
+            findViewById<TextView>(R.id.tvConfirm).text =
+                "Are you sure you want to delete this Item?"
             findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
             findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {
