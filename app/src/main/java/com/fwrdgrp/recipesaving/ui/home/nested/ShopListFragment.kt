@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,6 +32,10 @@ class ShopListFragment : Fragment() {
     private lateinit var adapter: ShopListAdapter
     private lateinit var filterAdapter: ArrayAdapter<ShopListFilter>
     private lateinit var ascDescAdapter: ArrayAdapter<SortOrder>
+
+    private var currentFilter = ShopListFilter.DATE
+    private var currentSort = SortOrder.ASCENDING
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +60,9 @@ class ShopListFragment : Fragment() {
                 findNavController().navigate(HomeFragmentDirections.actionHomeToStores())
             }
             tvFilter.setOnClickListener { toggleFilter(llFilter) }
+            etSearch.doOnTextChanged { text, _, _, _ ->
+                viewModel.setSearch(text.toString())
+            }
         }
     }
 
@@ -70,8 +78,8 @@ class ShopListFragment : Fragment() {
             spFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val selected = filterAdapter.getItem(position) ?: return
-//                    currentFilter = selected
-//                    viewModel.setFilter(currentFilter, currentSort)
+                    currentFilter = selected
+                    viewModel.setFilter(currentFilter, currentSort)
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
@@ -90,8 +98,8 @@ class ShopListFragment : Fragment() {
             spAscDesc.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val selected = ascDescAdapter.getItem(position) ?: return
-//                    currentSort = selected
-//                    viewModel.setFilter(currentFilter, currentSort)
+                    currentSort = selected
+                    viewModel.setFilter(currentFilter, currentSort)
                 }
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }

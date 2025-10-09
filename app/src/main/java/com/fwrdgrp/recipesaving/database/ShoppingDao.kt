@@ -89,7 +89,7 @@ interface ShoppingDao {
     suspend fun getShoppingListWithStoreAndItems(listId: Int): ShoppingListWithStoreAndItems
 
     @Transaction
-    @Query("SELECT * FROM ShoppingList ORDER BY dateCreated DESC")
+    @Query("SELECT * FROM ShoppingList")
     fun getAllShoppingListsWithStoreAndItems(): Flow<List<ShoppingListWithStoreAndItems>>
 
     // ---- SHOPPING LIST ITEMS ----

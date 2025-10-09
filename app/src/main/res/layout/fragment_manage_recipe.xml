@@ -296,7 +296,7 @@
                         android:layout_marginBottom="@dimen/space_l"
                         android:background="@drawable/edit_text_bg"
                         android:hint="@string/time_taken"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -323,7 +323,7 @@
                         android:layout_marginBottom="@dimen/space_l"
                         android:background="@drawable/edit_text_bg"
                         android:hint="@string/serving_size"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal" />
                 </LinearLayout>
 
 

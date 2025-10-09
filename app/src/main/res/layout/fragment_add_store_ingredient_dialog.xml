@@ -78,7 +78,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_bg_2"
                 android:hint="Amount"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <Spinner
                 android:id="@+id/spUnit"
@@ -104,14 +104,15 @@
             android:layout_marginBottom="@dimen/space_l"
             android:background="@drawable/edit_text_bg_2"
             android:gravity="start"
-            android:hint="@string/price" />
+            android:hint="@string/price"
+            android:inputType="numberDecimal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_l"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/space_l"
             android:weightSum="13">
 
             <com.google.android.material.button.MaterialButton

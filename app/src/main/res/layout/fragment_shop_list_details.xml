@@ -14,15 +14,15 @@
         android:layout_alignParentTop="true"
         android:background="@color/color_secondary"
         android:orientation="horizontal"
-        android:padding="@dimen/space_l" >
+        android:padding="@dimen/space_l">
 
         <ImageView
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/tvShopListName"
@@ -48,19 +48,19 @@
         android:id="@+id/llAddIngredient"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_below="@id/llHeaderDetails"
         android:background="@drawable/box_bg"
-        android:orientation="vertical"
-        android:paddingVertical="@dimen/space_xs"
         android:elevation="@dimen/space_xs"
-        android:layout_below="@id/llHeaderDetails">
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/space_xs">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/add_ingredient"
             android:textSize="@dimen/text_l"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,38 +73,39 @@
                 android:id="@+id/etIngredient"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:layout_marginHorizontal="@dimen/space_xxs"
-                android:hint="@string/ingredient"
-                android:background="@drawable/edit_text_bg_2" />
+                android:layout_weight="2"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="@string/ingredient" />
 
             <EditText
                 android:id="@+id/etAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/amount"
                 android:layout_marginHorizontal="@dimen/space_xxs"
-                android:background="@drawable/edit_text_bg_2" />
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="@string/amount"
+                android:inputType="numberDecimal" />
 
             <Spinner
                 android:id="@+id/spUnit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/unit"
                 android:layout_marginHorizontal="@dimen/space_xxs"
-                android:background="@drawable/edit_text_bg_2" />
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg_2"
+                android:hint="@string/unit" />
 
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/store"
             android:textSize="@dimen/text_l"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spStoreName"
@@ -116,9 +117,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginHorizontal="@dimen/space_xs"
             android:layout_marginTop="@dimen/space_l"
+            android:orientation="horizontal"
             android:weightSum="10">
 
             <com.google.android.material.button.MaterialButton
@@ -135,9 +136,9 @@
                 android:id="@+id/ivDelete"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/space_xs"
                 android:layout_weight="1"
-                android:src="@drawable/ic_trash"
-                android:layout_marginStart="@dimen/space_xs"/>
+                android:src="@drawable/ic_trash" />
 
         </LinearLayout>
 
