@@ -2,14 +2,13 @@ package com.fwrdgrp.recipesaving.ui.home.nested
 
 import android.animation.ValueAnimator
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -56,16 +55,9 @@ class RecipeFragment : Fragment() {
         binding.run {
             tvFilter.setOnClickListener { toggleFilter( llFilter) }
             mbRandomize.setOnClickListener { randomRecipe() } //View model random filter function
-            etSearch.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(text: Editable?) {
-                    viewModel.setSearch(text.toString())
-                }
-
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            })
+            etSearch.doOnTextChanged { text, _, _, _ ->
+                viewModel.setSearch(text.toString())
+            }
         }
 
     }
