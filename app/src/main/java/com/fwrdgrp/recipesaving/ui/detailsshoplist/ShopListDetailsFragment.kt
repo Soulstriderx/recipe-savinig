@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -26,6 +27,7 @@ import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.databinding.FragmentShopListDetailsBinding
 import com.fwrdgrp.recipesaving.ui.adapters.ShopListDetailsAdapter
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -223,10 +225,28 @@ class ShopListDetailsFragment : Fragment() {
 
     fun addListItem(ingredient: String, amount: Double, unit: String) {
         lifecycleScope.launch {
+            val currentList = viewModel.shoppingList.value ?: return@launch
+            val lowerCaseInput = ingredient.trim().lowercase()
+            val duplicateItem = currentList.items.any {
+                it.ingredient.name.trim().lowercase() == lowerCaseInput
+            }
+            if (duplicateItem) {
+                showError(ingredient)
+                return@launch
+            }
             viewModel.addListItem(args.shopListId, ingredient, amount, unit)
             viewModel.getShoppingList(args.shopListId)
 
         }
+    }
+
+    fun showError(name: String) {
+        Snackbar.make(binding.root, "\"$name\" already exist.", Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(
+                ContextCompat.getColor(
+                    requireContext(), android.R.color.holo_red_light
+                )
+            ).setTextColor(Color.WHITE).show()
     }
 
     fun setupUnitSpinner(context: Context, spinner: Spinner) {
