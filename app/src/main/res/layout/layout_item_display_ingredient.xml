@@ -13,7 +13,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="Ingredient"
         android:textStyle="bold"
         android:gravity="center"
         android:layout_marginEnd="@dimen/space_xxxl"
@@ -30,7 +29,6 @@
         android:id="@+id/tvAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1000"
         android:textStyle="bold"
         android:textSize="@dimen/text_m" />
 
@@ -38,7 +36,6 @@
         android:id="@+id/tvUnit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="kg"
         android:textStyle="bold"
         android:textSize="@dimen/text_m" />
 

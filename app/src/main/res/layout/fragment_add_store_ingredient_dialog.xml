@@ -77,7 +77,7 @@
                 android:layout_marginEnd="@dimen/space_xs"
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_bg_2"
-                android:hint="Amount"
+                android:hint="@string/amount"
                 android:inputType="numberDecimal" />
 
             <Spinner
@@ -87,7 +87,7 @@
                 android:layout_marginStart="@dimen/space_xs"
                 android:layout_weight="1"
                 android:background="@drawable/edit_text_bg_2"
-                android:hint="Unit" />
+                android:hint="@string/unit" />
         </LinearLayout>
 
         <TextView

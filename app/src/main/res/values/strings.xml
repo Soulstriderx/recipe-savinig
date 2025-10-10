@@ -65,4 +65,10 @@
     <string name="shoplist_store_display">Store: %1$s</string>
     <string name="shopping_list_price">Price: %1$d x RM%2$.2f = RM%3$.2f</string>
     <string name="shopping_list_amount_unit">Amount: %1$.2f%2$s</string>
+    <string name="click_to_add_image">Click to add Image</string>
+    <string name="title_cannot_be_empty">*Title cannot be empty</string>
+    <string name="category_cannot_be_empty">*Category cannot be empty</string>
+    <string name="est_time">Est Time:</string>
+    <string name="servings">Servings:</string>
+    <string name="items">Items:</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,7 +37,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Placeholder"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_xxxxl"
                 android:textStyle="bold" />
@@ -76,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Click to add Image"
+                    android:text="@string/click_to_add_image"
                     android:textColor="@color/t_gray"
                     android:textSize="@dimen/text_xxl"
                     android:textStyle="bold" />
@@ -102,8 +100,8 @@
                     android:id="@+id/tvTitleError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/space_xxs"
-                    android:text="*Title cannot be empty"
+                    android:layout_marginStart="@dimen/space_xxs"
+                    android:text="@string/title_cannot_be_empty"
                     android:textColor="@color/color_error" />
 
             </LinearLayout>
@@ -210,7 +208,7 @@
                     android:id="@+id/tvCategoryError"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="*Category cannot be empty"
+                    android:text="@string/category_cannot_be_empty"
                     android:textColor="@color/color_error" />
             </LinearLayout>
 

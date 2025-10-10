@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_background"
-
     tools:context=".ui.detailsshoplist.ShopListDetailsFragment">
 
     <RelativeLayout
@@ -29,7 +28,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Shop List Name"
             android:textColor="@color/white"
             android:textSize="@dimen/text_xxxxl"
             android:textStyle="bold" />

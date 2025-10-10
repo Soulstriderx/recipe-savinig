@@ -21,7 +21,6 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
             android:textSize="@dimen/text_xxxl"
             android:textStyle="bold"
             android:paddingVertical="@dimen/space_xxxl"
@@ -71,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description:"
+                android:text="@string/description_colon"
                 android:layout_marginEnd="@dimen/space_xs"
                 android:textSize="@dimen/text_xl" />
 
@@ -79,7 +78,6 @@
                 android:id="@+id/tvDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description"
                 android:textSize="@dimen/text_xl" />
 
         </LinearLayout>
@@ -102,7 +100,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Est Time:"
+                    android:text="@string/est_time"
                     android:textSize="@dimen/text_xl"
                     android:layout_marginEnd="@dimen/space_xs" />
 
@@ -110,8 +108,7 @@
                     android:id="@+id/tvTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_xl"
-                    android:text="15mins" />
+                    android:textSize="@dimen/text_xl" />
 
             </LinearLayout>
 
@@ -133,7 +130,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Servings:"
+                    android:text="@string/servings"
                     android:textSize="@dimen/text_xl"
                     android:layout_marginEnd="@dimen/space_xs" />
 
@@ -141,8 +138,7 @@
                     android:id="@+id/tvServing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_xl"
-                    android:text="Serving" />
+                    android:textSize="@dimen/text_xl" />
 
             </LinearLayout>
 
