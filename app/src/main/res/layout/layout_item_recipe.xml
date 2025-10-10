@@ -32,12 +32,8 @@
             android:scaleType="centerCrop"
             android:layout_height="180dp"
             android:background="@color/t_gray"
-            android:maxHeight="@dimen/space_xxxxxxxxl" />
-
-        <Space
-            android:id="@+id/imagePadding"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/space_xs" />
+            android:maxHeight="@dimen/space_xxxxxxxxl"
+            android:layout_marginBottom="@dimen/space_xs" />
 
         <LinearLayout
             android:layout_width="match_parent"

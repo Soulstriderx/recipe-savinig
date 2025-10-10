@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.detailsrecipe.nested.RecipeOverviewFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/llOverview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +24,6 @@
             android:text="Title"
             android:textSize="@dimen/text_xxxl"
             android:textStyle="bold"
-            android:layout_below="@id/ivImage"
             android:paddingVertical="@dimen/space_xxxl"
             android:background="@color/white"
             android:gravity="center" />
@@ -33,16 +32,14 @@
             android:id="@+id/titleCategory"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_xxxxs"
-            android:background="@color/t_gray"
-            android:layout_below="@id/tvTitle"/>
+            android:background="@color/t_gray" />
 
         <LinearLayout
             android:id="@+id/llCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/titleCategory"
             android:background="@color/white"
-            android:paddingVertical="@dimen/space_xs"
+            android:paddingVertical="@dimen/space_l"
             android:paddingHorizontal="@dimen/space_xs"
             android:gravity="center"
             android:orientation="horizontal" >
@@ -60,8 +57,7 @@
             android:id="@+id/categoryDescription"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_xxxxs"
-            android:background="@color/t_gray"
-            android:layout_below="@id/llCategory"/>
+            android:background="@color/t_gray" />
 
         <LinearLayout
             android:id="@+id/llDesc"
@@ -69,9 +65,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/white"
-            android:paddingVertical="@dimen/space_xs"
-            android:paddingHorizontal="@dimen/space_xs"
-            android:layout_below="@id/categoryDescription" >
+            android:paddingVertical="@dimen/space_l"
+            android:paddingHorizontal="@dimen/space_xs" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -93,16 +88,14 @@
             android:id="@+id/descriptionTime"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_xxxxs"
-            android:background="@color/t_gray"
-            android:layout_below="@id/llDesc"/>
+            android:background="@color/t_gray" />
 
         <LinearLayout
             android:id="@+id/llTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/descriptionTime"
             android:background="@color/white"
-            android:paddingVertical="@dimen/space_xs"
+            android:paddingVertical="@dimen/space_l"
             android:paddingHorizontal="@dimen/space_xs"
             android:orientation="horizontal">
 
@@ -126,18 +119,16 @@
             android:id="@+id/timeServings"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_xxxxs"
-            android:background="@color/t_gray"
-            android:layout_below="@id/llTime"/>
+            android:background="@color/t_gray" />
 
 
             <LinearLayout
                 android:id="@+id/llServings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/space_xs"
+                android:paddingVertical="@dimen/space_l"
                 android:paddingHorizontal="@dimen/space_xs"
-                android:background="@color/white"
-                android:layout_below="@id/timeServings">
+                android:background="@color/white" >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,8 +150,7 @@
             android:id="@+id/servingsIngredients"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_xxxxs"
-            android:background="@color/t_gray"
-            android:layout_below="@id/llServings"/>
+            android:background="@color/t_gray" />
 
         <TextView
             android:id="@+id/tvIngredients"
@@ -168,19 +158,18 @@
             android:layout_height="wrap_content"
             android:text="@string/ingredients"
             android:textSize="@dimen/text_xl"
-            android:paddingVertical="@dimen/space_xs"
+            android:paddingVertical="@dimen/space_l"
             android:paddingHorizontal="@dimen/space_xs"
-            android:background="@color/white"
-            android:layout_below="@id/servingsIngredients" />
+            android:background="@color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/space_xs"
-            android:layout_below="@id/tvIngredients"
-            android:paddingVertical="@dimen/space_xs"/>
+            android:paddingVertical="@dimen/space_xs"
+            android:layout_marginBottom="@dimen/space_xxxxxxxxl" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </ScrollView>

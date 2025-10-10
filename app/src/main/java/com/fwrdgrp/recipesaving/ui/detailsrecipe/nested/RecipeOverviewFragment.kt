@@ -75,6 +75,7 @@ class RecipeOverviewFragment : Fragment() {
                 val uri = uriString.toUri()
                 ivImage.loadPersistedUri(binding.root.context, uri)
             }
+            imageVisibility(details)
             tvTitle.text = details.recipe.title
             buildCategories(details.recipe.category)
             tvDesc.text = details.recipe.description
@@ -82,6 +83,13 @@ class RecipeOverviewFragment : Fragment() {
             tvServing.text = details.recipe.totalServing.toString()
 
             adapter.applyIngredient(rebuildIngredients(details.ingredients))
+        }
+    }
+
+    fun imageVisibility(details: RecipeWithDetails) {
+        binding.run {
+            if(details.recipe.imageUri == "null") ivImage.visibility = View.GONE
+            else ivImage.visibility = View.VISIBLE
         }
     }
 

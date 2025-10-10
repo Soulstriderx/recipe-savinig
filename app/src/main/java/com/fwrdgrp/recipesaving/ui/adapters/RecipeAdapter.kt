@@ -67,19 +67,24 @@ class RecipeAdapter(
                 llRecipe.setOnClickListener { onRecipeClick(item.id) }
                 item.imageUri?.let { uriString ->
                     val uri = uriString.toUri()
-                    ivImage.loadPersistedUri(itemView.context, uri)
-                }
+                    ivImage.loadPersistedUri(itemView.context, uri) }
                 glCategory.removeAllViews()
                 for (category in item.category.take(3)) {
                     val tvCategory = TextView(root.context).apply {
                         text = category.name
-                        setBackgroundResource(R.drawable.box_bg)
-                    }
+                        setBackgroundResource(R.drawable.box_bg) }
                     tvCategory.setOnClickListener { onCategoryClick(category) }
-                    glCategory.addView(tvCategory)
-                }
+                    glCategory.addView(tvCategory) }
                 ivStar.visibility = if(item.favorite) View.VISIBLE
                 else View.GONE
+                imageVisibility(item)
+            }
+        }
+
+        fun imageVisibility(item: Recipe) {
+            binding.run {
+                if(item.imageUri == "null") ivImage.visibility = View.GONE
+                else ivImage.visibility = View.VISIBLE
             }
         }
     }
