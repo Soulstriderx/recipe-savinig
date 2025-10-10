@@ -1,6 +1,5 @@
 package com.fwrdgrp.recipesaving.ui.detailsrecipe
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -61,34 +60,32 @@ class RecipeDetailsViewModel(
     }
 
     //Below this is the Shopping List Generator
-//    fun debug() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            shoppingRepo.getAllStoreItems().collect {
-//                Log.d("debug", "$it")
-//            }
-//        }
-//    }
-
     fun addShopList() {
         val item = _recipeDetails.value ?: return
-            viewModelScope.launch(Dispatchers.IO) {
-                val storeItems = shoppingRepo.getAllStoreItems().first()
-                val storeId: Int = utils.generateStoreId(item, storeItems)
-                if (storeId == -1) {
-                    viewModelScope.launch { _error.emit("No stores have any of these items.") }
-                    return@launch
-                }
-                val shopList: ShoppingList = buildShopList(item.recipe.title, storeId)
-                val shopListId = shoppingRepo.upsertShoppingList(shopList)
-                item.ingredients.forEach {
-                    addShopListItemsToShopList(
-                        shopListId, it.ingredient.id, it.amount ?: 0.0, it.unit ?: "pcs")
-                }
-                _shoppingListId.emit(shopListId)
+        viewModelScope.launch(Dispatchers.IO) {
+            val storeItems = shoppingRepo.getAllStoreItems().first()
+            val storeId: Int = utils.generateStoreId(item, storeItems)
+            if (storeId == -1) {
+                viewModelScope.launch { _error.emit("No stores have any of these items.") }
+                return@launch
             }
+            val shopList: ShoppingList = buildShopList(item.recipe.title, storeId)
+            val shopListId = shoppingRepo.upsertShoppingList(shopList)
+            item.ingredients.forEach {
+                addShopListItemsToShopList(
+                    shopListId, it.ingredient.id, it.amount ?: 0.0, it.unit ?: "pcs"
+                )
+            }
+            _shoppingListId.emit(shopListId)
+        }
     }
 
-    suspend fun addShopListItemsToShopList(listId: Int, ingredientId: Int, amount: Double, unit: String) {
+    suspend fun addShopListItemsToShopList(
+        listId: Int,
+        ingredientId: Int,
+        amount: Double,
+        unit: String
+    ) {
         shoppingRepo.insertGeneratedShopListItem(
             listId, ingredientId, amount, unit
         )
