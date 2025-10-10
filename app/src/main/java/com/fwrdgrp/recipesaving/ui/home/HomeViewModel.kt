@@ -63,7 +63,9 @@ class HomeViewModel(
         getShoppingLists()
     }
 
-    fun List<ShoppingListWithStoreAndItems>.applySort(sortOrder: SortOrder, filter: ShopListFilter): List<ShoppingListWithStoreAndItems> {
+    fun List<ShoppingListWithStoreAndItems>.applySort(
+        sortOrder: SortOrder, filter: ShopListFilter
+    ): List<ShoppingListWithStoreAndItems> {
         val sort = when (filter) {
             ShopListFilter.DATE -> sortByDate(sortOrder)
             ShopListFilter.ALPHABETICALLY -> sortByName(sortOrder)
