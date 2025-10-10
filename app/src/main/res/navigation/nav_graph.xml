@@ -12,15 +12,31 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_addRecipe"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
             app:destination="@id/addRecipeFragment" />
         <action
             android:id="@+id/action_home_to_recipeDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
             app:destination="@id/recipeDetailsFragment" />
         <action
             android:id="@+id/action_home_to_stores"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
             app:destination="@id/storesFragment" />
         <action
             android:id="@+id/action_home_to_shopListDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
             app:destination="@id/shopListDetailsFragment" />
     </fragment>
     <fragment
@@ -41,13 +57,16 @@
         android:name="com.fwrdgrp.recipesaving.ui.detailsrecipe.RecipeDetailsFragment"
         android:label="fragment_recipe_details"
         tools:layout="@layout/fragment_recipe_details">
-
         <argument
             android:name="recipeId"
             app:argType="integer"
             app:nullable="false" />
         <action
             android:id="@+id/action_recipeDetails_to_editRecipe"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
             app:destination="@id/editRecipeFragment" />
         <action
             android:id="@+id/action_recipeDetails_to_shopListDetails"
@@ -61,6 +80,10 @@
         tools:layout="@layout/fragment_stores" >
         <action
             android:id="@+id/action_stores_to_storeDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
             app:destination="@id/storeDetailsFragment" />
     </fragment>
     <fragment

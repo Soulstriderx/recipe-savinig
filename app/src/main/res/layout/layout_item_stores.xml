@@ -14,7 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Name"
         android:textSize="@dimen/text_xxl"
         android:textStyle="bold" />
 
@@ -23,7 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
-        android:text="Location"
         android:textSize="@dimen/text_l" />
 
     <ImageView
@@ -31,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/ivArrow"
+        android:layout_toStartOf="@id/ivArrow"
         android:src="@drawable/ic_trash" />
 
     <ImageView

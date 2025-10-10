@@ -25,6 +25,7 @@
 
     <!--Project Colors-->
     <color name="color_primary">#4d869c</color>
+    <color name="color_t_primary">#2D4D869C</color>
     <color name="color_secondary">#7ab2b2</color>
     <color name="color_background">#edeff3</color>
 

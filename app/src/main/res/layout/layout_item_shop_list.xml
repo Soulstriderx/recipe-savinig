@@ -21,7 +21,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Shopping List"
             android:textSize="@dimen/text_xl"
             android:textStyle="bold"/>
 
@@ -35,14 +34,12 @@
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="RM"
                android:textSize="@dimen/text_l" />
 
            <TextView
                android:id="@+id/tvTotalPrice"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="150"
                android:textSize="@dimen/text_l"/>
 
        </LinearLayout>
@@ -60,14 +57,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/space_xxxs"
-            android:text="Items: "
+            android:text="@string/items"
             android:textSize="@dimen/text_l" />
 
         <TextView
             android:id="@+id/tvTotalItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5"
             android:textSize="@dimen/text_l" />
 
     </LinearLayout>
@@ -81,14 +77,12 @@
             android:id="@+id/tvStore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wallmart"
             android:textSize="@dimen/text_l" />
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="25/5/2005"
             android:textColor="@color/t_gray_text"
             android:textSize="@dimen/text_l"/>
 

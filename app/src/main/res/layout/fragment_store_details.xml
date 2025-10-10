@@ -27,7 +27,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Placeholder"
             android:textColor="@color/white"
             android:textSize="@dimen/text_xxxxl"
             android:textStyle="bold" />
@@ -48,13 +47,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/llHeaderDetails"
+        android:background="@drawable/box_bg"
         android:padding="@dimen/space_xl">
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Store Name"
             android:textSize="@dimen/text_xxxxl"
             android:textStyle="bold"
             android:gravity="center"
@@ -69,8 +68,7 @@
         <TextView
             android:id="@+id/tvLocation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="lokasi" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

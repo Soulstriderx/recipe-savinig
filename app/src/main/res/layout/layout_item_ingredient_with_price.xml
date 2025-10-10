@@ -20,7 +20,6 @@
             android:id="@+id/tvIngredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ingredient"
             android:textSize="@dimen/text_xl"
             android:layout_marginBottom="@dimen/space_xxxxs" />
 
@@ -28,7 +27,6 @@
             android:id="@+id/tvAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Amount"
             android:textSize="@dimen/text_m" />
 
     </LinearLayout>
@@ -44,7 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="RM150"
             android:paddingEnd="@dimen/space_xxxs"
             android:textSize="@dimen/text_l" />
 
@@ -53,7 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:text="Linkedingredient"
             android:textSize="@dimen/text_m"/>
 
     </LinearLayout>

@@ -43,7 +43,6 @@
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name"
                 android:textSize="@dimen/text_xl"
                 android:textStyle="bold"
                 android:layout_marginBottom="@dimen/space_xxxxs"/>
@@ -52,14 +51,12 @@
                 android:id="@+id/tvAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Amount"
                 android:textSize="@dimen/text_m" />
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Price"
                 android:textSize="@dimen/text_m" />
 
         </LinearLayout>
