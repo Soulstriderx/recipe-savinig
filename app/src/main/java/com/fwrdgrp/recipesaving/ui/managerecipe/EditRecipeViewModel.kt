@@ -36,6 +36,10 @@ class EditRecipeViewModel(
         image: Uri?
     ) {
         try {
+            val duplicateIngredient = ingredients.map { it.first.name.trim().lowercase() }
+                .groupingBy { it }.eachCount().filter { it.value > 1 }.keys.firstOrNull()
+            if (duplicateIngredient != null) throw Exception("Please remove duplicate ingredients.")
+
             viewModelScope.launch(Dispatchers.IO) {
                 repo.upsertRecipeWithDetails(
                     recipe.copy(imageUri = image.toString()),

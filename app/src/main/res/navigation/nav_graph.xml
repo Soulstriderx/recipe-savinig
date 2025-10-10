@@ -68,6 +68,9 @@
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right"
             app:destination="@id/editRecipeFragment" />
+        <action
+            android:id="@+id/action_recipeDetails_to_shopListDetails"
+            app:destination="@id/shopListDetailsFragment" />
 
     </fragment>
     <fragment
