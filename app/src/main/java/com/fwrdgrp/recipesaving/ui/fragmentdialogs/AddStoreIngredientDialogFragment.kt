@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Units
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItemWithDetails
 import com.fwrdgrp.recipesaving.databinding.FragmentAddStoreIngredientDialogBinding
@@ -61,7 +62,7 @@ class AddStoreIngredientDialogFragment(
         Snackbar.make(binding.root, "This ingredient already exist.", Snackbar.LENGTH_SHORT)
             .setBackgroundTint(
                 ContextCompat.getColor(
-                    requireContext(), android.R.color.holo_red_light
+                    requireContext(), R.color.color_error
                 )
             ).setTextColor(Color.WHITE).show()
     }

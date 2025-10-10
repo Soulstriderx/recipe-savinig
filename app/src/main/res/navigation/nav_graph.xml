@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_recipeDetails_to_editRecipe"
             app:destination="@id/editRecipeFragment" />
+        <action
+            android:id="@+id/action_recipeDetails_to_shopListDetails"
+            app:destination="@id/shopListDetailsFragment" />
 
     </fragment>
     <fragment

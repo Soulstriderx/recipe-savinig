@@ -94,6 +94,7 @@
         android:id="@+id/rvRecipes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/space_xxxl"
         android:layout_below="@id/llHeader"/>
 
 

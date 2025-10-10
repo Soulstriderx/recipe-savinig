@@ -244,7 +244,7 @@ class ShopListDetailsFragment : Fragment() {
         Snackbar.make(binding.root, "\"$name\" already exist.", Snackbar.LENGTH_SHORT)
             .setBackgroundTint(
                 ContextCompat.getColor(
-                    requireContext(), android.R.color.holo_red_light
+                    requireContext(), R.color.color_error
                 )
             ).setTextColor(Color.WHITE).show()
     }

@@ -49,6 +49,9 @@ interface ShoppingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertStoreItem(storeItem: StoreItem): Long
 
+    @Query("SELECT * FROM StoreItem")
+    fun getAllStoreItems(): Flow<List<StoreItem>>
+
     @Query("SELECT * FROM StoreItem WHERE storeId = :storeId")
     fun getAllStoreItemsByStoreId(storeId: Int): Flow<List<StoreItem>>
 

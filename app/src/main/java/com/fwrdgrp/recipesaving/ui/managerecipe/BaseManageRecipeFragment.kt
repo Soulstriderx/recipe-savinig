@@ -142,7 +142,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
 
     protected fun showError(msg: String) {
         val snackbar = Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG)
-        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red)).show()
+        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.color_error)).show()
     }
 
     protected fun setupInstructionAdapter() {
