@@ -11,7 +11,6 @@ import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -35,11 +34,6 @@ class StoresFragmentViewModel(
                 _stores.update { storeList }
             }
         }
-    }
-
-    suspend fun deleteStore(id: Int) {
-        repo.deleteStoreById(id)
-        getStores()
     }
 
     suspend fun addStore(storeName: String, storeLocation: String?) {
