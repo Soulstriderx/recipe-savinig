@@ -69,7 +69,7 @@ class ShopListDetailsAdapter(
                     item.shoppingListItem.amountNeeded, item.shoppingListItem.neededUnit
                 )
                 tvPrice.text = if (truePrice == 0.0) {
-                    "Unavailable at this location."
+                    root.context.getString(R.string.unavailable_at_location)
                 } else root.context.getString(
                     R.string.shopping_list_price, packageNeeded, price, truePrice
                 )

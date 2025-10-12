@@ -87,7 +87,6 @@ class StoreDetailsFragment : Fragment() {
         binding.run {
             adapter = StoreIngredientsAdapter(
                 emptyList(),
-                {},
                 { deleteDialogCreation(it).show() }
             )
             rvStoreIngredients.adapter = adapter
@@ -100,7 +99,7 @@ class StoreDetailsFragment : Fragment() {
             setContentView(R.layout.layout_dialog_confirmation)
             window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
             findViewById<TextView>(R.id.tvConfirm).text =
-                "Are you sure you want to delete this Item?"
+                requireContext().getString(R.string.delete_item)
             findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
             findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {

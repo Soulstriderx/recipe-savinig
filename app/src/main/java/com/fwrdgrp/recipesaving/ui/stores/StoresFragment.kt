@@ -83,7 +83,7 @@ class StoresFragment : Fragment() {
             setContentView(R.layout.layout_dialog_confirmation)
             window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
             findViewById<TextView>(R.id.tvConfirm).text =
-                "Are you sure you want to delete this Store?"
+                requireContext().getString(R.string.delete_store)
             findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
             findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
                 lifecycleScope.launch(Dispatchers.IO) {

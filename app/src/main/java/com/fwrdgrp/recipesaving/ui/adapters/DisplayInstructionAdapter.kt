@@ -34,11 +34,6 @@ class DisplayInstructionAdapter(
 
     override fun getItemCount() = instructions.size
 
-    fun applyIngredient(instructions: List<Instruction>) {
-        this.instructions = instructions
-        notifyDataSetChanged()
-    }
-
     inner class InstructionViewHolder(
         val binding: LayoutItemDisplayInstructionBinding
     ) : RecyclerView.ViewHolder(binding.root)
