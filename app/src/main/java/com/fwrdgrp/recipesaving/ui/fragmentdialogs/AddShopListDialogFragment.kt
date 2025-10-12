@@ -67,13 +67,6 @@ class AddShopListDialogFragment(
                 validStores)
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spStoreName.adapter = spinnerAdapter
-            spStoreName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int,
-                    id: Long ) {
-                    selectedStore = spinnerAdapter.getItem(position)
-                }
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
         }
     }
 }

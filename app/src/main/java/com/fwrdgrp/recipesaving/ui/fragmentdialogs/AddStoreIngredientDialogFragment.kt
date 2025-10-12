@@ -112,17 +112,7 @@ class AddStoreIngredientDialogFragment(
         val unitValues = getUnitDisplayNames()
         val adapter = createUnitSpinnerAdapter(context, unitValues)
         spinner.adapter = adapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-        }
     }
 
     fun getUnitDisplayNames(): List<String> = Units.entries.map { it.label }

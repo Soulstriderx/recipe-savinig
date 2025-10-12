@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.utils.Constant
 import com.fwrdgrp.recipesaving.databinding.FragmentStoresBinding
 import com.fwrdgrp.recipesaving.ui.adapters.StoresAdapter
 import com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddStoreDialogFragment
@@ -56,7 +57,7 @@ class StoresFragment : Fragment() {
                         viewModel.addStore(storeName, storeLocation)
                     }
                 }
-                dialog.show(parentFragmentManager, "AddStoreDialog")
+                dialog.show(parentFragmentManager, Constant.ADD_STORE_DIALOG)
             }
         }
     }
