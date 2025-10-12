@@ -15,6 +15,8 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class AddStoreDialogFragment(
+    private val storeName: String = "",
+    private val location: String = "",
     private val storeData: (storeName: String, storeLocation: String?) -> Unit
 ) : DialogFragment() {
     private val viewModel: AddStoreDialogViewModel by viewModels()
@@ -36,6 +38,8 @@ class AddStoreDialogFragment(
             }
         }
         binding.run {
+            etStoreName.setText(storeName)
+            etStoreLocation.setText(location)
             mbCancel.setOnClickListener { dismiss() }
             mbAdd.setOnClickListener { handleAddStore() }
         }

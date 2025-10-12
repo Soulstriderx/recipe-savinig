@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class StoreDetailsViewModel(
-    private val repo: ShoppingRepo,
+    private val shoppingRepo: ShoppingRepo,
     private val recipeRepo: RecipeRepo
 ) : ViewModel() {
 
@@ -22,13 +22,13 @@ class StoreDetailsViewModel(
     val storeDetails: StateFlow<StoreWithItemsDetails?> = _storeDetails
 
     suspend fun fetchStoreDetails(id: Int): StoreWithItemsDetails {
-        val details = repo.getStoreWithItemDetails(id)
+        val details = shoppingRepo.getStoreWithItemDetails(id)
         _storeDetails.value = details
         return details
     }
 
     suspend fun deleteStore(id: Int) {
-        repo.deleteStoreById(id)
+        shoppingRepo.deleteStoreById(id)
     }
 
     suspend fun addOneIngredient(name: String): Int {
@@ -36,11 +36,17 @@ class StoreDetailsViewModel(
     }
 
     suspend fun insertStoreItem(storeItem: StoreItem) {
-        repo.upsertStoreItem(storeItem)
+        shoppingRepo.upsertStoreItem(storeItem)
     }
 
     suspend fun deleteStoreItem(id: Int) {
-        repo.deleteStoreItem(id)
+        shoppingRepo.deleteStoreItem(id)
+    }
+
+    suspend fun updateStore(storeName: String, storeLocation: String?) {
+        _storeDetails.value?.store?.let {
+            shoppingRepo.updateStore(it.copy(name = storeName, location = storeLocation))
+        }
     }
 
     companion object {
@@ -48,7 +54,7 @@ class StoreDetailsViewModel(
             initializer {
                 val myRepository = (this[APPLICATION_KEY] as MyApp)
                 StoreDetailsViewModel(
-                    repo = myRepository.ShoppingRepository,
+                    shoppingRepo = myRepository.ShoppingRepository,
                     recipeRepo = myRepository.RecipeRepository
                 )
             }

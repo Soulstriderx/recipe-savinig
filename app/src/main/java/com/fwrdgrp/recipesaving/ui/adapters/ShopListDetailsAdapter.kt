@@ -51,8 +51,8 @@ class ShopListDetailsAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingListItemWithIngredient) {
             val storeItem = item.storeItems.firstOrNull { it.storeId == storeId }
-            var price = 0.0;
-            var truePrice = 0.0;
+            var price = 0.0
+            var truePrice = 0.0
             var packageNeeded = 0
             storeItem?.let {
                 price = storeItem.price

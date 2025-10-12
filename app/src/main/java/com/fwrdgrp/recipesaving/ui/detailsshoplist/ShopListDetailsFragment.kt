@@ -24,8 +24,10 @@ import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Units
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
+import com.fwrdgrp.recipesaving.data.utils.Constant
 import com.fwrdgrp.recipesaving.databinding.FragmentShopListDetailsBinding
 import com.fwrdgrp.recipesaving.ui.adapters.ShopListDetailsAdapter
+import com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddShopListDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
@@ -43,6 +45,7 @@ class ShopListDetailsFragment : Fragment() {
     private lateinit var spinnerAdapter: ArrayAdapter<Store>
 
     private var storeId: Int? = null
+    private var shopListName = ""
 
     private val args: ShopListDetailsFragmentArgs by navArgs()
 
@@ -63,6 +66,7 @@ class ShopListDetailsFragment : Fragment() {
                     tvShopListName.text = it.shoppingList.name
                     tvStoreName.text = it.store.name
                     storeId = it.store.id
+                    shopListName = it.shoppingList.name
                     setupAdapter()
                     adapter.applyShopListItem(it.items)
                 }
@@ -106,6 +110,7 @@ class ShopListDetailsFragment : Fragment() {
             setupUnitSpinner(requireContext(), spUnit)
             ivBack.setOnClickListener { findNavController().popBackStack() }
             ivAdd.setOnClickListener { toggleFilter(llAddIngredient) }
+            ivEdit.setOnClickListener { editShopListDialog() }
             mbAdd.setOnClickListener {
                 val ingredient = etIngredient.text.toString()
                 val amount = etAmount.text.toString().toDoubleOrNull() ?: 0.0
@@ -175,6 +180,16 @@ class ShopListDetailsFragment : Fragment() {
         }
     }
 
+    fun editShopListDialog() {
+        val dialog = AddShopListDialogFragment(shopListName, storeId ?: 0) { listName, store ->
+            lifecycleScope.launch {
+                viewModel.updateShoppingListName(listName, store.id)
+                viewModel.getShoppingList(args.shopListId)
+            }
+        }
+        dialog.show(parentFragmentManager, Constant.ADD_SHOP_LIST_DIALOG)
+    }
+
     fun deleteShopItemDialog(item: ShoppingListItem): Dialog {
         return Dialog(requireContext()).apply {
             setContentView(R.layout.layout_dialog_confirmation)
@@ -239,7 +254,8 @@ class ShopListDetailsFragment : Fragment() {
 
     fun showError(msg: String) {
         Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.color_error)
+            .setBackgroundTint(
+                ContextCompat.getColor(requireContext(), R.color.color_error)
             ).setTextColor(Color.WHITE).show()
     }
 

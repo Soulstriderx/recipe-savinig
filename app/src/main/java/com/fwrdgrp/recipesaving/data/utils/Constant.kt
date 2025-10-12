@@ -4,6 +4,7 @@ object Constant {
     //Tag constants
     const val ADD_STORE_DIALOG = "AddStoreDialog"
     const val ADD_SHOP_LIST_DIALOG = "AddShopListDialog"
+    const val ADD_STORE_ITEM_DIALOG = "AddStoreItemDialog"
 
     //Validation constants
     const val UNKNOWN = "Unknown error."

@@ -73,6 +73,12 @@ class ShopListDetailsViewModel(
         }
     }
 
+    suspend fun updateShoppingListName(name: String, newStoreId: Int) {
+        shoppingList.value?.let {
+            repo.updateShoppingList(it.shoppingList.copy(name = name, storeId = newStoreId))
+        }
+    }
+
     suspend fun addListItem(
         listId: Int,
         name: String,

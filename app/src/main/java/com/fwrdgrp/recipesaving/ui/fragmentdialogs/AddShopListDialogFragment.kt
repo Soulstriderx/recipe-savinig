@@ -20,6 +20,8 @@ import kotlinx.coroutines.launch
 import kotlin.getValue
 
 class AddShopListDialogFragment(
+    private val shopListName: String = "",
+    private val storeId: Int = 0,
     private val shopListData: (listName: String, store: Store) -> Unit
 ) : DialogFragment() {
     private val viewModel: AddShopListDialogViewModel by viewModels {
@@ -40,6 +42,7 @@ class AddShopListDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.etListName.setText(shopListName)
         lifecycleScope.launch {
             viewModel.stores.filterNotNull().collect {
                 setupSpinner(it)
@@ -88,13 +91,18 @@ class AddShopListDialogFragment(
                 requireContext(), android.R.layout.simple_spinner_item,
                 validStores
             )
+            val selectedIndex = validStores.indexOfFirst { it.id == storeId }
+            spStoreName.post {
+                spStoreName.setSelection(selectedIndex, false)
+                selectedStore = validStores[selectedIndex]
+            }
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spStoreName.adapter = spinnerAdapter
             spStoreName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-                    selectedStore = spinnerAdapter.getItem(position) ?: return
+                    selectedStore = spinnerAdapter.getItem(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
