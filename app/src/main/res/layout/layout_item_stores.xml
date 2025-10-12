@@ -25,14 +25,6 @@
         android:textSize="@dimen/text_l" />
 
     <ImageView
-        android:id="@+id/ivDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@id/ivArrow"
-        android:src="@drawable/ic_trash" />
-
-    <ImageView
         android:id="@+id/ivArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

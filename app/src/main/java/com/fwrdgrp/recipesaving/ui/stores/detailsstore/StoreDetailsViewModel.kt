@@ -27,6 +27,10 @@ class StoreDetailsViewModel(
         return details
     }
 
+    suspend fun deleteStore(id: Int) {
+        repo.deleteStoreById(id)
+    }
+
     suspend fun addOneIngredient(name: String): Int {
         return recipeRepo.upsertIngredient(name)
     }

@@ -54,6 +54,11 @@ class StoreDetailsFragment : Fragment() {
         }
         setOnClickListeners()
         setupAdapter()
+
+        binding.run {
+            ivDelete.setOnClickListener { deleteDialogCreationStore(args.storeId).show() }
+//            ivEdit.setOnClickListener {  }
+        }
     }
 
     fun setOnClickListeners() {
@@ -123,5 +128,21 @@ class StoreDetailsFragment : Fragment() {
             packageAmount = amount,
             packageUnit = unit
         )
+    }
+
+    fun deleteDialogCreationStore(id: Int): Dialog {
+        return Dialog(requireContext()).apply {
+            setContentView(R.layout.layout_dialog_confirmation)
+            window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            findViewById<TextView>(R.id.tvConfirm).text =
+                "Are you sure you want to delete this Store?"
+            findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
+            findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.deleteStore(id)
+                }
+                dismiss()
+            }
+        }
     }
 }
