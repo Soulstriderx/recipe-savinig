@@ -78,6 +78,11 @@ class ShopListDetailsFragment : Fragment() {
                 setupSpinner(it)
             }
         }
+        lifecycleScope.launch {
+            viewModel.error.collect {
+                showError(it)
+            }
+        }
         setupAll()
     }
 
@@ -226,26 +231,15 @@ class ShopListDetailsFragment : Fragment() {
     fun addListItem(ingredient: String, amount: Double, unit: String) {
         lifecycleScope.launch {
             val currentList = viewModel.shoppingList.value ?: return@launch
-            val lowerCaseInput = ingredient.trim().lowercase()
-            val duplicateItem = currentList.items.any {
-                it.ingredient.name.trim().lowercase() == lowerCaseInput
-            }
-            if (duplicateItem) {
-                showError(ingredient)
-                return@launch
-            }
-            viewModel.addListItem(args.shopListId, ingredient, amount, unit)
+            viewModel.addListItem(args.shopListId, ingredient, amount, unit, currentList)
             viewModel.getShoppingList(args.shopListId)
 
         }
     }
 
-    fun showError(name: String) {
-        Snackbar.make(binding.root, "\"$name\" already exist.", Snackbar.LENGTH_SHORT)
-            .setBackgroundTint(
-                ContextCompat.getColor(
-                    requireContext(), R.color.color_error
-                )
+    fun showError(msg: String) {
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.color_error)
             ).setTextColor(Color.WHITE).show()
     }
 

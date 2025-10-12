@@ -31,7 +31,14 @@ class StoresFragmentViewModel(
 
     fun getStores() {
         viewModelScope.launch {
-            repo.getStores().map { it.filter { currentSearch.isBlank() || it.name.contains(currentSearch, ignoreCase = true) } }.collect { storeList ->
+            repo.getStores().map {
+                it.filter {
+                    currentSearch.isBlank() || it.name.contains(
+                        currentSearch,
+                        ignoreCase = true
+                    )
+                }
+            }.collect { storeList ->
                 _stores.update { storeList }
             }
         }

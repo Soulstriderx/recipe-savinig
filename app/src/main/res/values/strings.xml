@@ -71,4 +71,8 @@
     <string name="est_time">Est Time:</string>
     <string name="servings">Servings:</string>
     <string name="items">Items:</string>
+    <string name="unavailable_at_location">"Unavailable at this location."</string>
+    <string name="delete_item">Are you sure you want to delete this Item?</string>
+    <string name="delete_store">Are you sure you want to delete this Store?</string>
+
 </resources>

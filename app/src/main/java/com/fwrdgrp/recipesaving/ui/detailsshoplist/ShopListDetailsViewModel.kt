@@ -13,7 +13,10 @@ import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListWithStoreAndIte
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
 import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
+import com.fwrdgrp.recipesaving.data.utils.Constant
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -31,6 +34,9 @@ class ShopListDetailsViewModel(
 
     private val _ingredients = MutableStateFlow<List<Ingredient>?>(null)
     val ingredients: StateFlow<List<Ingredient>?> = _ingredients
+
+    private val _error = MutableSharedFlow<String>()
+    val error: SharedFlow<String> = _error
 
     init {
         getStores()
@@ -55,7 +61,8 @@ class ShopListDetailsViewModel(
 
     suspend fun getShoppingList(id: Int) {
         val shopList = repo.getShoppingListWithPrices(id)
-        val sorted = shopList.items.sortedByDescending { it.storeItems.size }.sortedBy { it.shoppingListItem.bought }
+        val sorted = shopList.items.sortedByDescending { it.storeItems.size }
+            .sortedBy { it.shoppingListItem.bought }
         _shoppingList.value = shopList.copy(items = sorted)
     }
 
@@ -66,8 +73,29 @@ class ShopListDetailsViewModel(
         }
     }
 
-    suspend fun addListItem(listId: Int, name: String, amount: Double, unit: String) {
-        repo.upsertShoppingListItem(listId, name, amount, unit)
+    suspend fun addListItem(
+        listId: Int,
+        name: String,
+        amount: Double,
+        unit: String,
+        currentList: ShoppingListWithStoreAndItems
+    ) {
+        try {
+            require(name.isNotBlank()) { Constant.NO_ING }
+            require(amount > 0) { Constant.NO_AMOUNT }
+            checkDupe(name, currentList)
+            repo.upsertShoppingListItem(listId, name, amount, unit)
+        } catch (e: Exception) {
+            _error.emit(e.message ?: Constant.UNKNOWN)
+        }
+    }
+
+    fun checkDupe(ingredient: String, currentList: ShoppingListWithStoreAndItems) {
+        val lowerCaseInput = ingredient.trim().lowercase()
+        val duplicateItem = currentList.items.any {
+            it.ingredient.name.trim().lowercase() == lowerCaseInput
+        }
+        require(duplicateItem == false) { Constant.INGREDIENT_EXIST }
     }
 
     suspend fun toggleBought(item: ShoppingListItem) {
@@ -77,6 +105,7 @@ class ShopListDetailsViewModel(
     suspend fun deleteShopItem(item: ShoppingListItem) {
         repo.deleteShoppingListItem(item)
     }
+
     suspend fun deleteShopListById(listId: Int) {
         repo.deleteShoppingListById(listId)
     }

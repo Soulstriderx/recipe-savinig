@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.core.content.ContextCompat
@@ -16,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.fwrdgrp.recipesaving.R
 import com.fwrdgrp.recipesaving.data.enums.Units
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItemWithDetails
+import com.fwrdgrp.recipesaving.data.utils.Constant
 import com.fwrdgrp.recipesaving.databinding.FragmentAddStoreIngredientDialogBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.filterNotNull
@@ -50,16 +50,23 @@ class AddStoreIngredientDialogFragment(
         lifecycleScope.launch {
             viewModel.ingredients.filterNotNull().collect {
                 setupAutofillAdapter(it.map { it.name })
-            } }
+            }
+        }
         lifecycleScope.launch {
             viewModel.storeItems.filterNotNull().collect {
                 existingStoreItems = it
-            } }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.error.collect {
+                showError(it)
+            }
+        }
         setupListeners()
     }
 
-    fun showError() {
-        Snackbar.make(binding.root, "This ingredient already exist.", Snackbar.LENGTH_SHORT)
+    fun showError(msg: String) {
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT)
             .setBackgroundTint(
                 ContextCompat.getColor(
                     requireContext(), R.color.color_error
@@ -79,17 +86,21 @@ class AddStoreIngredientDialogFragment(
         binding.run {
             val name = etItemName.text.toString()
             val ingredient = etIngredientName.text.toString()
-            val price = etPrice.text.toString().toDouble()
-            val amount = etAmount.text.toString().toDouble()
+            val price = etPrice.text.toString().toDoubleOrNull() ?: 0
+            val amount = etAmount.text.toString().toDoubleOrNull() ?: 0
             val unit = spUnit.selectedItem?.toString() ?: ""
+            lifecycleScope.launch {
+                val isValid =
+                    viewModel.validateFields(name, ingredient, price.toDouble(), amount.toDouble())
+                if (!isValid) return@launch
+                if (isDuplicate(ingredient)) {
+                    showError(Constant.INGREDIENT_EXIST)
+                    return@launch
+                }
 
-            if (isDuplicate(ingredient)) {
-                showError()
-                return
+                itemData(name, ingredient, price.toDouble(), amount.toDouble(), unit)
+                dismiss()
             }
-
-            itemData(name, ingredient, price, amount, unit)
-            dismiss()
         }
     }
 
