@@ -71,7 +71,14 @@ class RecipeDetailsViewModel(
                 viewModelScope.launch { _error.emit(Constant.DONT_HAVE_ITEM) }
                 return@launch
             }
-            val shopList: ShoppingList = buildShopList(item.recipe.title, storeId)
+            val invalidIngredient = item.ingredients.firstOrNull {
+                (it.amount ?: 0.0) <= 0.0
+            }
+            if (invalidIngredient != null) {
+                viewModelScope.launch { _error.emit(Constant.INVALID_AMOUNT) }
+                return@launch
+            }
+            val shopList: ShoppingList = buildShopList(item.recipe.title.trim(), storeId)
             val shopListId = shoppingRepo.insertShoppingList(shopList)
             item.ingredients.forEach {
                 addShopListItemsToShopList(

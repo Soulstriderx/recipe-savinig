@@ -20,8 +20,8 @@ class AddRecipeFragment : BaseManageRecipeFragment() {
     override fun buildRecipe(category: List<Category>): Recipe {
         binding.run {
             return Recipe(
-                title = etTitle.text.toString(),
-                description = etDesc.text.toString(),
+                title = etTitle.text.toString().trim(),
+                description = etDesc.text.toString().trim(),
                 category = category,
                 estTime = etTime.text.toString().toIntOrNull() ?: 0,
                 totalServing = etServing.text.toString().toIntOrNull() ?: 0,

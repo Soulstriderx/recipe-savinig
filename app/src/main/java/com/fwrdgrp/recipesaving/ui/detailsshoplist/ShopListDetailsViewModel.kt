@@ -87,7 +87,7 @@ class ShopListDetailsViewModel(
         try {
             require(name.isNotBlank()) { Constant.NO_ING }
             require(amount > 0) { Constant.NO_AMOUNT }
-            checkDupe(name, currentList)
+            checkDupe(name.trim(), currentList)
 
             val ingredientId = addOneIngredient(name)
             val shoppingListItem = buildShoppingListItem(listId, ingredientId, amount, unit)
@@ -99,8 +99,8 @@ class ShopListDetailsViewModel(
     }
 
     suspend fun addOneIngredient(name: String): Int {
-        val exist = recipeRepo.getIngredientByName(name)
-        return exist?.id ?: recipeRepo.upsertSingleIngredient(Ingredient(name = name)).toInt()
+        val exist = recipeRepo.getIngredientByName(name.trim())
+        return exist?.id ?: recipeRepo.upsertSingleIngredient(Ingredient(name = name.trim())).toInt()
     }
 
     fun buildShoppingListItem(

@@ -114,6 +114,7 @@
                 android:maxLines="1"
                 android:minLines="1"
                 android:overScrollMode="always"
+                android:scrollbars="horizontal"
                 android:background="@drawable/edit_text_bg"
                 android:hint="@string/title" />
 
@@ -151,6 +152,7 @@
                 android:maxLines="4"
                 android:minLines="4"
                 android:overScrollMode="always"
+                android:scrollbars="vertical"
                 android:background="@drawable/edit_text_bg"
                 android:gravity="start"
                 android:hint="@string/description" />
