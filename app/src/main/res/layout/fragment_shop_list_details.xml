@@ -138,7 +138,7 @@
                 android:layout_weight="8"
                 android:backgroundTint="@color/color_primary"
                 android:paddingVertical="@dimen/space_s"
-                android:text="@string/add_recipes"
+                android:text="@string/add_ingredient"
                 android:textSize="@dimen/text_xl" />
 
             <ImageView

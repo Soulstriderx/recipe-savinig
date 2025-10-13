@@ -76,6 +76,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
                         this.suggestions = it.map { it.name }
                     }
                 }
+                binding.rvAddIngredient.adapter?.notifyDataSetChanged()
                 setupListeners()
             }
         }
