@@ -33,8 +33,8 @@ class StoreDetailsViewModel(
     }
 
     suspend fun addOneIngredient(name: String): Int {
-        val exist = recipeRepo.getIngredientByName(name)
-        return exist?.id ?: recipeRepo.upsertSingleIngredient(Ingredient(name = name)).toInt()
+        val exist = recipeRepo.getIngredientByName(name.trim())
+        return exist?.id ?: recipeRepo.upsertSingleIngredient(Ingredient(name = name.trim())).toInt()
     }
 
     suspend fun insertStoreItem(storeItem: StoreItem) {
@@ -47,7 +47,7 @@ class StoreDetailsViewModel(
 
     suspend fun updateStore(storeName: String, storeLocation: String?) {
         _storeDetails.value?.store?.let {
-            shoppingRepo.updateStore(it.copy(name = storeName, location = storeLocation))
+            shoppingRepo.updateStore(it.copy(name = storeName.trim(), location = storeLocation?.trim()))
         }
     }
 

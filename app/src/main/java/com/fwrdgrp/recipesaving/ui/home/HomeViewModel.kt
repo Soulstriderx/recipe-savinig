@@ -45,7 +45,7 @@ class HomeViewModel(
     suspend fun addShopList(name: String, storeId: Int) {
         repo.insertShoppingList(
             ShoppingList(
-                name = name,
+                name = name.trim(),
                 dateCreated = System.currentTimeMillis(),
                 storeId = storeId
             )
