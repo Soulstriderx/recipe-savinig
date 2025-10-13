@@ -70,6 +70,7 @@ class ShopListDetailsFragment : Fragment() {
                     setupAdapter()
                     adapter.applyShopListItem(it.items)
                 }
+                viewModel.stores.value?.let { stores -> setupSpinner(stores) }
             }
         }
         lifecycleScope.launch {
@@ -156,18 +157,16 @@ class ShopListDetailsFragment : Fragment() {
             )
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spStoreName.adapter = spinnerAdapter
+            val selectedIndex =
+                validStores.indexOfFirst { it.id == storeId }.takeIf { it >= 0 } ?: 0
+            spStoreName.setSelection(selectedIndex, false)
             spStoreName.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                var firstSelection = true
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int,
                     id: Long
                 ) {
                     val selected = spinnerAdapter.getItem(position) ?: return
                     val selectedStore = validStores[position]
-                    if (firstSelection) {
-                        firstSelection = false
-                        return
-                    }
                     if (selectedStore.id == -1) return
                     lifecycleScope.launch {
                         viewModel.changeShoppingListStore(selected)

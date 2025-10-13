@@ -43,7 +43,7 @@ class HomeViewModel(
     }
 
     suspend fun addShopList(name: String, storeId: Int) {
-        repo.upsertShoppingList(
+        repo.insertShoppingList(
             ShoppingList(
                 name = name,
                 dateCreated = System.currentTimeMillis(),

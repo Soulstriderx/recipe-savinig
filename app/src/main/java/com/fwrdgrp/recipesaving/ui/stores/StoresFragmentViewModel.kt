@@ -44,7 +44,7 @@ class StoresFragmentViewModel(
     }
 
     suspend fun addStore(storeName: String, storeLocation: String?) {
-        repo.upsertStore(Store(name = storeName, location = storeLocation))
+        repo.insertStore(Store(name = storeName, location = storeLocation))
     }
 
     fun setSearch(str: String) {

@@ -17,7 +17,13 @@ class MyApp : Application() {
             MyDatabase::class.java,
             MyDatabase.NAME
         ).build()
-        RecipeRepository = RecipeRepo(db.getRecipeDao())
-        ShoppingRepository = ShoppingRepo(db.getShoppingDao())
+        RecipeRepository = RecipeRepo(
+            db.getRecipeDao(), db.getIngredientDao(), db.getInstructionDao()
+        )
+        ShoppingRepository =
+            ShoppingRepo(
+                db.getStoreDao(), db.getStoreItemDao(),
+                db.getShoppingListDao(), db.getShoppingListItemDao()
+            )
     }
 }

@@ -68,6 +68,7 @@ class ShopListDetailsViewModel(
 
     //Update store
     suspend fun changeShoppingListStore(newStore: Store) {
+        if (newStore.id < 1) return
         shoppingList.value?.let {
             repo.updateShoppingList(it.shoppingList.copy(storeId = newStore.id))
         }
@@ -80,20 +81,37 @@ class ShopListDetailsViewModel(
     }
 
     suspend fun addListItem(
-        listId: Int,
-        name: String,
-        amount: Double,
-        unit: String,
+        listId: Int, name: String, amount: Double, unit: String,
         currentList: ShoppingListWithStoreAndItems
     ) {
         try {
             require(name.isNotBlank()) { Constant.NO_ING }
             require(amount > 0) { Constant.NO_AMOUNT }
             checkDupe(name, currentList)
-            repo.upsertShoppingListItem(listId, name, amount, unit)
+
+            val ingredientId = addOneIngredient(name)
+            val shoppingListItem = buildShoppingListItem(listId, ingredientId, amount, unit)
+
+            repo.upsertShoppingListItem(shoppingListItem)
         } catch (e: Exception) {
             _error.emit(e.message ?: Constant.UNKNOWN)
         }
+    }
+
+    suspend fun addOneIngredient(name: String): Int {
+        val exist = recipeRepo.getIngredientByName(name)
+        return exist?.id ?: recipeRepo.upsertSingleIngredient(Ingredient(name = name)).toInt()
+    }
+
+    fun buildShoppingListItem(
+        listId: Int, ingredientId: Int, amount: Double, unit: String
+    ): ShoppingListItem {
+        return ShoppingListItem(
+            listId = listId,
+            ingredientId = ingredientId,
+            amountNeeded = amount,
+            neededUnit = unit
+        )
     }
 
     fun checkDupe(ingredient: String, currentList: ShoppingListWithStoreAndItems) {

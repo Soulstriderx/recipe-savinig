@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.fwrdgrp.recipesaving.MyApp
+import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreWithItemsDetails
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
@@ -32,11 +33,12 @@ class StoreDetailsViewModel(
     }
 
     suspend fun addOneIngredient(name: String): Int {
-        return recipeRepo.upsertIngredient(name)
+        val exist = recipeRepo.getIngredientByName(name)
+        return exist?.id ?: recipeRepo.upsertSingleIngredient(Ingredient(name = name)).toInt()
     }
 
     suspend fun insertStoreItem(storeItem: StoreItem) {
-        shoppingRepo.upsertStoreItem(storeItem)
+        shoppingRepo.insertStoreItem(storeItem)
     }
 
     suspend fun deleteStoreItem(id: Int) {
