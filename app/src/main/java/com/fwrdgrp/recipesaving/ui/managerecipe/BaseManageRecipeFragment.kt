@@ -68,9 +68,14 @@ abstract class BaseManageRecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAllItems()
+        setupIngredientAdapter(emptyList())
         lifecycleScope.launch {
-            viewModel.ingredientList.filterNotNull().collect {
-                setupIngredientAdapter(it.map { it.name })
+            viewModel.ingredientList.filterNotNull().collect { suggestions ->
+                ingredientAdapter.apply {
+                    suggestions.let {
+                        this.suggestions = it.map { it.name }
+                    }
+                }
                 setupListeners()
             }
         }
@@ -140,7 +145,8 @@ abstract class BaseManageRecipeFragment : Fragment() {
 
     protected fun showError(msg: String) {
         val snackbar = Snackbar.make(binding.root, msg, Snackbar.LENGTH_LONG)
-        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.color_error)).show()
+        snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.color_error))
+            .show()
     }
 
     protected fun setupInstructionAdapter() {
@@ -193,7 +199,8 @@ abstract class BaseManageRecipeFragment : Fragment() {
             categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spCategory.adapter = categoryAdapter
 
-            spCategory.onItemSelectedListener = categoryItemSelectedListener(categoryList, selectedList)
+            spCategory.onItemSelectedListener =
+                categoryItemSelectedListener(categoryList, selectedList)
         }
     }
 

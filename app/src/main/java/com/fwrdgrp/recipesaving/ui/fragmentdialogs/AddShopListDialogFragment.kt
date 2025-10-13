@@ -91,7 +91,7 @@ class AddShopListDialogFragment(
                 requireContext(), android.R.layout.simple_spinner_item,
                 validStores
             )
-            val selectedIndex = validStores.indexOfFirst { it.id == storeId }
+            val selectedIndex = validStores.indexOfFirst { it.id == storeId }.takeIf { it >= 0 } ?: 0
             spStoreName.post {
                 spStoreName.setSelection(selectedIndex, false)
                 selectedStore = validStores[selectedIndex]

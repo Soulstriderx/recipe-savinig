@@ -14,7 +14,7 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.databinding.LayoutItemAddIngredientBinding
 
 class AddIngredientAdapter(
-    val suggestions: List<String>,
+    var suggestions: List<String>,
     var ingredients: MutableList<Pair<Ingredient, Pair<Double, String>>>
 ) : RecyclerView.Adapter<AddIngredientAdapter.IngredientViewHolder>() {
     override fun onCreateViewHolder(

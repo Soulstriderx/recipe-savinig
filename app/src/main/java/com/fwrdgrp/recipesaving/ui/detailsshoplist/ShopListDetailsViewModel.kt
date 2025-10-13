@@ -68,6 +68,7 @@ class ShopListDetailsViewModel(
 
     //Update store
     suspend fun changeShoppingListStore(newStore: Store) {
+        if (newStore.id < 1) return
         shoppingList.value?.let {
             repo.updateShoppingList(it.shoppingList.copy(storeId = newStore.id))
         }
