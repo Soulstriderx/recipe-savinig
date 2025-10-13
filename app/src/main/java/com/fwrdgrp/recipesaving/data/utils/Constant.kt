@@ -24,4 +24,5 @@ object Constant {
     const val DUPLICATE_INGREDIENTS = "Ingredients cannot be duplicated."
     const val INGREDIENT_EXIST = "This ingredient already exists."
     const val DONT_HAVE_ITEM = "No stores have any of these items."
+    const val INVALID_AMOUNT = "Please fill the recipe's ingredient amounts."
 }

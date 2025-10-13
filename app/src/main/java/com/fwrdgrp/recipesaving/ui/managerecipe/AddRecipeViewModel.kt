@@ -69,8 +69,10 @@ class AddRecipeViewModel(
         require(instruction.any { it.description.isNotBlank() }) { Constant.NO_INSTRUCTIONS }
         require(ingredients.any { it.first.name.isNotBlank() }) { Constant.NO_INGREDIENTS }
 
-        val duplicateIngredient = ingredients.map { it.first.name.trim().lowercase() }
-            .groupingBy { it }.eachCount().filter { it.value > 1 }.keys.firstOrNull()
+        val duplicateIngredient = ingredients
+            .mapNotNull { it.first.name.trim().takeIf { name -> name.isNotBlank() }?.lowercase() }
+            .groupingBy { it }.eachCount()
+            .filter { it.value > 1 }.keys.firstOrNull()
         require(duplicateIngredient == null) { Constant.DUPLICATE_INGREDIENTS }
     }
 
