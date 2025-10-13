@@ -104,7 +104,7 @@
             android:id="@+id/rvShopList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/space_xs"/>
+            android:layout_marginBottom="@dimen/space_xl"/>
 
     </FrameLayout>
 
