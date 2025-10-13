@@ -36,7 +36,7 @@ class StoreDetailsViewModel(
     }
 
     suspend fun insertStoreItem(storeItem: StoreItem) {
-        shoppingRepo.upsertStoreItem(storeItem)
+        shoppingRepo.insertStoreItem(storeItem)
     }
 
     suspend fun deleteStoreItem(id: Int) {

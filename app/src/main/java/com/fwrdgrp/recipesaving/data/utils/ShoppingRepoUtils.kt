@@ -2,14 +2,14 @@ package com.fwrdgrp.recipesaving.data.utils
 
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
-import com.fwrdgrp.recipesaving.database.ShoppingDao
+import com.fwrdgrp.recipesaving.database.recipedao.IngredientDao
 
 class ShoppingRepoUtils(
-    private val shoppingDao: ShoppingDao
+    private val ingredientDao: IngredientDao
 ) {
     suspend fun addSingleIngredients(ingredientName: String): Int {
-        val exist = shoppingDao.getIngredientByName(ingredientName)
-        return exist?.id ?: shoppingDao.upsertIngredient(Ingredient(name = ingredientName)).toInt()
+        val exist = ingredientDao.getIngredientByName(ingredientName)
+        return exist?.id ?: ingredientDao.upsertIngredient(Ingredient(name = ingredientName)).toInt()
     }
 
     fun buildShoppingListItem(

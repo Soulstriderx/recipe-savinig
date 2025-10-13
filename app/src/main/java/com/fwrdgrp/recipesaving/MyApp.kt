@@ -20,6 +20,10 @@ class MyApp : Application() {
         RecipeRepository = RecipeRepo(
             db.getRecipeDao(), db.getIngredientDao(), db.getInstructionDao()
         )
-        ShoppingRepository = ShoppingRepo(db.getShoppingDao())
+        ShoppingRepository =
+            ShoppingRepo(
+                db.getIngredientDao(), db.getStoreDao(), db.getStoreItemDao(),
+                db.getShoppingListDao(), db.getShoppingListItemDao()
+            )
     }
 }

@@ -71,7 +71,7 @@ class RecipeDetailsViewModel(
                 return@launch
             }
             val shopList: ShoppingList = buildShopList(item.recipe.title, storeId)
-            val shopListId = shoppingRepo.upsertShoppingList(shopList)
+            val shopListId = shoppingRepo.insertShoppingList(shopList)
             item.ingredients.forEach {
                 addShopListItemsToShopList(
                     shopListId, it.ingredient.id, it.amount ?: 0.0, it.unit ?: "pcs"
