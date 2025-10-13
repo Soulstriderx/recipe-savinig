@@ -41,7 +41,8 @@ class EditRecipeViewModel(
             validateFields(recipe, instruction, ingredients)
 
             viewModelScope.launch(Dispatchers.IO) {
-                val recipeId = repo.upsertRecipeWithDetails(recipe.copy(imageUri = image.toString()))
+                val recipeId =
+                    repo.upsertRecipeWithDetails(recipe.copy(imageUri = image.toString()))
 
                 repo.deleteRecipeIngredientsByRecipeId(recipeId)
                 addIngredients(ingredients, recipeId)
@@ -59,14 +60,19 @@ class EditRecipeViewModel(
     suspend fun addInstructions(instruction: List<Instruction>, id: Int) {
         instruction.filter { it.description.isNotBlank() }.forEachIndexed { index, instruction ->
             repo.insertInstruction(
-                instruction.copy(id = 0, recipeId = id, stepNumber = index + 1)
+                instruction.copy(
+                    id = 0,
+                    recipeId = id,
+                    stepNumber = index + 1,
+                    description = instruction.description.trim()
+                )
             )
         }
     }
 
     suspend fun addIngredients(ingredients: List<Pair<Ingredient, Pair<Double, String>>>, id: Int) {
         ingredients.filter { it.first.name.isNotBlank() }.forEach { (ingredient, amountUnit) ->
-            val exists = repo.getIngredientByName(ingredient.name)
+            val exists = repo.getIngredientByName(ingredient.name.trim())
             val ingredientId = exists?.id ?: repo.upsertSingleIngredient(ingredient).toInt()
 
             repo.insertRecipeIngredient(

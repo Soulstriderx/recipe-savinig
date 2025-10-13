@@ -76,8 +76,8 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
         binding.run {
             return Recipe(
                 id = recipeDetails.recipe.id,
-                title = etTitle.text.toString(),
-                description = etDesc.text.toString(),
+                title = etTitle.text.toString().trim(),
+                description = etDesc.text.toString().trim(),
                 category = category,
                 estTime = etTime.text.toString().toIntOrNull() ?: 0,
                 totalServing = etServing.text.toString().toIntOrNull() ?: 0,
