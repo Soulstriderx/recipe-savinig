@@ -9,6 +9,7 @@
         android:id="@+id/rvIngredient"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/space_xxxxxxxl"
         android:padding="@dimen/space_xs"/>
 
 </RelativeLayout>

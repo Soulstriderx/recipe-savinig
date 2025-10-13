@@ -22,6 +22,9 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="13"
+            android:maxLines="1"
+            android:minLines="1"
+            android:overScrollMode="always"
             android:background="@drawable/edit_text_search_bg"
             android:hint="@string/search" />
 
@@ -100,7 +103,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvShopList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/space_xs"/>
 
     </FrameLayout>
 

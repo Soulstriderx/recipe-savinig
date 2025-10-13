@@ -17,8 +17,10 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_xxxl"
             android:textStyle="bold"
-            android:paddingVertical="@dimen/space_xl"
+            android:padding="@dimen/space_xl"
             android:background="@color/white"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:gravity="center" />
 
         <View
@@ -78,7 +80,7 @@
 
             <TextView
                 android:id="@+id/tvDesc"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_xl" />
 
@@ -111,6 +113,8 @@
                     android:id="@+id/tvTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textSize="@dimen/text_xl" />
 
             </LinearLayout>
@@ -142,6 +146,8 @@
                     android:id="@+id/tvServing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textSize="@dimen/text_xl" />
 
             </LinearLayout>
@@ -160,7 +166,7 @@
             android:textSize="@dimen/text_xl"
             android:paddingVertical="@dimen/space_l"
             android:paddingHorizontal="@dimen/space_xs"
-            android:background="@color/white" />
+            android:gravity="center" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredient"

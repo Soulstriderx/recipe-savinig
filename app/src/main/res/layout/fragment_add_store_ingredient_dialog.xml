@@ -52,6 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/space_l"
+            android:maxLines="1"
+            android:minLines="1"
+            android:overScrollMode="always"
             android:background="@drawable/edit_text_bg_2"
             android:gravity="start"
             android:hint="@string/related_ingredient" />
@@ -76,6 +79,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/space_xs"
                 android:layout_weight="1"
+                android:maxLines="1"
+                android:minLines="1"
+                android:overScrollMode="always"
                 android:background="@drawable/edit_text_bg_2"
                 android:hint="@string/amount"
                 android:inputType="numberDecimal" />
@@ -104,6 +110,9 @@
             android:layout_marginBottom="@dimen/space_l"
             android:background="@drawable/edit_text_bg_2"
             android:gravity="start"
+            android:maxLines="1"
+            android:minLines="1"
+            android:overScrollMode="always"
             android:hint="@string/price"
             android:inputType="numberDecimal" />
 
