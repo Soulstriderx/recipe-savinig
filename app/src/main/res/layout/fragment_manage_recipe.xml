@@ -67,6 +67,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/space_xxxxl"
+                    android:maxHeight="@dimen/space_xxxxxxxxl"
+                    android:adjustViewBounds="true"
                     android:scaleType="centerCrop" />
 
                 <TextView
