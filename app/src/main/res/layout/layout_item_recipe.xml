@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/recipe_bg"
-    android:padding="@dimen/text_l"
     android:layout_marginHorizontal="@dimen/space_l"
     android:layout_marginTop="@dimen/space_l"
+    android:clipToOutline="true"
     android:elevation="@dimen/space_xs">
 
     <ImageView
@@ -38,6 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/space_xl"
             android:orientation="horizontal">
 
             <TextView
@@ -46,6 +47,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_xxl"
                 android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textStyle="bold" />
 
             <TextView
@@ -63,12 +66,17 @@
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/space_xl"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textSize="@dimen/text_xl" />
 
         <GridLayout
             android:id="@+id/glCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/space_xl"
+            android:paddingBottom="@dimen/space_xs"
             android:layout_marginTop="@dimen/space_xxs"
             android:columnCount="3"
             android:rowCount="1" />

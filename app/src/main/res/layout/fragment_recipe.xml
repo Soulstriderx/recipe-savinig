@@ -22,6 +22,9 @@
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_search_bg"
             android:hint="@string/search"
+            android:maxLines="1"
+            android:minLines="1"
+            android:overScrollMode="always"
             android:layout_weight="14"/>
 
         <Space

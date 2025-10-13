@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="@dimen/text_xl"
+        android:minWidth="@dimen/space_xxxl"
         android:layout_marginBottom="@dimen/space_xs"
         android:layout_marginEnd="@dimen/space_xs"/>
 
@@ -20,6 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/instruction"
+        android:maxLines="1"
+        android:minLines="1"
+        android:overScrollMode="always"
         android:background="@drawable/edit_text_bg" />
 
 </LinearLayout>
