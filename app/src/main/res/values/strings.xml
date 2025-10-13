@@ -39,8 +39,8 @@
     <string name="description_cannot_be_empty">*Description cannot be empty</string>
     <string name="description">Description</string>
     <string name="title_colon">Title:</string>
-    <string name="instructions_cannot_be_empty">Instructions cannot be empty</string>
-    <string name="ingredients_cannot_be_empty">Ingredients cannot be empty</string>
+    <string name="instructions_cannot_be_empty">*Instructions cannot be empty</string>
+    <string name="ingredients_cannot_be_empty">*Ingredients cannot be empty</string>
     <string name="add_recipe">Add Recipe</string>
     <string name="edit_recipe">Edit Recipe</string>
     <string name="add_stores">Add Stores</string>

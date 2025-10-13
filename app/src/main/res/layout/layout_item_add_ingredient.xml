@@ -13,6 +13,9 @@
         android:layout_weight="5"
         android:background="@drawable/edit_text_bg"
         android:hint="@string/ingredient"
+        android:maxLines="1"
+        android:minLines="1"
+        android:overScrollMode="always"
         android:textSize="@dimen/text_xl" />
 
     <EditText
@@ -23,6 +26,9 @@
         android:layout_weight="3"
         android:background="@drawable/edit_text_bg"
         android:hint="@string/amount"
+        android:maxLines="1"
+        android:minLines="1"
+        android:overScrollMode="always"
         android:inputType="numberDecimal"
         android:textSize="@dimen/text_xl" />
 
