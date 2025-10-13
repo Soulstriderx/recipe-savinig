@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_xxl"
+        android:minWidth="@dimen/space_xxxl"
         android:layout_marginEnd="@dimen/space_xs"/>
 
     <TextView
