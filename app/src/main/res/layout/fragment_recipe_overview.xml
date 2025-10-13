@@ -11,33 +11,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/ivImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/box_bg" />
-
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_xxxl"
             android:textStyle="bold"
-            android:paddingVertical="@dimen/space_xxxl"
+            android:paddingVertical="@dimen/space_xl"
             android:background="@color/white"
             android:gravity="center" />
 
         <View
-            android:id="@+id/titleCategory"
+            android:id="@+id/titleImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_xxxxs"
             android:background="@color/t_gray" />
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_xxxl"
+            android:layout_marginTop="@dimen/space_xxxl"/>
 
         <LinearLayout
             android:id="@+id/llCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:paddingVertical="@dimen/space_l"
             android:paddingHorizontal="@dimen/space_xs"
             android:gravity="center"
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/categories"
                 android:textSize="@dimen/text_xl"
+                android:textColor="@color/t_gray_text"
                 android:layout_marginEnd="@dimen/space_xs" />
 
         </LinearLayout>
@@ -72,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/description_colon"
                 android:layout_marginEnd="@dimen/space_xs"
+                android:textColor="@color/t_gray_text"
                 android:textSize="@dimen/text_xl" />
 
             <TextView
@@ -102,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/est_time"
                     android:textSize="@dimen/text_xl"
+                    android:textColor="@color/t_gray_text"
                     android:layout_marginEnd="@dimen/space_xs" />
 
                 <TextView
@@ -130,6 +133,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/t_gray_text"
                     android:text="@string/servings"
                     android:textSize="@dimen/text_xl"
                     android:layout_marginEnd="@dimen/space_xs" />

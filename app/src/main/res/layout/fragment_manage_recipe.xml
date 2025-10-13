@@ -216,7 +216,8 @@
                 android:id="@+id/spCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/box_bg" />
+                android:background="@drawable/box_bg"
+                android:layout_marginBottom="@dimen/space_xs" />
 
             <GridLayout
                 android:id="@+id/glCategory"
