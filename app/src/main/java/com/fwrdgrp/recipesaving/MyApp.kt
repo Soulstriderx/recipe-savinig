@@ -17,7 +17,9 @@ class MyApp : Application() {
             MyDatabase::class.java,
             MyDatabase.NAME
         ).build()
-        RecipeRepository = RecipeRepo(db.getRecipeDao())
+        RecipeRepository = RecipeRepo(
+            db.getRecipeDao(), db.getIngredientDao(), db.getInstructionDao()
+        )
         ShoppingRepository = ShoppingRepo(db.getShoppingDao())
     }
 }

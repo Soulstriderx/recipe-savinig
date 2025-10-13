@@ -12,12 +12,17 @@ import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
 import com.fwrdgrp.recipesaving.data.utils.Converters
+import com.fwrdgrp.recipesaving.database.recipedao.IngredientDao
+import com.fwrdgrp.recipesaving.database.recipedao.InstructionDao
+import com.fwrdgrp.recipesaving.database.recipedao.RecipeDao
 
 
 @Database(entities = [Ingredient::class, Recipe::class, RecipeIngredient::class, Instruction::class, ShoppingList::class, ShoppingListItem::class, Store::class, StoreItem:: class], version = 1)
 @TypeConverters(Converters::class)
 abstract class MyDatabase: RoomDatabase() {
     abstract fun getRecipeDao(): RecipeDao
+    abstract fun getIngredientDao(): IngredientDao
+    abstract fun getInstructionDao(): InstructionDao
     abstract fun getShoppingDao(): ShoppingDao
 
     companion object {

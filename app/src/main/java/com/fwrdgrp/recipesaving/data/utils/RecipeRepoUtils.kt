@@ -3,21 +3,29 @@ package com.fwrdgrp.recipesaving.data.utils
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.data.models.recipe.RecipeIngredient
-import com.fwrdgrp.recipesaving.database.RecipeDao
+import com.fwrdgrp.recipesaving.database.recipedao.IngredientDao
+import com.fwrdgrp.recipesaving.database.recipedao.InstructionDao
+import com.fwrdgrp.recipesaving.database.recipedao.RecipeDao
 
-class RecipeRepoUtils(private val recipeDao: RecipeDao) {
+class RecipeRepoUtils(
+    private val recipeDao: RecipeDao,
+    private val ingredientDao: IngredientDao,
+    private val instructionDao: InstructionDao
+) {
     suspend fun addInstructions(instruction: List<Instruction>, id: Int) {
-        instruction.filter { it.description.isNotBlank() }.forEachIndexed { index, instruction -> recipeDao.insertInstruction(
-            instruction.copy(id = 0, recipeId = id, stepNumber = index + 1)
-        ) }
+        instruction.filter { it.description.isNotBlank() }.forEachIndexed { index, instruction ->
+            instructionDao.insertInstruction(
+                instruction.copy(id = 0, recipeId = id, stepNumber = index + 1)
+            )
+        }
     }
 
-    suspend fun addIngredients(ingredients: List<Pair<Ingredient , Pair<Double, String>>>, id: Int) {
+    suspend fun addIngredients(ingredients: List<Pair<Ingredient, Pair<Double, String>>>, id: Int) {
         ingredients.filter { it.first.name.isNotBlank() }.forEach { (ingredient, amountUnit) ->
-            val exists = recipeDao.getIngredientByName(ingredient.name)
-            val ingredientId = exists?.id ?: recipeDao.upsertIngredient(ingredient).toInt()
+            val exists = ingredientDao.getIngredientByName(ingredient.name)
+            val ingredientId = exists?.id ?: ingredientDao.upsertIngredient(ingredient).toInt()
 
-            recipeDao.insertRecipeIngredient(
+            ingredientDao.insertRecipeIngredient(
                 RecipeIngredient(
                     id,
                     ingredientId,
@@ -29,7 +37,7 @@ class RecipeRepoUtils(private val recipeDao: RecipeDao) {
     }
 
     suspend fun addSingleIngredients(ingredientName: String): Int {
-        val exist = recipeDao.getIngredientByName(ingredientName)
-        return exist?.id ?: recipeDao.upsertIngredient(Ingredient(name = ingredientName)).toInt()
+        val exist = ingredientDao.getIngredientByName(ingredientName)
+        return exist?.id ?: ingredientDao.upsertIngredient(Ingredient(name = ingredientName)).toInt()
     }
 }
