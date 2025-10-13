@@ -79,8 +79,8 @@ class EditRecipeFragment : BaseManageRecipeFragment() {
                 title = etTitle.text.toString(),
                 description = etDesc.text.toString(),
                 category = category,
-                estTime = etTime.text.toString().toInt(),
-                totalServing = etServing.text.toString().toInt(),
+                estTime = etTime.text.toString().toIntOrNull() ?: 0,
+                totalServing = etServing.text.toString().toIntOrNull() ?: 0,
                 imageUri = recipeDetails.recipe.imageUri
             )
         }

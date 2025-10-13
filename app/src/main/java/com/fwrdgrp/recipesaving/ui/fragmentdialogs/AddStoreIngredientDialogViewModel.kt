@@ -11,7 +11,10 @@ import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItemWithDetails
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
 import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
+import com.fwrdgrp.recipesaving.data.utils.Constant
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -25,6 +28,9 @@ class AddStoreIngredientDialogViewModel(
 
     private val _storeItems = MutableStateFlow<List<StoreItemWithDetails>?>(null)
     val storeItems: StateFlow<List<StoreItemWithDetails>?> = _storeItems
+
+    private val _error = MutableSharedFlow<String>()
+    val error: SharedFlow<String> = _error
 
     init {
         getIngredients()
@@ -43,6 +49,24 @@ class AddStoreIngredientDialogViewModel(
             shoppingRepo.getAllStoreItemsWithDetailsByStoreId(id).collect { items ->
                 _storeItems.update { items }
             }
+        }
+    }
+
+    suspend fun validateFields(
+        name: String,
+        ingredient: String,
+        price: Double,
+        amount: Double
+    ): Boolean {
+        return try {
+            require(name.isNotBlank()) { Constant.NO_ING_NAME }
+            require(ingredient.isNotBlank()) { Constant.NO_LINKED }
+            require(price > 0) { Constant.NO_PRICE }
+            require(amount > 0) { Constant.NO_AMOUNT }
+            true
+        } catch (e: Exception) {
+            _error.emit(e.message ?: Constant.UNKNOWN)
+            false
         }
     }
 

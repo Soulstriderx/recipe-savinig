@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.fwrdgrp.recipesaving.R
+import com.fwrdgrp.recipesaving.data.utils.Constant
 import com.fwrdgrp.recipesaving.databinding.FragmentHomeBinding
 import com.fwrdgrp.recipesaving.ui.adapters.TabsAdapter
 import com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddShopListDialogFragment
@@ -44,7 +45,7 @@ class HomeFragment : Fragment() {
                         viewModel.addShopList(listName, store.id)
                     }
                 }
-                dialog.show(parentFragmentManager, "AddShopListDialog")
+                dialog.show(parentFragmentManager, Constant.ADD_SHOP_LIST_DIALOG)
             }
         }
         val adapter =
@@ -63,12 +64,8 @@ class HomeFragment : Fragment() {
         })
     }
 
-//    fun showAddShopListDialog(): Dialog {
-//        return
-//        }
-
-        fun addButtonText(pos: Int) {
-            binding.mbAdd.text = if (pos == 0) getString(R.string.add_recipes)
-            else getString(R.string.add_shop_list)
-        }
+    fun addButtonText(pos: Int) {
+        binding.mbAdd.text = if (pos == 0) getString(R.string.add_recipes)
+        else getString(R.string.add_shop_list)
     }
+}

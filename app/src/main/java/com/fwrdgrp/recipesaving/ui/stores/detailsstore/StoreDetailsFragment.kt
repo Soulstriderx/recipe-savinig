@@ -22,6 +22,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import kotlin.getValue
 import com.fwrdgrp.recipesaving.data.models.shopping.StoreItem
+import com.fwrdgrp.recipesaving.data.utils.Constant
+import com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddStoreDialogFragment
 import com.fwrdgrp.recipesaving.ui.fragmentdialogs.AddStoreIngredientDialogFragment
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +36,8 @@ class StoreDetailsFragment : Fragment() {
     private lateinit var adapter: StoreIngredientsAdapter
     private val args: StoreDetailsFragmentArgs by navArgs()
 
+    private var storeName: String = ""
+    private var storeLocation: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,12 +52,21 @@ class StoreDetailsFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.fetchStoreDetails(args.storeId)
             viewModel.storeDetails.filterNotNull().collect {
-                binding.tvHeaderDetails.text = "Store Details"
+                storeName = it.store.name
+                storeLocation = it.store.location ?: ""
+                binding.tvHeaderDetails.text = requireContext().getString(R.string.store_details)
                 setData(it)
             }
         }
         setOnClickListeners()
         setupAdapter()
+
+        binding.run {
+            ivDelete.setOnClickListener {
+                deleteStoreDialogCreation(args.storeId).show()
+            }
+            ivEdit.setOnClickListener { editStoreDialog() }
+        }
     }
 
     fun setOnClickListeners() {
@@ -71,14 +84,15 @@ class StoreDetailsFragment : Fragment() {
                         viewModel.fetchStoreDetails(args.storeId)
                     }
                 })
-            dialog.show(childFragmentManager, "AddStoreIngredientDialog")
+            dialog.show(childFragmentManager, Constant.ADD_STORE_ITEM_DIALOG)
         }
     }
 
     fun setData(details: StoreWithItemsDetails) {
         binding.run {
             tvName.text = details.store.name
-            tvLocation.text = details.store.location ?: "Unknown location"
+            tvLocation.text =
+                details.store.location ?: requireContext().getString(R.string.unknown_location)
             adapter.applyStoreItemWithDetails(details.items)
         }
     }
@@ -87,28 +101,10 @@ class StoreDetailsFragment : Fragment() {
         binding.run {
             adapter = StoreIngredientsAdapter(
                 emptyList(),
-                {},
-                { deleteDialogCreation(it).show() }
+                { deleteStoreItemDialog(it).show() }
             )
             rvStoreIngredients.adapter = adapter
             rvStoreIngredients.layoutManager = LinearLayoutManager(requireContext())
-        }
-    }
-
-    fun deleteDialogCreation(id: Int): Dialog {
-        return Dialog(requireContext()).apply {
-            setContentView(R.layout.layout_dialog_confirmation)
-            window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
-            findViewById<TextView>(R.id.tvConfirm).text =
-                "Are you sure you want to delete this Item?"
-            findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
-            findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    viewModel.deleteStoreItem(id)
-                    viewModel.fetchStoreDetails(args.storeId)
-                }
-                dismiss()
-            }
         }
     }
 
@@ -124,5 +120,47 @@ class StoreDetailsFragment : Fragment() {
             packageAmount = amount,
             packageUnit = unit
         )
+    }
+
+    fun editStoreDialog() {
+        val dialog = AddStoreDialogFragment(storeName, storeLocation) { storeName, storeLocation ->
+            lifecycleScope.launch {
+                viewModel.updateStore(storeName, storeLocation)
+                viewModel.fetchStoreDetails(args.storeId)
+            }
+        }
+        dialog.show(parentFragmentManager, Constant.ADD_STORE_DIALOG)
+    }
+
+    fun deleteStoreItemDialog(id: Int): Dialog {
+        return Dialog(requireContext()).apply {
+            setContentView(R.layout.layout_dialog_confirmation)
+            window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            findViewById<TextView>(R.id.tvConfirm).text =
+                requireContext().getString(R.string.delete_item)
+            findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
+            findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.deleteStoreItem(id)
+                    viewModel.fetchStoreDetails(args.storeId)
+                }
+                dismiss()
+            }
+        }
+    }
+
+    fun deleteStoreDialogCreation(id: Int): Dialog {
+        return Dialog(requireContext()).apply {
+            setContentView(R.layout.layout_dialog_confirmation)
+            window?.setBackgroundDrawable(Color.TRANSPARENT.toDrawable())
+            findViewById<TextView>(R.id.tvConfirm).text =
+                requireContext().getString(R.string.delete_store)
+            findViewById<MaterialButton>(R.id.mbCancel).setOnClickListener { dismiss() }
+            findViewById<MaterialButton>(R.id.mbConfirm).setOnClickListener {
+                lifecycleScope.launch(Dispatchers.IO) { viewModel.deleteStore(id) }
+                findNavController().popBackStack()
+                dismiss()
+            }
+        }
     }
 }

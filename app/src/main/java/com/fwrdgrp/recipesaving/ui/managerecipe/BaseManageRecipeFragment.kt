@@ -127,8 +127,6 @@ abstract class BaseManageRecipeFragment : Fragment() {
         }
     }
 
-    abstract fun buildRecipe(category: List<Category>): Recipe
-
     fun ImageView.loadPersistedUri(context: Context, uri: Uri) {
         try {
             val source = ImageDecoder.createSource(context.contentResolver, uri)
@@ -183,6 +181,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
         }
     }
 
+    //Category spinner logic start
     protected fun setupCategorySpinnerAdapter(
         categoryList: MutableList<Category>,
         selectedList: MutableList<Category>
@@ -194,27 +193,34 @@ abstract class BaseManageRecipeFragment : Fragment() {
             categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spCategory.adapter = categoryAdapter
 
-            spCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
-                ) {
-                    if (selectedList.size >= 3) {
-                        spCategory.setSelection(0)
-                        return
-                    }
-                    val selected = categoryAdapter.getItem(position) ?: return
-                    if (selected == Category.INITIAL) return
-                    selectedList.add(selected)
-                    categoryList.remove(selected)
-                    val tvCategory = categoryChipDelete(categoryList, selectedList, selected)
-                    glCategory.addView(tvCategory)
-                    categoryAdapter.notifyDataSetChanged()
-                    spCategory.setSelection(0)
-                    updateCategoryError()
-                }
+            spCategory.onItemSelectedListener = categoryItemSelectedListener(categoryList, selectedList)
+        }
+    }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+    protected fun categoryItemSelectedListener(
+        categoryList: MutableList<Category>,
+        selectedList: MutableList<Category>
+    ): AdapterView.OnItemSelectedListener {
+        return object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long
+            ) {
+                if (selectedList.size >= 3) {
+                    binding.spCategory.setSelection(0)
+                    return
+                }
+                val selected = categoryAdapter.getItem(position) ?: return
+                if (selected == Category.INITIAL) return
+                selectedList.add(selected)
+                categoryList.remove(selected)
+                val tvCategory = categoryChipDelete(categoryList, selectedList, selected)
+                binding.glCategory.addView(tvCategory)
+                categoryAdapter.notifyDataSetChanged()
+                binding.spCategory.setSelection(0)
+                updateCategoryError()
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
@@ -238,7 +244,9 @@ abstract class BaseManageRecipeFragment : Fragment() {
             }
         }
     }
+    //Category spinner logic end
 
+    //Category additional function for edit
     protected fun populateExistingCategories(
         existingCategories: List<Category>,
         categoryList: MutableList<Category>,
@@ -275,4 +283,7 @@ abstract class BaseManageRecipeFragment : Fragment() {
         binding.tvCategoryError.visibility =
             if (selectedCategoryList.size < 1) View.VISIBLE else View.GONE
     }
+
+    abstract fun buildRecipe(category: List<Category>): Recipe
+
 }

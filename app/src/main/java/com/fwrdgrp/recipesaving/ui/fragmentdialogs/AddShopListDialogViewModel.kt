@@ -9,7 +9,10 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.fwrdgrp.recipesaving.MyApp
 import com.fwrdgrp.recipesaving.data.models.shopping.Store
 import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
+import com.fwrdgrp.recipesaving.data.utils.Constant
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -19,6 +22,9 @@ class AddShopListDialogViewModel(
 ) : ViewModel() {
     private val _stores = MutableStateFlow<List<Store>?>(null)
     val stores: StateFlow<List<Store>?> = _stores
+
+    private val _error = MutableSharedFlow<String>()
+    val error: SharedFlow<String> = _error
 
     init {
         getStores()
@@ -32,6 +38,15 @@ class AddShopListDialogViewModel(
         }
     }
 
+    suspend fun validateField(name: String): Boolean {
+        return try {
+            require (name.isNotBlank()) { Constant.NO_LIST_NAME }
+            true
+        } catch (e: Exception) {
+            _error.emit(e.message ?: Constant.UNKNOWN)
+            false
+        }
+    }
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

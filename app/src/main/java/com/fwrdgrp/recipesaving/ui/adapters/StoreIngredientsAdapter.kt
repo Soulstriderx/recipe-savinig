@@ -9,7 +9,6 @@ import com.fwrdgrp.recipesaving.databinding.LayoutItemIngredientWithPriceBinding
 
 class StoreIngredientsAdapter(
     var storeItem: List<StoreItemWithDetails>,
-    val onEditClick: (Int) -> Unit,
     val onDeleteClick: (Int) -> Unit
 ) : RecyclerView.Adapter<StoreIngredientsAdapter.StoreIngredientsViewHolder>() {
     override fun onCreateViewHolder(

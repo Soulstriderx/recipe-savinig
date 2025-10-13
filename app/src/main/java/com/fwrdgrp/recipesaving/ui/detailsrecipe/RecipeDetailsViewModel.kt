@@ -11,6 +11,7 @@ import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingList
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
 import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
+import com.fwrdgrp.recipesaving.data.utils.Constant
 import com.fwrdgrp.recipesaving.data.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -29,7 +30,7 @@ class RecipeDetailsViewModel(
     private val _recipeDetails = MutableStateFlow<RecipeWithDetails?>(null)
     val recipeDetails: StateFlow<RecipeWithDetails?> = _recipeDetails
 
-    protected val _error = MutableSharedFlow<String>()
+    private val _error = MutableSharedFlow<String>()
     val error: SharedFlow<String> = _error
 
     private val _shoppingListId = MutableSharedFlow<Int>()
@@ -66,7 +67,7 @@ class RecipeDetailsViewModel(
             val storeItems = shoppingRepo.getAllStoreItems().first()
             val storeId: Int = utils.generateStoreId(item, storeItems)
             if (storeId == -1) {
-                viewModelScope.launch { _error.emit("No stores have any of these items.") }
+                viewModelScope.launch { _error.emit(Constant.DONT_HAVE_ITEM) }
                 return@launch
             }
             val shopList: ShoppingList = buildShopList(item.recipe.title, storeId)

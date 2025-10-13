@@ -35,6 +35,9 @@ interface ShoppingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertStore(store: Store): Long
 
+    @Update
+    suspend fun updateStore(store: Store)
+
     @Query("DELETE FROM Store WHERE id = :id")
     suspend fun deleteStoreById(id: Int)
 

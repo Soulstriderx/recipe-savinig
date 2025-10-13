@@ -51,8 +51,8 @@ class ShopListDetailsAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ShoppingListItemWithIngredient) {
             val storeItem = item.storeItems.firstOrNull { it.storeId == storeId }
-            var price = 0.0;
-            var truePrice = 0.0;
+            var price = 0.0
+            var truePrice = 0.0
             var packageNeeded = 0
             storeItem?.let {
                 price = storeItem.price
@@ -69,7 +69,7 @@ class ShopListDetailsAdapter(
                     item.shoppingListItem.amountNeeded, item.shoppingListItem.neededUnit
                 )
                 tvPrice.text = if (truePrice == 0.0) {
-                    "Unavailable at this location."
+                    root.context.getString(R.string.unavailable_at_location)
                 } else root.context.getString(
                     R.string.shopping_list_price, packageNeeded, price, truePrice
                 )
