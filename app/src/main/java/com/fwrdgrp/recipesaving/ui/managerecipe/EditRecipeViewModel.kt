@@ -10,6 +10,7 @@ import com.fwrdgrp.recipesaving.MyApp
 import com.fwrdgrp.recipesaving.data.models.recipe.Ingredient
 import com.fwrdgrp.recipesaving.data.models.recipe.Instruction
 import com.fwrdgrp.recipesaving.data.models.recipe.Recipe
+import com.fwrdgrp.recipesaving.data.models.recipe.RecipeIngredient
 import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
 import com.fwrdgrp.recipesaving.data.utils.Constant
@@ -40,15 +41,42 @@ class EditRecipeViewModel(
             validateFields(recipe, instruction, ingredients)
 
             viewModelScope.launch(Dispatchers.IO) {
-                repo.upsertRecipeWithDetails(
-                    recipe.copy(imageUri = image.toString()),
-                    instruction,
-                    ingredients,
-                )
+                val recipeId = repo.upsertRecipeWithDetails(recipe.copy(imageUri = image.toString()))
+
+                repo.deleteRecipeIngredientsByRecipeId(recipeId)
+                addIngredients(ingredients, recipeId)
+
+                repo.deleteInstructionsByRecipeId(recipeId)
+                addInstructions(instruction, recipeId)
+
                 _finish.emit(Unit)
             }
         } catch (e: Exception) {
             _error.emit(e.message ?: Constant.UNKNOWN)
+        }
+    }
+
+    suspend fun addInstructions(instruction: List<Instruction>, id: Int) {
+        instruction.filter { it.description.isNotBlank() }.forEachIndexed { index, instruction ->
+            repo.insertInstruction(
+                instruction.copy(id = 0, recipeId = id, stepNumber = index + 1)
+            )
+        }
+    }
+
+    suspend fun addIngredients(ingredients: List<Pair<Ingredient, Pair<Double, String>>>, id: Int) {
+        ingredients.filter { it.first.name.isNotBlank() }.forEach { (ingredient, amountUnit) ->
+            val exists = repo.getIngredientByName(ingredient.name)
+            val ingredientId = exists?.id ?: repo.upsertSingleIngredient(ingredient).toInt()
+
+            repo.insertRecipeIngredient(
+                RecipeIngredient(
+                    id,
+                    ingredientId,
+                    amountUnit.first,
+                    amountUnit.second
+                )
+            )
         }
     }
 

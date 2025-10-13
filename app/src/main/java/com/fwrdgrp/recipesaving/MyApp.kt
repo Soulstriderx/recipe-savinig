@@ -22,7 +22,7 @@ class MyApp : Application() {
         )
         ShoppingRepository =
             ShoppingRepo(
-                db.getIngredientDao(), db.getStoreDao(), db.getStoreItemDao(),
+                db.getStoreDao(), db.getStoreItemDao(),
                 db.getShoppingListDao(), db.getShoppingListItemDao()
             )
     }

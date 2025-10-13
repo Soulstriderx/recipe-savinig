@@ -74,16 +74,15 @@ class StoreDetailsFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.ivAdd.setOnClickListener {
-            val dialog = AddStoreIngredientDialogFragment(
-                args.storeId,
-                { name, ingredient, price, amount, unit ->
-                    lifecycleScope.launch {
-                        val ingredientId = viewModel.addOneIngredient(ingredient)
-                        val storeItem = storeItemBuilder(name, ingredientId, price, amount, unit)
-                        viewModel.insertStoreItem(storeItem)
-                        viewModel.fetchStoreDetails(args.storeId)
-                    }
-                })
+            val dialog = AddStoreIngredientDialogFragment(args.storeId)
+            { name, ingredient, price, amount, unit ->
+                lifecycleScope.launch {
+                    val ingredientId = viewModel.addOneIngredient(ingredient)
+                    val storeItem = storeItemBuilder(name, ingredientId, price, amount, unit)
+                    viewModel.insertStoreItem(storeItem)
+                    viewModel.fetchStoreDetails(args.storeId)
+                }
+            }
             dialog.show(childFragmentManager, Constant.ADD_STORE_ITEM_DIALOG)
         }
     }

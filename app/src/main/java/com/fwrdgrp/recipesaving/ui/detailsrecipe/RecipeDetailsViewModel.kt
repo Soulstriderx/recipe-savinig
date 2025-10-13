@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.fwrdgrp.recipesaving.MyApp
 import com.fwrdgrp.recipesaving.data.models.recipe.RecipeWithDetails
 import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingList
+import com.fwrdgrp.recipesaving.data.models.shopping.ShoppingListItem
 import com.fwrdgrp.recipesaving.data.repo.RecipeRepo
 import com.fwrdgrp.recipesaving.data.repo.ShoppingRepo
 import com.fwrdgrp.recipesaving.data.utils.Constant
@@ -87,8 +88,19 @@ class RecipeDetailsViewModel(
         amount: Double,
         unit: String
     ) {
-        shoppingRepo.insertGeneratedShopListItem(
-            listId, ingredientId, amount, unit
+        shoppingRepo.upsertShoppingListItem(
+            buildShoppingListItem(listId, ingredientId, amount, unit)
+        )
+    }
+
+    fun buildShoppingListItem(
+        listId: Int, ingredientId: Int, amount: Double, unit: String
+    ): ShoppingListItem {
+        return ShoppingListItem(
+            listId = listId,
+            ingredientId = ingredientId,
+            amountNeeded = amount,
+            neededUnit = unit
         )
     }
 
