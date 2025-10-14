@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detailsrecipe.nested.RecipeOverviewFragment">
+
+    <LinearLayout
+        android:id="@+id/llOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_xxxl"
+            android:textStyle="bold"
+            android:padding="@dimen/space_xl"
+            android:background="@color/white"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:gravity="center" />
+
+        <View
+            android:id="@+id/titleImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray" />
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="@dimen/space_xxxxxxxxl"
+            android:adjustViewBounds="true"
+            android:layout_marginHorizontal="@dimen/space_xxxl"
+            android:layout_marginTop="@dimen/space_xxxl"/>
+
+        <LinearLayout
+            android:id="@+id/llCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/space_l"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/categories"
+                android:textSize="@dimen/text_xl"
+                android:textColor="@color/t_gray_text"
+                android:layout_marginEnd="@dimen/space_xs" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/categoryDescription"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray" />
+
+        <LinearLayout
+            android:id="@+id/llDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:paddingVertical="@dimen/space_l"
+            android:paddingHorizontal="@dimen/space_xs" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description_colon"
+                android:layout_marginEnd="@dimen/space_xs"
+                android:textColor="@color/t_gray_text"
+                android:textSize="@dimen/text_xl" />
+
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_xl" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/descriptionTime"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray" />
+
+        <LinearLayout
+            android:id="@+id/llTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingVertical="@dimen/space_l"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/est_time"
+                    android:textSize="@dimen/text_xl"
+                    android:textColor="@color/t_gray_text"
+                    android:layout_marginEnd="@dimen/space_xs" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/text_xl" />
+
+            </LinearLayout>
+
+        <View
+            android:id="@+id/timeServings"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray" />
+
+
+            <LinearLayout
+                android:id="@+id/llServings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/space_l"
+                android:paddingHorizontal="@dimen/space_xs"
+                android:background="@color/white" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/t_gray_text"
+                    android:text="@string/servings"
+                    android:textSize="@dimen/text_xl"
+                    android:layout_marginEnd="@dimen/space_xs" />
+
+                <TextView
+                    android:id="@+id/tvServing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/text_xl" />
+
+            </LinearLayout>
+
+        <View
+            android:id="@+id/servingsIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxs"
+            android:background="@color/t_gray" />
+
+        <TextView
+            android:id="@+id/tvIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ingredients"
+            android:textSize="@dimen/text_xl"
+            android:paddingVertical="@dimen/space_l"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:gravity="center" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/space_xs"
+            android:paddingVertical="@dimen/space_xs"
+            android:layout_marginBottom="@dimen/space_details_rv" />
+
+    </LinearLayout>
+
+</ScrollView>

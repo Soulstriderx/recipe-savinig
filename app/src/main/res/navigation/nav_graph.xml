@@ -9,5 +9,95 @@
         android:id="@+id/homeFragment"
         android:name="com.fwrdgrp.recipesaving.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_home_to_addRecipe"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:destination="@id/addRecipeFragment" />
+        <action
+            android:id="@+id/action_home_to_recipeDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:destination="@id/recipeDetailsFragment" />
+        <action
+            android:id="@+id/action_home_to_stores"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:destination="@id/storesFragment" />
+        <action
+            android:id="@+id/action_home_to_shopListDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:destination="@id/shopListDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addRecipeFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.managerecipe.AddRecipeFragment"
+        android:label="fragment_add_recipe"
+        tools:layout="@layout/fragment_manage_recipe">
+    </fragment>
+    <fragment
+        android:id="@+id/editRecipeFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.managerecipe.EditRecipeFragment"
+        android:label="EditRecipeFragment"
+        tools:layout="@layout/fragment_manage_recipe" >
+        <argument android:name="recipeId" app:argType="integer" app:nullable="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.detailsrecipe.RecipeDetailsFragment"
+        android:label="fragment_recipe_details"
+        tools:layout="@layout/fragment_recipe_details">
+        <argument
+            android:name="recipeId"
+            app:argType="integer"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_recipeDetails_to_editRecipe"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:destination="@id/editRecipeFragment" />
+        <action
+            android:id="@+id/action_recipeDetails_to_shopListDetails"
+            app:destination="@id/shopListDetailsFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/storesFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.stores.StoresFragment"
+        android:label="fragment_stores"
+        tools:layout="@layout/fragment_stores" >
+        <action
+            android:id="@+id/action_stores_to_storeDetails"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"
+            app:destination="@id/storeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeDetailsFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.stores.detailsstore.StoreDetailsFragment"
+        android:label="fragment_store_details"
+        tools:layout="@layout/fragment_store_details">
+        <argument android:name="storeId" app:argType="integer" app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/shopListDetailsFragment"
+        android:name="com.fwrdgrp.recipesaving.ui.detailsshoplist.ShopListDetailsFragment"
+        android:label="fragment_shop_list_details"
+        tools:layout="@layout/fragment_shop_list_details">
+        <argument android:name="shopListId" app:argType="integer" app:nullable="false" />
+    </fragment>
 </navigation>

@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpTabs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_above="@id/tlTabs"
+        android:paddingBottom="@dimen/space_xxxl"
+        android:clipToPadding="true"
+        android:background="@color/color_background" />
 
-</FrameLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/mbAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tlTabs"
+        android:backgroundTint="@color/color_primary"
+        android:paddingVertical="@dimen/space_l"
+        android:layout_marginHorizontal="@dimen/space_xs"
+        android:text="@string/add_recipes"
+        android:textSize="@dimen/text_xl" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tlTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_secondary"
+        android:paddingVertical="@dimen/space_xs"
+        app:tabTextColor="@color/white"
+        app:tabTextAppearance="@style/TabTextSize"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="@dimen/space_xxxxs" />
+
+</RelativeLayout>
