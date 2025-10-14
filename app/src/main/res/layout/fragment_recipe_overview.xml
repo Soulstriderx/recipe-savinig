@@ -176,7 +176,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/space_xs"
             android:paddingVertical="@dimen/space_xs"
-            android:layout_marginBottom="@dimen/space_xxxxxxxxl" />
+            android:layout_marginBottom="@dimen/space_details_rv" />
 
     </LinearLayout>
 
