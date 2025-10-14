@@ -34,7 +34,7 @@ class AddInstructionAdapter(
     ) {
         val instruction = instructions[position]
         holder.binding.etInstruction.setText(instruction.description)
-        holder.binding.tvAddInstructionStep.setText(" ${instruction.stepNumber.toString()}.")
+        holder.binding.tvAddInstructionStep.setText("${instruction.stepNumber.toString()}.")
 
         holder.binding.etInstruction.doOnTextChanged { text, start, before, count ->
             instructions[position] =

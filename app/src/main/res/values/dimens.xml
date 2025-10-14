@@ -29,4 +29,7 @@
     <dimen name="text_xxl">20sp</dimen>
     <dimen name="text_xxxl">24sp</dimen>
     <dimen name="text_xxxxl">28sp</dimen>
+
+    <!--  Custom spacing  -->
+    <dimen name="space_details_rv">125dp</dimen>
 </resources>
