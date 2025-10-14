@@ -18,7 +18,7 @@ interface StoreItemDao {
     fun getAllStoreItems(): Flow<List<StoreItem>>
 
     @Transaction
-    @Query("SELECT * FROM StoreItem WHERE id = :storeItemId")
+    @Query("SELECT * FROM StoreItem WHERE storeId = :storeItemId")
     fun getStoreItemWithDetailsById(storeItemId: Int): Flow<List<StoreItemWithDetails>>
 
     @Query("DELETE FROM StoreItem WHERE id = :id")
