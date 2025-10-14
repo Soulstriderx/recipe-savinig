@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_background"
+    tools:context=".ui.managerecipe.AddRecipeFragment">
+
+    <LinearLayout
+        android:id="@+id/llHeaderManage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_xxxxxl"
+        android:layout_alignParentTop="true"
+        android:background="@color/color_secondary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_l">
+
+        <RelativeLayout
+            android:id="@+id/llHeaderDetails"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_xxxxxl"
+            android:background="@color/color_secondary"
+            android:orientation="horizontal"
+            android:padding="@dimen/space_xl">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tvHeaderManage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_xxxxl"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llHeaderManage">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/space_xxl">
+
+            <!--Image-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l"
+                android:background="@drawable/image_save_bg">
+
+                <ImageView
+                    android:id="@id/ivImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/space_xxxxl"
+                    android:maxHeight="@dimen/space_xxxxxxxxl"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/tvAddImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/click_to_add_image"
+                    android:textColor="@color/t_gray"
+                    android:textSize="@dimen/text_xxl"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <!--Title-->
+            <LinearLayout
+                android:id="@+id/llTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_xxs"
+                    android:text="@string/title_colon"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTitleError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_xxs"
+                    android:text="@string/title_cannot_be_empty"
+                    android:textColor="@color/color_error" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l"
+                android:maxLines="1"
+                android:minLines="1"
+                android:overScrollMode="always"
+                android:scrollbars="horizontal"
+                android:background="@drawable/edit_text_bg"
+                android:hint="@string/title" />
+
+            <!--Description-->
+            <LinearLayout
+                android:id="@+id/llDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_xxs"
+                    android:text="@string/description_colon"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_xxs"
+                    android:text="@string/description_cannot_be_empty"
+                    android:textColor="@color/color_error" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/etDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l"
+                android:maxLines="4"
+                android:minLines="4"
+                android:overScrollMode="always"
+                android:scrollbars="vertical"
+                android:background="@drawable/edit_text_bg"
+                android:gravity="start"
+                android:hint="@string/description" />
+
+            <!--Instructions-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_xxs"
+                    android:text="@string/instructions_colon"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvInstructionsError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/instructions_cannot_be_empty"
+                    android:textColor="@color/color_error" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivAddInstruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_xs"
+                android:background="@drawable/btn_add_bg"
+                android:paddingHorizontal="@dimen/space_xxl"
+                android:paddingVertical="@dimen/space_xxs"
+                android:src="@drawable/ic_add" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAddInstruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l" />
+
+            <!--Category-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_xxs"
+                    android:text="@string/category_colon"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCategoryError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/category_cannot_be_empty"
+                    android:textColor="@color/color_error" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/box_bg"
+                android:layout_marginBottom="@dimen/space_xs" />
+
+            <GridLayout
+                android:id="@+id/glCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l" />
+
+            <!--Ingredients-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_xxs"
+                    android:text="@string/ingredients_colon"
+                    android:textSize="@dimen/text_l"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvIngredientsError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_xxs"
+                    android:text="@string/ingredients_cannot_be_empty"
+                    android:textColor="@color/color_error" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivAddIngredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_xs"
+                android:background="@drawable/btn_add_bg"
+                android:paddingHorizontal="@dimen/space_xxl"
+                android:paddingVertical="@dimen/space_xxs"
+                android:src="@drawable/ic_add" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAddIngredient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_l" />
+
+            <!--Time-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_xs"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/space_xxs"
+                        android:text="@string/time_taken"
+                        android:textSize="@dimen/text_l"
+                        android:textStyle="bold" />
+
+
+                    <EditText
+                        android:id="@+id/etTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_l"
+                        android:background="@drawable/edit_text_bg"
+                        android:hint="@string/time_taken"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:overScrollMode="always"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_xs"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvServing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/space_xxs"
+                        android:text="@string/serving_size"
+                        android:textSize="@dimen/text_l"
+                        android:maxLines="1"
+                        android:minLines="1"
+                        android:overScrollMode="always"
+                        android:textStyle="bold" />
+
+
+                    <EditText
+                        android:id="@+id/etServing"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_l"
+                        android:background="@drawable/edit_text_bg"
+                        android:hint="@string/serving_size"
+                        android:inputType="numberDecimal" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mbSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="@dimen/space_xs"
+                android:layout_marginTop="@dimen/space_xxxl"
+                android:backgroundTint="@color/color_primary"
+                android:text="@string/submit" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

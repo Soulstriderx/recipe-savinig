@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlRecipe"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/recipe_bg"
+    android:layout_marginHorizontal="@dimen/space_l"
+    android:layout_marginTop="@dimen/space_l"
+    android:clipToOutline="true"
+    android:elevation="@dimen/space_xs">
+
+    <ImageView
+        android:id="@+id/ivStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star_filled"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"
+        android:elevation="@dimen/space_xxxxs" />
+
+    <LinearLayout
+        android:id="@+id/llRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="@dimen/space_xxxxxxxxl"
+            android:background="@color/t_gray"
+            android:maxHeight="@dimen/space_xxxxxxxxl"
+            android:layout_marginBottom="@dimen/space_xs" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/space_xl"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_xxl"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_l"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/space_xxxxs"
+                app:drawableStartCompat="@drawable/ic_clock" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/space_xl"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_xl" />
+
+        <GridLayout
+            android:id="@+id/glCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/space_xl"
+            android:paddingBottom="@dimen/space_xs"
+            android:layout_marginTop="@dimen/space_xxs"
+            android:columnCount="3"
+            android:rowCount="1" />
+
+    </LinearLayout>
+
+</RelativeLayout>

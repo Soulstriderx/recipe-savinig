@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.nested.ShopListFragment">
+
+    <LinearLayout
+        android:id="@+id/llHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_xxxxxl"
+        android:layout_alignParentTop="true"
+        android:background="@color/color_secondary"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_l"
+        android:weightSum="20">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="13"
+            android:maxLines="1"
+            android:minLines="1"
+            android:overScrollMode="always"
+            android:background="@drawable/edit_text_search_bg"
+            android:hint="@string/search" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvFilter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:background="@drawable/filter_bg"
+            android:gravity="center"
+            android:text="@string/filter"
+            android:textColor="@color/t_gray"
+            android:textStyle="bold"
+            app:drawableEndCompat="@drawable/ic_arrow_down" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivStores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shop_fill" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFilter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/llHeader"
+        android:layout_marginBottom="@dimen/space_xs"
+        android:background="@color/white"
+        android:clickable="true"
+        android:elevation="@dimen/space_xs"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_l"
+        android:weightSum="3">
+
+        <Spinner
+            android:id="@+id/spFilter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:layout_weight="2"
+            android:background="@drawable/filter_bg" />
+
+        <Spinner
+            android:id="@+id/spAscDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_xs"
+            android:layout_weight="1"
+            android:background="@drawable/filter_bg" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llFilter" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_recipe_app" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvShopList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/space_xl"/>
+
+    </FrameLayout>
+
+</RelativeLayout>
